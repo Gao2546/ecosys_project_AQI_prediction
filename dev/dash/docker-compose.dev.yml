@@ -1,0 +1,122 @@
+# version: '3'
+services:
+  redis:
+    image: redis/redis-stack-server
+    container_name: pipek-redis
+    volumes:
+      - redis_data:/data
+    restart: always
+    networks:
+      - default
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  postgresql:
+    image: docker.io/library/postgres:16
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      start_period: 20s
+      interval: 60s
+      retries: 5
+      timeout: 5s
+    ports:
+      - 5432:5432
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=CoEpasswd
+      - POSTGRES_USER=coe
+      - POSTGRES_DB=aies_dashdb
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+
+  web:
+    build: .
+    image: pipek-image
+    container_name: pipek-web
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./:/app
+    ports:
+      - 8080:8080
+    links:
+      - redis
+    depends_on:
+      - redis
+    networks:
+      - default
+    restart: always
+    environment:
+      PIPEK_ENV: /app/.env.dev
+    env_file:
+      - .env.dev
+    command: 
+      /venv/bin/pipek-dash -H 0.0.0.0 --port 8080 -d
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  controller:
+    build: .
+    image: pipek-image
+    container_name: pipek-controller
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./:/app
+    links:
+      - redis
+    depends_on:
+      - redis
+    networks:
+      - default
+    restart: always
+    environment:
+      PIPEK_ENV: /app/.env.dev
+    env_file:
+      - .env.dev
+    command:
+      /venv/bin/pipek-controller
+
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+
+  worker:
+    build: .
+    image: pipek-image
+    container_name: pipek-worker
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./:/app
+    depends_on:
+      - redis
+    links:
+      - redis
+    restart: always
+    env_file:
+      - .env.dev
+    environment:
+      PIPEK_ENV: /app/.env.dev
+    command:
+      /venv/bin/pipek-worker
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+
+networks:
+  default:
+
+volumes:
+  redis_data:
+  postgresql_data:

@@ -7,7 +7,7 @@ import torch.optim as optim
 import torchvision.transforms.v2 as T
 import tqdm
 
-last_train = 10
+last_train = 110
 set_train = "hatyai"
 
 size=224
@@ -65,7 +65,7 @@ model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=True
 
 AQI_model_base = Model(list(model.children())[0],list(model.children())[1]).to(device=0)
 
-AQI_model_base.load_state_dict(torch.load('/home/athip/psu/3/ecosys/proj/dev/model/checkpoint/AQI_model_base_hatyai_10.pt'))
+AQI_model_base.load_state_dict(torch.load('/home/athip/psu/3/ecosys/proj/dev/model/checkpoint/AQI_model_base_hatyai_100.pt'))
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(AQI_model_base.parameters(), lr=0.001)

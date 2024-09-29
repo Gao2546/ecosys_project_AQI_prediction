@@ -93,6 +93,7 @@ torch = "^2.4.1"
 torchvision = "^0.19.1"
 torchaudio = "^2.4.1"
 tqdm = "^4.66.5"
+pillow = "^10.4.0"
 
 
 [build-system]

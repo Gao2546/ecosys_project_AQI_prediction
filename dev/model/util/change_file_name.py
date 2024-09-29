@@ -19,4 +19,4 @@ def rename_images(directory, prefix="TH_Hatyai_Moderate_1_"):
         print(f"Renamed '{image}' to '{new_filename}'")
 
 # Example usage:
-rename_images("/home/athip/psu/3/ecosys/proj/dev/model/data/Hatyai​/b_Moderate")
+rename_images("/home/athip/psu/3/ecosys/proj/dev/model/data/Hatyai/b_Moderate")

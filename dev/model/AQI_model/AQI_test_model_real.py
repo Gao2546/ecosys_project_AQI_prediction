@@ -30,7 +30,7 @@ class UnlabeledImageDataset(Dataset):
         return image
 
 # Specify the folder containing images
-folder_path = '/home/athip/psu/3/ecosys/proj/dev/model/data/test_real_image'
+folder_path = '/home/athip/psu/3/ecosys/proj/dev/model/data/test2'
 
 # Define transformations if needed
 transform = transforms.Compose([
@@ -40,7 +40,7 @@ transform = transforms.Compose([
 
 # Create dataset and dataloader
 dataset = UnlabeledImageDataset(folder_path, transform=transform)
-data_loader = DataLoader(dataset, batch_size=16, shuffle=True)
+data_loader = DataLoader(dataset, batch_size=20, shuffle=False)
 
 class Model(nn.Module):
     def __init__(self,mobile_net,fcc_layer):
@@ -58,7 +58,7 @@ model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=True
 
 AQI_model_base = Model(list(model.children())[0],list(model.children())[1]).to(device=device)
 
-AQI_model_base.load_state_dict(torch.load('/home/athip/psu/3/ecosys/proj/dev/model/checkpoint/AQI_model_base_hatyai_10.pt'))
+AQI_model_base.load_state_dict(torch.load('/home/athip/psu/3/ecosys/proj/dev/model/checkpoint/AQI_model_base_hatyai_110.pt'))
 
 # Example of iterating over the DataLoader
 AQI_model_base.eval()
@@ -66,5 +66,5 @@ for images in data_loader:
     outputs = AQI_model_base(images.to(device = device))
     print(outputs)
     print(torch.argmax(outputs,dim=1))
-    print([0,0,0,0,1,1])
+    # print([0,0,0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1,1,1])
     print(images.shape)  # Each batch of images

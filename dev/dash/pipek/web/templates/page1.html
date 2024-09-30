@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Dashboard Page 1</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+            /* จัดสไตล์กล่องข้อความ */
+            /* กำหนดพื้นที่สำหรับแถบสี */
+            /* .color-labels {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                height: 20px;} */
+            /* กำหนดไล่ระดับสีต่าง ๆ */
+            .label {
+                flex: 1;
+                flex-grow: 1;
+                flex-basis: 0; /* ทำให้แต่ละแถบสีมีขนาดเท่ากัน */
+                height: 20px;
+                display: flex; /* ใช้ Flexbox เพื่อจัดตำแหน่ง */
+                justify-content: center; /* จัดตำแหน่งกึ่งกลางแนวนอน */
+                align-items: center; /* จัดตำแหน่งกึ่งกลางแนวตั้ง */
+                line-height: 5px;
+                font-weight: bold;
+                color: rgb(55, 55, 55);
+            }
+
+            .green { 
+                background: linear-gradient(to right,  #003300, #4dff4d); /* ไล่ระดับจากเขียวไปเขียวอ่อน */ 
+            }
+            .yellow { 
+                background: linear-gradient(to right, #ffff4d, #ffff00); /* ไล่ระดับจากเหลืองเข้มไปเหลืองอ่อน */ 
+            }
+            .orange { 
+                background: linear-gradient(to right, #ffa64d,#ff8000); /* ไล่ระดับจากส้มเข้มไปส้มอ่อน */ 
+            }
+            .red { 
+                background: linear-gradient(to right, #ff5c33, #ff3300); /* ไล่ระดับจากแดงเข้มไปแดงอ่อน */ 
+            }
+            .purple { 
+                background: linear-gradient(to right, #ff00ff, #800080); /* ไล่ระดับจากม่วงเข้มไปม่วงอ่อน */ 
+            }
+            .dark-red { 
+                background: linear-gradient(to right, #b30000, #800000); /* ไล่ระดับจากแดงเข้มไปแดงสด */ 
+            }
+            
+
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="jumbotron" style="height:150px;">
+                <div class="container text-center" >
+                  <h1>My Project</h1>      
+                </div>
+              </div>
+            <div class="container-fluid"> 
+                <div class="row"style="display: flex; justify-content: center;">
+                    <div class="panel panel-default" style="width: 300px; height: 300px; border: 1px solid black; margin: 0 auto;">
+                        <div class="panel-heading">
+                            <h5 class="panel-title" style="text-align: center;">User Image</h5>
+                        </div>
+                        <div class="panel-body">
+                            <img class="img-responsive center-block" src="..." alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="display: flex; justify-content: center; margin-top: 20px;">
+                    <div class="col-sm-3">
+                        <div class="panel panel-default" style=" height: 100% ; border: 1px solid black; margin: 0 auto;">
+                            <div class="panel-heading">
+                                <p class="panel-title" style="text-align: center;">Location</p>
+                            </div>
+                            <div class="panel-body">
+                                <input type="text" id="location" name="location" placeholder="your location" style="text-align:center ; display: flex; justify-content: center;  width: 100%; padding: 1px; ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="panel panel-default" style=" height: 100% ; border: 1px solid black; margin: 0 auto;">
+                            <div class="panel-heading">
+                                <p class="panel-title" style="text-align: center;">Date</p>
+                            </div>
+                            <div class="panel-body">
+                                <input type="date" id="date" name="date" style="display: flex; justify-content: center;  width: 100%; padding: 1px; ">
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="col-sm-3">
+                        <div class="panel panel-default" style="  height: 100% ;border: 1px solid black; margin: 0 auto;">
+                            <div class="panel-heading">
+                                <p class="panel-title" style="text-align: center;">Time</p>
+                            </div>
+                            <div class="panel-body">
+                                <input type="time" id="time" name="time" style="display: flex; justify-content: center;  width: 100%; padding: 1px; ">
+                            </div>
+                        </div>
+                    </div>             
+                </div>
+                <div class="row" style=" align-items: center; display: flex; justify-content: center; margin-top: 20px;">
+                    <div class="color-labels" style="display: flex; justify-content: center; flex-wrap: wrap; width: 73%;">
+                        <div class="label green" style="flex: 1; text-align: center;">GOOD</div>
+                        <div class="label yellow" style="flex: 1; text-align: center;">MODERATE</div>
+                        <div class="label orange" style="flex: 1; text-align: center;">UH for SENSITIVE</div>
+                        <div class="label red" style="flex: 1; text-align: center;">UNHEALTHY</div>
+                        <div class="label purple" style="flex: 1; text-align: center;">VERY UNHEALTHY</div>
+                        <div class="label dark-red" style="flex: 1; text-align: center;">SEVERE</div>
+                    </div>
+                </div>
+                <div class="row" style="display: flex; justify-content: center; margin-top: 20px;"> 
+                    <button type="button" class="btn btn-outline-warning">Ganerate</button>
+                </div>
+            </div>
+        </main>
+    </body>

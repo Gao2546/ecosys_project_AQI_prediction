@@ -7,8 +7,8 @@ import torch.optim as optim
 import torchvision.transforms.v2 as T
 import tqdm
 
-last_train = 110
-set_train = "hatyai"
+last_train = 0
+set_train = "hatyai_02_"
 
 size=224
 hsv_h=0.015
@@ -16,8 +16,8 @@ hsv_s=0.05
 hsv_v=0.04
 degrees=[-15.0,15.0]
 translate=0.1
-scale_d=0.8
-scale_u=1.2
+scale_d=1.0
+scale_u=1.5
 shear=0.0
 perspective=0.0
 flipud=0.0
@@ -54,7 +54,10 @@ class Model(nn.Module):
         super().__init__()
         self.mobile_netv2 = mobile_net
         self.avgpooling = nn.AdaptiveAvgPool2d(1)
-        self.fcc = fcc_layer
+        if fcc_layer == None:
+            self.fcc = nn.Linear(1280,6)
+        else:
+            self.fcc = fcc_layer
         self.flatten = nn.Flatten()
 
     def forward(self, x):
@@ -63,11 +66,12 @@ class Model(nn.Module):
     
 model = torch.hub.load('pytorch/vision:v0.10.0', 'mobilenet_v2', pretrained=True)
 
-AQI_model_base = Model(list(model.children())[0],list(model.children())[1]).to(device=0)
+AQI_model_base = Model(list(model.children())[0],None).to(device=0)
 
-AQI_model_base.load_state_dict(torch.load('/home/athip/psu/3/ecosys/proj/dev/model/checkpoint/AQI_model_base_hatyai_100.pt'))
+# AQI_model_base.load_state_dict(torch.load('/home/athip/psu/3/ecosys/proj/dev/model/checkpoint/AQI_model_base9.pt'))
 
 criterion = nn.CrossEntropyLoss()
+# criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(AQI_model_base.parameters(), lr=0.001)
 
 # Training loop

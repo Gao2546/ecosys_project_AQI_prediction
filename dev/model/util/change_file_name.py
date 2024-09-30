@@ -1,6 +1,6 @@
 import os
 
-def rename_images(directory, prefix="TH_Hatyai_Moderate_1_"):
+def rename_images(directory, prefix="TH_Hatyai_Good_1_"):
     # List all files in the specified directory
     files = os.listdir(directory)
 
@@ -19,4 +19,4 @@ def rename_images(directory, prefix="TH_Hatyai_Moderate_1_"):
         print(f"Renamed '{image}' to '{new_filename}'")
 
 # Example usage:
-rename_images("/home/athip/psu/3/ecosys/proj/dev/model/data/Hatyai/b_Moderate")
+rename_images("/home/athip/psu/3/ecosys/proj/dev/model/data/Hatyai​/a_Good")

@@ -2,8 +2,8 @@ import os
 from PIL import Image
 
 # Specify the folder paths
-input_folder = "/home/athip/psu/3/ecosys/proj/dev/model/data/Hatyai/b_Moderate"      # Folder containing original images
-output_folder = "/home/athip/psu/3/ecosys/proj/dev/model/data/Hatyai/b_Moderate"    # Folder to save resized images
+input_folder = "/home/athip/psu/3/ecosys/proj/dev/model/data/Hatyai​/a_Good"      # Folder containing original images
+output_folder = "/home/athip/psu/3/ecosys/proj/dev/model/data/Hatyai​/a_Good"    # Folder to save resized images
 
 # Create the output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)

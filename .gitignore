@@ -20,6 +20,7 @@ instance
 *.pth
 *.jpg
 *.png
+*.zip
 
 
 # Airflow configuration

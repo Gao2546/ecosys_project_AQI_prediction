@@ -19,14 +19,14 @@ WORKDIR /app
 
 ENV PIPEK_SETTINGS=/app/pipek-production.cfg
 
-COPY pipek/cmd /app/pipek/cmd
-COPY poetry.lock pyproject.toml /app/
+COPY /dev/dash/pipek/cmd /app/pipek/cmd
+COPY /dev/dash/poetry.lock /dev/dash/pyproject.toml /app/
 
 RUN . /venv/bin/activate \
 	&& poetry config virtualenvs.create false \
 	&& poetry install --no-interaction --only main
 
-COPY pipek/web/static/package.json pipek/web/static/package-lock.json pipek/web/static/
+COPY /dev/dash/pipek/web/static/package.json /dev/dash/pipek/web/static/package-lock.json pipek/web/static/
 RUN npm install --prefix pipek/web/static
 
-COPY . /app
+COPY /dev/dash/ /app

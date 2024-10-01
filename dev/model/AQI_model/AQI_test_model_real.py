@@ -30,7 +30,7 @@ class UnlabeledImageDataset(Dataset):
         return image
 
 # Specify the folder containing images
-folder_path = '/home/athip/psu/3/ecosys/proj/dev/model/data/test2/a_Good'
+folder_path = '/home/athip/psu/3/ecosys/proj/dev/model/data/test2/'
 
 # Define transformations if needed
 transform = transforms.Compose([

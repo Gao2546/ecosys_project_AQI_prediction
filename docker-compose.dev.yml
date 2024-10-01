@@ -42,7 +42,7 @@ services:
     container_name: pipek-web
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./:/app
+      - ./dev/dash/:/app
     ports:
       - 8080:8080
     links:
@@ -55,9 +55,10 @@ services:
     environment:
       PIPEK_ENV: /app/.env.dev
     env_file:
-      - .env.dev
+      - dev/dash/.env.dev
     command: 
       /venv/bin/pipek-dash -H 0.0.0.0 --port 8080 -d
+      # pipek.cmd.web:main - H 0.0.0.0 --port 8080 -d
     logging:
       options:
         max-size: "10m"
@@ -69,7 +70,7 @@ services:
     container_name: pipek-controller
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./:/app
+      - ./dev/dash/:/app
     links:
       - redis
     depends_on:
@@ -80,9 +81,10 @@ services:
     environment:
       PIPEK_ENV: /app/.env.dev
     env_file:
-      - .env.dev
+      - dev/dash/.env.dev
     command:
       /venv/bin/pipek-controller
+      # pipek.cmd.controller:main
 
     logging:
       options:
@@ -96,18 +98,19 @@ services:
     container_name: pipek-worker
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./:/app
+      - ./dev/dash/:/app
     depends_on:
       - redis
     links:
       - redis
     restart: always
     env_file:
-      - .env.dev
+      - dev/dash/.env.dev
     environment:
       PIPEK_ENV: /app/.env.dev
     command:
       /venv/bin/pipek-worker
+      # pipek.cmd.worker:main
     logging:
       options:
         max-size: "10m"

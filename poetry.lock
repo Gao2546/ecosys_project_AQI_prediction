@@ -633,16 +633,6 @@ files = [
 ]
 
 [[package]]
-name = "dlib"
-version = "19.24.6"
-description = "A toolkit for making real world machine learning and data analysis applications"
-optional = false
-python-versions = "*"
-files = [
-    {file = "dlib-19.24.6.tar.gz", hash = "sha256:77e3c28ac2c66141514b07cbb74b7c7f80381c019ce5fec99007980bc6490d7d"},
-]
-
-[[package]]
 name = "filelock"
 version = "3.16.1"
 description = "A platform independent file lock."
@@ -2511,4 +2501,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "8eedb788bc0ddb153815786267d9f52df5fcc0cb88ee999c4f29c8df25a31e81"
+content-hash = "ec1b0bb5c39801e87b8e1be9e64d8f410151e4704404b78bdfd8b4d852b6bd20"

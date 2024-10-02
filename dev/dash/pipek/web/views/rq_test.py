@@ -34,3 +34,7 @@ def check_job_state():
 @module.route("/page1")
 def page1():
     return render_template("page1.html")
+
+@module.route("/home")
+def page2():
+    return render_template("home.html")

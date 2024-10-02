@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Layout</title>
+    <!-- Import Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* กำหนดความสูงของทั้งหน้า */
+        .full-height {
+            height: 100vh;
+        }
+
+        /* กำหนดความสูงของกล่องครึ่งบนและล่าง */
+        .half-height {
+            height: 50%;
+        }
+
+        /* ปรับแต่ง Card */
+        .custom-card {
+            margin-bottom: 1rem;
+            border: 2px solid #ccc; /* ขอบหนา */
+            border-radius: 15px; /* มุมมน */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงา */
+        }
+
+        /* เพิ่ม Padding เล็กน้อยใน Card */
+        .custom-card .card-body {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid full-height">
+    <div class="row full-height">
+        <!-- คอลัมน์ซ้าย -->
+        <div class="col-md-6 full-height d-flex flex-column">
+            <!-- กล่องครึ่งบน -->
+            <div class="card custom-card half-height">
+                <div class="card-body">
+                    <h5 class="card-title">พื้นที่สำหรับข้อมูลครึ่งบน</h5>
+                </div>
+            </div>
+            <!-- กล่องครึ่งล่าง -->
+            <div class="card custom-card half-height">
+                <div class="card-body">
+                    <h5 class="card-title">พื้นที่สำหรับข้อมูลครึ่งล่าง</h5>
+                </div>
+            </div>
+        </div>
+        <!-- คอลัมน์ขวา -->
+        <div class="col-md-6 full-height">
+            <div class="card custom-card full-height">
+                <div class="card-body">
+                    <h5 class="card-title">พื้นที่สำหรับแผนที่</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import Bootstrap JS และ jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

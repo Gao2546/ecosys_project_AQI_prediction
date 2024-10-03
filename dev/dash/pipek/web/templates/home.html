@@ -16,166 +16,401 @@
             min-width: 800px;  /* กำหนดความกว้างคงที่ */
             min-height: 600px;  /* กำหนดความสูงคงที่ */
             overflow: hidden; /* ปิดการเลื่อนหน้าจอ */
+            font-family: sans-serif;
         }
         * {
             box-sizing: border-box;
         }
         /*------------------------------------------------background image----------------------------------------------------------------------*/
         .bg-img {
-            background-image: url("img_nature.jpg");
+            background-image: url("https://images7.alphacoders.com/912/thumb-1920-912059.jpg");
             min-height: 100vh; /* พื้นหลังเต็มหน้าจอ */
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
             position: relative;
         }
-        /*------------------------------------------------color label----------------------------------------------------------------------*/
-            .color-labels {
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-                width: 100%;
-            }
-
-            .color-labels .label {
-                position: relative;
-                text-align: center;
-                height: 20px; /* ความสูงของแถบสี */
-                flex: 1;
-                flex-grow: 1;
-                flex-basis: 0; /* ทำให้แต่ละแถบสีมีขนาดเท่ากัน */
-                display: flex; /* ใช้ Flexbox เพื่อจัดตำแหน่ง */
-                justify-content: center; /* จัดตำแหน่งกึ่งกลางแนวนอน */
-                align-items: center; /* จัดตำแหน่งกึ่งกลางแนวตั้ง */
-                line-height: 5px;
-                font-weight: bold;
-                color: rgb(55, 55, 55);
-            }
-
-            .color-labels .label span {
-                position: absolute;
-                opacity: 0; /* ข้อความจะไม่มองเห็นเมื่อเริ่มต้น */
-                transition: opacity 0.3s; /* ทำให้การแสดงผลของข้อความลื่นไหล */
-            }
-
-            .color-labels .label:hover span {
-                opacity: 1; /* ทำให้ข้อความมองเห็นเมื่อ hover */
-            }
-
-            .green { 
-                background: linear-gradient(to right,  #003300, #4dff4d); /* ไล่ระดับจากเขียวไปเขียวอ่อน */ 
-            }
-            .yellow { 
-                background: linear-gradient(to right, #ffff4d, #ffff00); /* ไล่ระดับจากเหลืองเข้มไปเหลืองอ่อน */ 
-            }
-            .orange { 
-                background: linear-gradient(to right, #ffa64d,#ff8000); /* ไล่ระดับจากส้มเข้มไปส้มอ่อน */ 
-            }
-            .red { 
-                background: linear-gradient(to right, #ff5c33, #ff3300); /* ไล่ระดับจากแดงเข้มไปแดงอ่อน */ 
-            }
-            .purple { 
-                background: linear-gradient(to right, #ff00ff, #800080); /* ไล่ระดับจากม่วงเข้มไปม่วงอ่อน */ 
-            }
-            .dark-red { 
-                background: linear-gradient(to right, #b30000, #800000); /* ไล่ระดับจากแดงเข้มไปแดงสด */ 
-            }
-        /*------------------------------------------------MENU BAR-----------------------------------------------------------------------------*/
-        .topnav {
-            overflow: hidden;
-            background-color: #333;
-            flex-direction: column; /* เปลี่ยนแนวเรียงเป็นแนวตั้ง */
-            display: flex; /* ซ่อนเมื่อเป็นขนาดเล็ก */
-            width: 200px; /* ความกว้างของ Navbar */
-            height:520px; /* ความสูงของ Navbar */
-            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-            top: 5%; /* ตั้งระยะห่างจากด้านบน */
-            left: 1%; /* ตั้งให้อยู่ด้านซ้าย */
-        }
-
-        .topnav a {
-            float: left;
-            color: #f2f2f2;
+        /*------------------------------------------------login----------------------------------------------------------------------*/
+        .login-card {
+            /* position: relative; */
+            width: 350px; /* กำหนดความกว้าง */
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
             text-align: center;
-            padding: 20px;
-            text-decoration: none;
-            font-size: 17px;
+            /* สำหรับการปรับขนาดการ์ดให้สูงขึ้นถ้าต้องการ */
+            height: 400px; 
+            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+            display: block;
+            top: 10%;
+            color: white;
+
+        }
+        .input-group-login {
+            position: relative;
+            margin-bottom: 20px;
+            border: none; /* เอาขอบทั้งหมดออก */
+            border-bottom: 2px solid white; /* แสดงเฉพาะขอบล่าง */
+
         }
 
-        .topnav a:hover {
-            background-color: #ddd;
-            color: black;
+        .input-group-login input {
+            width: 100%;
+            padding: 12px;
+            padding-right: 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: transparent;
+        }
+
+        .input-group-login i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            
+        }
+
+        .options-login {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .options-login label {
+            font-size: 14px;
+            color: white;
+        }
+
+        .options-login a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #ff7700;
+
+        }
+        /*------------------------------------------------registration----------------------------------------------------------------------*/
+        .registration-card {
+            /* position: relative; */
+            width: 350px; /* กำหนดความกว้าง */
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: center;
+            /* สำหรับการปรับขนาดการ์ดให้สูงขึ้นถ้าต้องการ */
+            height: 450px; 
+            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+            display: none;
+            top: 5%;
+            color: white;
+
+        }
+
+        .input-group-registration {
+            position: relative;
+            margin-bottom: 20px;
+            border: none; /* เอาขอบทั้งหมดออก */
+            border-bottom: 2px solid white; /* แสดงเฉพาะขอบล่าง */
+            background: hidden;
+            color: white;
+        }
+
+        .input-group-registration input {
+            width: 100%;
+            padding: 12px;
+            padding-right: 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: transparent;
+            color: white;
+        }
+
+        .input-group-registration i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #222020;
+            color: white;
+            
+        }
+
+        .options-registration {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .options-registration label {
+            font-size: 14px;
+            color: white;
+        }
+
+        .options-registration a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #ff7700;
         }
         /*------------------------------------------------Model card-----------------------------------------------------------------------------*/
         .modelnav {
             overflow: hidden;
-            background-color:whitesmoke;
+            background-color: rgba(0, 0, 0, 0.6);
             display: none; /* ซ่อนเมื่อเป็นขนาดเล็ก */
-            width: 50%; /* ความกว้างของ Navbar */
-            height: 60%; /* ความสูงของ Navbar */
+            width: 75%;
+            height: 500px;
             position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-            top: 10%; /* ตั้งระยะห่างจากด้านบน */
-            left: 15%; /* ตั้งให้อยู่ด้านซ้าย */
+            top: 54%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+            left: 50%; /* จัดให้อยู่ตรงกลางแนวนอน */
+            transform: translate(-50%, -50%); /* เลื่อนองค์ประกอบให้ตรงกลาง */
             flex-direction: row; /* จัดเรียงเป็นแนวนอน */
             justify-content: space-between; /* จัดให้แต่ละส่วนมีระยะห่าง */
-        
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเพื่อความสวยงาม (ไม่บังคับ) */
+            border-radius: 8px; /* ปรับขอบให้โค้งมน (ไม่บังคับ) */
         }
         .model-section-left {
-            width: 65%; /* ความกว้างของส่วนซ้าย */
+            width: 100%; /* ความกว้างของส่วนซ้าย */
             display: flex;
             flex-direction: column; /* เรียงเป็นแนวตั้ง */
             justify-content: center; /* จัดให้กลาง */
             height: 100%; /* ใช้พื้นที่เต็มของส่วนนี้ */
             align-items: center;
             padding-top: 2px;
+            color: white;
 
         }
         
 
-        .model-section-right {
-            width: 35%; /* ความกว้างของส่วนขวา */
-            display: flex;
-            flex-direction: column; /* เรียงเป็นแนวตั้ง */
-            justify-content: center; /* จัดให้กลาง */
-            align-items: center;
-            height: 100%; /* ใช้พื้นที่เต็มของส่วนนี้ */
+        .panel {
+            border: 1px solid black;
+            margin-bottom: 15px; /* ระยะห่างระหว่าง panel */
+            padding: 5px; /* เพิ่ม padding เท่ากันในแต่ละ panel */
+            width: 80%; /* ปรับขนาดให้เต็ม */
+            height: 22%;
+        }
+            
+    /* Panel settings */
+        .panel-body {
+            padding: 0; /* เอา padding ของ panel-body ออกเพื่อให้ไม่มีการล้น */
+            margin: 0;
+        
         }
 
-        .panel {
-    border: 1px solid black;
-    margin-bottom: 15px; /* ระยะห่างระหว่าง panel */
-    padding: 5px; /* เพิ่ม padding เท่ากันในแต่ละ panel */
-    width: 80%; /* ปรับขนาดให้เต็ม */
-    height: 22%;
-}
-    
-    /* Panel settings */
-    .panel-body {
-    padding: 0; /* เอา padding ของ panel-body ออกเพื่อให้ไม่มีการล้น */
-    margin: 0;
-   
-    }
-
     /* Input settings */
-    input[type="text"],
-    input[type="date"],
-    input[type="time"] {
-        width: 100%; /* ความกว้างเต็มของ panel */
-        height: 100%;
-        padding: 10px; /* กำหนด padding ให้เหมาะสม */
-        margin: 0; /* เอา margin ออก */
-        box-sizing: border-box; /* ทำให้ padding ไม่กระทบกับขนาดของกล่อง input */
-        border: none; /* เอา border ออก */
-        text-align: center;
+        input[type="text"],
+        input[type="date"],
+        input[type="time"] {
+            width: 100%; /* ความกว้างเต็มของ panel */
+            height: 100%;
+            padding: 10px; /* กำหนด padding ให้เหมาะสม */
+            margin: 0; /* เอา margin ออก */
+            box-sizing: border-box; /* ทำให้ padding ไม่กระทบกับขนาดของกล่อง input */
+            border: none; /* เอา border ออก */
+            text-align: center;
+        }
+
+        .row {
+            margin-top: 20px; /* ระยะห่างระหว่างปุ่มและองค์ประกอบด้านบน */
+        }
+
+        .modelnav {
+            display: flex; /* ใช้ flexbox เพื่อจัดการ layout */
+            width: 75%;
+            height: 500px;
+            background-color: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            top: 54%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 8px;
+        }
+
+        .model-section-left {
+            width: 60%; /* กำหนดความกว้าง 60% สำหรับด้านซ้าย */
+            padding: 20px;
+            color: white;
+        }
+
+        .model-section-right {
+            width: 40%; /* กำหนดความกว้าง 40% สำหรับด้านขวา */
+            padding: 20px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.8); /* สีพื้นหลังให้แตกต่าง */
+            border-radius: 8px; /* ทำให้มุมโค้ง */
+        }
+
+        .info-box {
+            margin-top: 20px; /* ระยะห่างระหว่างหัวข้อกับข้อมูล */
+            padding: 15px; /* Padding ใน info box */
+            background-color: rgba(255, 255, 255, 0.1); /* พื้นหลังโปร่งแสง */
+            border-radius: 5px; /* โค้งมุม */
+            color: white; /* สีตัวอักษร */
+        }
+
+        .panel1 {
+            border: 0px solid black; /* ขอบของ panel */
+            margin-bottom: 15px; /* ระยะห่างระหว่าง panel */
+            width: 100%; /* ปรับขนาดให้เต็ม */
+            height: 60%; /* ความสูงของ panel */
+            display: flex; 
+            justify-content: center; 
+            align-items: center;  
+            background: transparent;
+        }
+
+        .panel-body {
+            border: 3px dashed #060547; /* เส้นประรอบกรอบ */
+            background-color: rgba(233, 251, 255, 0.7); /* พื้นหลังโปร่งแสง */
+            border-radius: 8px; /* โค้งมุม */
+            padding: 25px; /* Padding ใน panel-body */
+            text-align: center; /* จัดกลางข้อความ */
+            height: 100%;
+            width: 100%;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        .image {
+            max-width: 100%; /* ให้รูปภาพมีความกว้างสูงสุด 100% ของกรอบ */
+            max-height: 100%; /* ให้รูปภาพมีความสูงสูงสุด 100% ของกรอบ */
+            object-fit: contain; /* ทำให้รูปภาพปรับขนาดเพื่อให้อยู่ในกรอบโดยไม่ทำให้เกิดการบิดเบือน */
+            display: none; /* ซ่อนรูปภาพ */
+        }
+
+        /* ปุ่ม Camera */
+        .camera-button {
+            font-size: 25px; 
+            background-color: #2600ff; 
+            color: white; 
+            padding: 10px; 
+            border: none; 
+            border-radius: 50%; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* เพิ่มการ transition */
+            margin-right: 20px;
+        }
+
+        .camera-button:hover {
+            background-color: #ea0a0a; /* เปลี่ยนสีเมื่อ hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อ hover */
+        }
+
+        /* ปุ่ม Generate */
+        .generate-button {
+            background-color: #1e0ce8; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 25px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* เพิ่มการ transition */
+        }
+
+        .generate-button:hover {
+            background-color: #eb0c0c; /* เปลี่ยนสีเมื่อ hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อ hover */
+        }
+
+            /* Section ฝั่งขวา */
+        .model-section-right {
+            width: 40%; /* ปรับขนาดฝั่งขวา */
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.2); /* สีพื้นหลังแบบโปร่งแสง */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow: hidden; /* ป้องกันข้อมูลเกิน */
+        }
+
+        .info-box-container {
+            max-height: 400px; /* กำหนดความสูงสูงสุดสำหรับการเลื่อน */
+            overflow-y: auto; /* เปิดการเลื่อนในแนวตั้ง */
+            padding-right: 10px; /* เพิ่ม padding ขวา */
+        }
+
+        .info-box {
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1); /* สีพื้นหลังกล่องโปร่งแสง */
+            margin-bottom: 10px; /* ระยะห่างระหว่างกล่อง */
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้กล่อง */
+            transition: background-color 0.3s ease;
+        }
+
+        .info-box:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* เปลี่ยนสีเมื่อ hover */
+        }
+
+    /*------------------------------------------------Home page-----------------------------------------------------------------------------*/
+    .home-card {
+        display: flex;
+        width: 75%;
+        height: 500px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        overflow: hidden;
+        position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+        top: 20%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+        left: 12.5%; /* จัดให้อยู่ตรงกลางแนวนอน */
+        overflow: hidden;    
     }
 
-    .row {
-        margin-top: 20px; /* ระยะห่างระหว่างปุ่มและองค์ประกอบด้านบน */
+    .home-left-section {
+        width: 60%;
+        padding: 40px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.6);
+        background-blend-mode: darken;
+    }
+
+    .home-left-section h1 {
+        font-size: 36px;
+    }
+
+    .home-left-section h2 {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .home-left-section p {
+        margin-bottom: 15px;
+    }
+
+    .home-social-icons a {
+        color: white;
+        font-size: 24px;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+
+    .home-right-section {
+        width: 40%;
+        padding: 40px;
+        background-color: rgba(0, 0, 0, 0.6);;
+    }
+
+    .home-right-section h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
     }
 
     /*------------------------------------------------result-----------------------------------------------------------------------------*/
     .image-container {
-        display: flex;
+        display: none;
         flex-direction: column; /* จัดให้อยู่ในแนวตั้ง */
         align-items: center; /* จัดให้อยู่ตรงกลาง */
         padding-top: 40px; /* เพิ่ม padding ด้านบนแทน margin */
@@ -237,99 +472,147 @@
         padding: 1.5px;
         font-family: monospace;
     }
-            
+    /* --------------------------------------log out button------------------------------------------------*/
+    .logout-btn {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        background-color: rgb(47, 0, 255);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+    }
+    
     </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse" style="height: 56px; width: 100%;">
-        <div class="container-fluid"  style="height: 100%; width: 100%;">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>                        
-            </button>
-            <a class="navbar-brand"   href="#">☁ MY PROJECT</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            </ul>
-          </div>
-        </div>
-</nav>
 <div class="bg-img">
-    <!-- Navbar -->
-    <div class="topnav">
-        <a href="home" class="glyphicon glyphicon-home"> Home</a>
-        <a href="dashboard" class="fa fa-tv"> Dashboard</a>
-        <a href="#" class="fa fa-cubes" onclick="toggleModelNav()"> MODEL</a>
-        <a href="#"style="margin-top: 250px;">Something</a>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" style="height: 56px; width: 100%; background-color: none;">
+        <div class="container-fluid"  style="height: 100%; width: 100%; ">
+          <div class="navbar-header">
+            <a class="navbar-brand"   href="#" style="color: white; ">☁ MY PROJECT</a>                                  
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="home" class="glyphicon glyphicon-home" style="color: white;"> Home</a></li>
+            <li><a href="dashboard" class="fa fa-tv" style="color: white;"> Dashboard</a></li>
+            <li><a href="#" class="fa fa-cubes" onclick="toggleModelNav()" style="color: white;"> MODEL</a></li>
+          </ul>
+          <button class="btn btn-danger logout-btn">Logout</button>
+        </div>
+    </nav>
+    <!---homepage-->
+    <div class="home-card">
+        <div class="home-left-section">
+            <div class="logo" style="display: flex; position: absolute; top:10% ; left: 8%;">
+                <h1>Codehal</h1>
+            </div>
+            <div class="text-home" style="display: flex; position: absolute; top:50% ; left: 8%; flex-direction: column;">
+                <h2>Welcome!</h2>
+                <p>To Our New Website.</p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae, asperiores.</p>
+            </div>
+            <div class="home-social-icons" style="display: flex; position: absolute; top:80% ; left: 8%;">
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="home-right-section">
+<!--login -->
+        <div class="login-card">
+            <h2>Login</h2>
+            <form action="#">
+                <div class="input-group-login">
+                    <input type="email" placeholder="Email" required>
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class="input-group-login">
+                    <input type="password" placeholder="Password" required>
+                    <i class="fa fa-lock"></i>
+                </div>
+                <div class="options-login">
+                    <label>
+                        <input type="checkbox",style=""> Remember me
+                    </label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" style="width: 100%; height: 35px; background-color: #ff7700; color:white;">Login</button>
+                <p style="margin-top: 10px;">Don't have an account? <a href="#" class="reg" style="color: #ff7700;">Register</a></p>
+            </form>
+        </div>
+        <!--registration -->
+        <div class="registration-card">
+            <h2>Registration</h2>
+            <form action="#">
+                <div class="input-group-registration">
+                    <input type="Username" placeholder="Username" required>
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="input-group-registration">
+                    <input type="email" placeholder="Email" required>
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class="input-group-registration">
+                    <input type="password" placeholder="Password" required>
+                    <i class="fa fa-lock"></i>
+                </div>
+                <div class="options-registration">
+                    <label>
+                        <input type="checkbox"> I agree to the terms & conditions
+                    </label>
+                </div>
+                <button type="submit" style="width: 100%; height: 35px; background-color: #ff7700; color:white;">Registration</button>
+                <p style="margin-top: 10px;">Already have an account? <a href="#" class="log" style="color: #ff7700;">Login</a></p>
+            </form>
+        </div>
+        </div>
     </div>
-   
+    
     <!-- Model Navigation -->
     <div class="modelnav" id="modelnav">
         <div class="model-section-left">
-            <div class="panel panel-default" style="display: flex; justify-content: center; flex-wrap: wrap; width: 80%; height: 80%;">
+            <h2 style="margin-bottom: 20px;">Upload Content</h2> <!-- ปรับระยะห่าง -->
+            <div class="panel1">
                 <div class="panel-body">
-                    <img class="img-responsive center-block" src="..." alt="">
-                        <img src="your-image.jpg" alt="Image Description" class="image">
+                    <p style="margin: 0;color: black;">Drag and Drop file here</p> <!-- ข้อความ "Drag and Drop" -->
+                    <img src="your-image.jpg" alt="Image Description" class="image" style="display:none;"> <!-- ซ่อนรูปภาพในกรณีที่ยังไม่มีการลากและวาง -->
                 </div>
             </div>
-            <button type="button" class='fa fa-camera-retro' style='font-size:25px; padding-top: 2px; position: relative; top: -10px;'></button> <!-- ปรับ top -->
-
-            <div class="color-labels" style="display: flex; justify-content: center; flex-wrap: wrap; width: 100%;">
-                <div class="label green">
-                    <span>GOOD</span>
-                </div>
-                <div class="label yellow">
-                    <span>MODERATE</span>
-                </div>
-                <div class="label orange">
-                    <span>UH for SENSITIVE</span>
-                </div>
-                <div class="label red">
-                    <span>UNHEALTHY</span>
-                </div>
-                <div class="label purple">
-                    <span>VERY UNHEALTHY</span>
-                </div>
-                <div class="label dark-red">
-                    <span>SEVERE</span>
-                </div>
+            <div style="display: flex; justify-content: center; margin-top: 10px;">
+                <button type="button" class="fa fa-camera-retro camera-button"></button>
+                <button type="button" class="generate-button" onclick="generateImage()">Generate</button>
             </div>
+            
         </div>
         <div class="model-section-right">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <p class="panel-title" style="text-align: center;">Location</p>
+            <h2>Equipment List</h2>
+            <div class="info-box-container">
+                <div class="info-box">
+                    <p>Item 1: Information about the model.</p>
+                    <p>More details can be added here as needed.</p>
                 </div>
-                <div class="panel-body">
-                    <input type="text" id="location" name="location" placeholder="your location">
+                <div class="info-box">
+                    <p>Item 2: More information.</p>
+                    <p>More details can be added here as needed.</p>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <p class="panel-title" style="text-align: center;">Date</p>
+                <div class="info-box">
+                    <p>Item 3: Information about the model.</p>
+                    <p>More details can be added here as needed.</p>
                 </div>
-                <div class="panel-body">
-                    <input type="date" id="date" name="date">
+                <div class="info-box">
+                    <p>Item 4: More information.</p>
+                    <p>More details can be added here as needed.</p>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <p class="panel-title" style="text-align: center;">Time</p>
+                <div class="info-box">
+                    <p>Item 5: Information about the model.</p>
+                    <p>More details can be added here as needed.</p>
                 </div>
-                <div class="panel-body">
-                    <input type="time" id="time" name="time">
-                </div>
-            </div>
-            <div class="row" style="display: flex; justify-content: center; margin-top: 2%;"> 
-                <button type="button" class="btn btn-outline-warning">Generate</button>
             </div>
         </div>
     </div>
+    
      <!----------- result -------------->
     <div class="image-container">
         <div class="image-box">
@@ -371,6 +654,8 @@
 <script>
     function toggleModelNav() {
     var modelNav = document.getElementById("modelnav");
+    document.querySelector(".home-card").style.display = 'none'
+    document.querySelector(".image-container").style.display = 'none'
     // สลับการแสดงผลของ modelnav
     if (modelNav.style.display === "none" || modelNav.style.display === "") {
         modelNav.style.display = "flex"; // แสดง modelnav โดยใช้ flex
@@ -378,7 +663,37 @@
         modelNav.style.display = "none"; // ซ่อน modelnav
     }
 }
-
 </script>
+<script>
+    // ฟังก์ชันปิดการ์ดล็อกอินเมื่อกดปุ่มปิด
+    // ฟังก์ชันแสดงการ์ดล็อกอินเมื่อกดปุ่ม Register
+    document.querySelector('.reg').addEventListener('click', function () {
+        document.querySelector('.registration-card').style.display = 'block';
+        document.querySelector('.login-card').style.display = 'none';
+    });
+    document.querySelector('.log').addEventListener('click', function () {
+        document.querySelector('.registration-card').style.display = 'none';
+        document.querySelector('.login-card').style.display = 'block';
+    });
+</script>
+
+<script>
+    function generateImage() {
+    var imageContainer = document.querySelector('.image-container');
+    var modelNav = document.getElementById("modelnav");
+    var registration = document.querySelector(".registration-card");
+    var loginCard = document.querySelector(".login-card");
+    var home = document.querySelector(".home-card");
+    // แสดง image-container
+    imageContainer.style.display = "flex"; // แสดง image-container เมื่อกดปุ่ม
+
+    // ซ่อน modelnav
+    modelNav.style.display = "none"; // ซ่อน modelnav เมื่อกดปุ่ม
+    loginCard.style.display = "none";
+    registration.style.display = "none";
+    home.style.display = "none";
+}
+</script>
+
 </body>
 </html>

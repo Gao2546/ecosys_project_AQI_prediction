@@ -31,10 +31,14 @@ def check_job_state():
     job = redis_rq.redis_queue.get_job(f"hello-{job_id}")
     return f"Hello world {job.id} {job.result}"
 
-@module.route("/page1")
-def page1():
-    return render_template("page1.html")
+# @module.route("/page1")
+# def page1():
+#     return render_template("page1.html")
 
 @module.route("/home")
-def page2():
+def home():
     return render_template("home.html")
+
+@module.route("/dashboard")
+def dashboard():
+    return render_template("page2.html")

@@ -19,8 +19,12 @@ instance
 *.pt
 *.pth
 *.jpg
+*.jpeg
 *.png
 *.zip
+*.txt
+DATASET/
+data/
 
 
 # Airflow configuration

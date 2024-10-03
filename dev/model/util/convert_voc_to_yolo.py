@@ -87,15 +87,24 @@ class_json_dict = {
     "unknown":  61
 }
 
-dirs = ['/home/athip/psu/3/ecosys/proj/dev/model/data/train/labels', '/home/athip/psu/3/ecosys/proj/dev/model/data/test/labels']
+dirs = ['/home/athip/psu/3/ecosys/proj/dev/model/data/train/new_data']
 classes = list(class_json_dict.keys())
 
 def getImagesInDir(dir_path):
     image_list = []
+    # pipp = []
     for filename in glob.glob(dir_path + '/*.jpg'):
         image_list.append(filename)
     for filename in glob.glob(dir_path + '/*.jpeg'):
         image_list.append(filename)
+    for filename in glob.glob(dir_path + '/*.png'):
+        image_list.append(filename)
+    for filename in glob.glob(dir_path + '/*.JPG'):
+        image_list.append(filename)
+    # for filename in glob.glob(dir_path + '/*'):
+    #     pipp.append(filename[-3:])
+    # print(set(pipp))
+    print(len(image_list))
 
     return image_list
 

@@ -25,6 +25,7 @@ instance
 *.txt
 DATASET/
 data/
+runs/
 
 
 # Airflow configuration

@@ -159,189 +159,6 @@
             text-decoration: none;
             color: #ff7700;
         }
-        /*------------------------------------------------Model card-----------------------------------------------------------------------------*/
-        .modelnav {
-            overflow: hidden;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: none; /* ซ่อนเมื่อเป็นขนาดเล็ก */
-            width: 75%;
-            height: 500px;
-            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-            top: 54%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
-            left: 50%; /* จัดให้อยู่ตรงกลางแนวนอน */
-            transform: translate(-50%, -50%); /* เลื่อนองค์ประกอบให้ตรงกลาง */
-            flex-direction: row; /* จัดเรียงเป็นแนวนอน */
-            justify-content: space-between; /* จัดให้แต่ละส่วนมีระยะห่าง */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเพื่อความสวยงาม (ไม่บังคับ) */
-            border-radius: 8px; /* ปรับขอบให้โค้งมน (ไม่บังคับ) */
-        }
-        .model-section-left {
-            width: 100%; /* ความกว้างของส่วนซ้าย */
-            display: flex;
-            flex-direction: column; /* เรียงเป็นแนวตั้ง */
-            justify-content: center; /* จัดให้กลาง */
-            height: 100%; /* ใช้พื้นที่เต็มของส่วนนี้ */
-            align-items: center;
-            padding-top: 2px;
-            color: white;
-
-        }
-        
-
-        .panel {
-            border: 1px solid black;
-            margin-bottom: 15px; /* ระยะห่างระหว่าง panel */
-            padding: 5px; /* เพิ่ม padding เท่ากันในแต่ละ panel */
-            width: 80%; /* ปรับขนาดให้เต็ม */
-            height: 22%;
-        }
-            
-    /* Panel settings */
-        .panel-body {
-            padding: 0; /* เอา padding ของ panel-body ออกเพื่อให้ไม่มีการล้น */
-            margin: 0;
-        
-        }
-
-    /* Input settings */
-        input[type="text"],
-        input[type="date"],
-        input[type="time"] {
-            width: 100%; /* ความกว้างเต็มของ panel */
-            height: 100%;
-            padding: 10px; /* กำหนด padding ให้เหมาะสม */
-            margin: 0; /* เอา margin ออก */
-            box-sizing: border-box; /* ทำให้ padding ไม่กระทบกับขนาดของกล่อง input */
-            border: none; /* เอา border ออก */
-            text-align: center;
-        }
-
-        .row {
-            margin-top: 20px; /* ระยะห่างระหว่างปุ่มและองค์ประกอบด้านบน */
-        }
-
-
-
-        .model-section-left {
-            width: 60%; /* กำหนดความกว้าง 60% สำหรับด้านซ้าย */
-            padding: 20px;
-            color: white;
-        }
-
-        .model-section-right {
-            width: 40%; /* กำหนดความกว้าง 40% สำหรับด้านขวา */
-            padding: 20px;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.8); /* สีพื้นหลังให้แตกต่าง */
-            border-radius: 8px; /* ทำให้มุมโค้ง */
-        }
-
-        .info-box {
-            margin-top: 20px; /* ระยะห่างระหว่างหัวข้อกับข้อมูล */
-            padding: 15px; /* Padding ใน info box */
-            background-color: rgba(255, 255, 255, 0.1); /* พื้นหลังโปร่งแสง */
-            border-radius: 5px; /* โค้งมุม */
-            color: white; /* สีตัวอักษร */
-        }
-
-        .panel1 {
-            border: 0px solid black; /* ขอบของ panel */
-            margin-bottom: 15px; /* ระยะห่างระหว่าง panel */
-            width: 100%; /* ปรับขนาดให้เต็ม */
-            height: 60%; /* ความสูงของ panel */
-            display: flex; 
-            justify-content: center; 
-            align-items: center;  
-            background: transparent;
-        }
-
-        .panel-body {
-            border: 3px dashed #060547; /* เส้นประรอบกรอบ */
-            background-color: rgba(233, 251, 255, 0.7); /* พื้นหลังโปร่งแสง */
-            border-radius: 8px; /* โค้งมุม */
-            padding: 25px; /* Padding ใน panel-body */
-            text-align: center; /* จัดกลางข้อความ */
-            height: 100%;
-            width: 100%;
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-        }
-
-        .image {
-            max-width: 100%; /* ให้รูปภาพมีความกว้างสูงสุด 100% ของกรอบ */
-            max-height: 100%; /* ให้รูปภาพมีความสูงสูงสุด 100% ของกรอบ */
-            object-fit: contain; /* ทำให้รูปภาพปรับขนาดเพื่อให้อยู่ในกรอบโดยไม่ทำให้เกิดการบิดเบือน */
-            display: none; /* ซ่อนรูปภาพ */
-        }
-
-        /* ปุ่ม Camera */
-        .camera-button {
-            font-size: 25px; 
-            background-color: #2600ff; 
-            color: white; 
-            padding: 10px; 
-            border: none; 
-            border-radius: 50%; 
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-            cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* เพิ่มการ transition */
-            margin-right: 20px;
-        }
-
-        .camera-button:hover {
-            background-color: #ea0a0a; /* เปลี่ยนสีเมื่อ hover */
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อ hover */
-        }
-
-        /* ปุ่ม Generate */
-        .generate-button {
-            background-color: #1e0ce8; 
-            color: white; 
-            padding: 10px 20px; 
-            border: none; 
-            border-radius: 25px; 
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-            cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* เพิ่มการ transition */
-        }
-
-        .generate-button:hover {
-            background-color: #eb0c0c; /* เปลี่ยนสีเมื่อ hover */
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อ hover */
-        }
-
-            /* Section ฝั่งขวา */
-        .model-section-right {
-            width: 40%; /* ปรับขนาดฝั่งขวา */
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.2); /* สีพื้นหลังแบบโปร่งแสง */
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            overflow: hidden; /* ป้องกันข้อมูลเกิน */
-        }
-
-        .info-box-container {
-            max-height: 400px; /* กำหนดความสูงสูงสุดสำหรับการเลื่อน */
-            overflow-y: auto; /* เปิดการเลื่อนในแนวตั้ง */
-            padding-right: 10px; /* เพิ่ม padding ขวา */
-        }
-
-        .info-box {
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.1); /* สีพื้นหลังกล่องโปร่งแสง */
-            margin-bottom: 10px; /* ระยะห่างระหว่างกล่อง */
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้กล่อง */
-            transition: background-color 0.3s ease;
-        }
-
-        .info-box:hover {
-            background-color: rgba(255, 255, 255, 0.2); /* เปลี่ยนสีเมื่อ hover */
-        }
-
     /*------------------------------------------------Home page-----------------------------------------------------------------------------*/
     .home-card {
         display: flex;
@@ -396,72 +213,7 @@
         font-size: 28px;
         margin-bottom: 20px;
     }
-
-    /*------------------------------------------------result-----------------------------------------------------------------------------*/
-    .image-container {
-        display: none;
-        flex-direction: column; /* จัดให้อยู่ในแนวตั้ง */
-        align-items: center; /* จัดให้อยู่ตรงกลาง */
-        padding-top: 40px; /* เพิ่ม padding ด้านบนแทน margin */
-        margin: 0 auto; /* คงการจัดให้อยู่กึ่งกลางไว้ */
-        width: 100%;
-    }
-
-    .image-box {
-        border: 2px hidden; /* กรอบของรูปภาพ */
-        padding: 5px;
-        width: 600px; /* ขนาดความกว้างของกรอบรูป */
-        height: 400px;
-        display: flex; /* ใช้ Flexbox */
-        justify-content: center; /* จัดให้อยู่กลางแนวนอน */
-        align-items: center; /* จัดให้อยู่กลางแนวตั้ง */
-    
-    }
-
-    .image-box img {
-        width: 100%;
-        height: auto;
- 
-    }
- /*-------------------------------------------------*/
-    .caption-box {
-        display: flex;
-        border: 2px hidden;
-        padding: 10px;
-        margin-top: 10px;
-        width: 600px;
-        height:100px;
-        background-color: #f9f9f9;
-    }
-
-    .left-box {
-        flex-basis: 30%; /* ขนาดของกล่องซ้าย 30% */
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .left-box img {
-        width: 100%; /* ปรับขนาดของภาพให้เต็ม */
-        height: auto;
-    }
-
-    .right-box {
-        flex-basis: 70%; /* ขนาดของกล่องขวา 70% */
-        display: flex;
-        justify-content: center;
-        align-items: left;
-        flex-direction: column;
-        padding-left: 10px; /* ระยะห่างระหว่างภาพกับข้อความ */
-    }
-
-    .right-box span {
-        font-size: 16px;
-        padding: 1.5px;
-        font-family: monospace;
-    }
-    /* --------------------------------------log out button------------------------------------------------*/
+ /* --------------------------------------log out button------------------------------------------------*/
     .logout-btn {
         position: absolute;
         right: 20px;
@@ -472,6 +224,7 @@
         padding: 10px 15px;
         border-radius: 5px;
     }
+    
     
     </style>
 </head>
@@ -485,7 +238,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="home" class="glyphicon glyphicon-home" style="color: white;"> Home</a></li>
             <li><a href="dashboard" class="fa fa-tv" style="color: white;"> Dashboard</a></li>
-            <li><a href="#" class="fa fa-cubes" onclick="toggleModelNav()" style="color: white;"> MODEL</a></li>
+            <li><a href="model" class="fa fa-cubes" onclick="toggleModelNav()" style="color: white;"> MODEL</a></li>
           </ul>
           <button class="btn btn-danger logout-btn">Logout</button>
         </div>
@@ -559,84 +312,8 @@
         </div>
     </div>
     
-    <!-- Model Navigation -->
-    <div class="modelnav" id="modelnav">
-        <div class="model-section-left">
-            <h2 style="margin-bottom: 20px;">Upload Content</h2> <!-- ปรับระยะห่าง -->
-            <div class="panel1">
-                <div class="panel-body">
-                    <p style="margin: 0;color: black;">Drag and Drop file here</p> <!-- ข้อความ "Drag and Drop" -->
-                    <img src="" alt="Uploaded Image" class="image " style="display:none;"> <!-- ซ่อนรูปภาพในกรณีที่ยังไม่มีการลากและวาง -->
-                </div>
-            </div>
-                <form action = "success" method = "post" enctype="multipart/form-data">  
-                    <div style="display: flex; justify-content: center; margin-top: 10px;">
-                        <input type="file" name="file" multiple/>   
-                        <input type = "submit" value="Upload">   
-                    </div>
-                </form> 
-            
-        </div>
-        <div class="model-section-right">
-            <h2>Equipment List</h2>
-            <div class="info-box-container">
-                <div class="info-box">
-                    <p>Item 1: Information about the model.</p>
-                    <p>More details can be added here as needed.</p>
-                </div>
-                <div class="info-box">
-                    <p>Item 2: More information.</p>
-                    <p>More details can be added here as needed.</p>
-                </div>
-                <div class="info-box">
-                    <p>Item 3: Information about the model.</p>
-                    <p>More details can be added here as needed.</p>
-                </div>
-                <div class="info-box">
-                    <p>Item 4: More information.</p>
-                    <p>More details can be added here as needed.</p>
-                </div>
-                <div class="info-box">
-                    <p>Item 5: Information about the model.</p>
-                    <p>More details can be added here as needed.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        <!-- Script -->
-        <script>
-            function updateLocationText() {
-                var locationInput = document.getElementById('location').value; // ดึงค่าจาก input location
-                var locationText = document.getElementById('location-text'); // เลือก element ที่จะแสดงข้อความ
-                locationText.textContent = locationInput; // แสดงข้อความใน caption-box
-            }
-        
-            // เรียกใช้ฟังก์ชันเมื่อกรอกข้อมูล
-            document.getElementById('location').addEventListener('input', updateLocationText);
-        </script>
-    </div>
-    
 </div>
-                
 <script>
-    function toggleModelNav() {
-    var modelNav = document.getElementById("modelnav");
-    document.querySelector(".home-card").style.display = 'none'
-    // สลับการแสดงผลของ modelnav
-    if (modelNav.style.display === "none" || modelNav.style.display === "") {
-        modelNav.style.display = "flex"; // แสดง modelnav โดยใช้ flex
-    } else {
-        modelNav.style.display = "none"; // ซ่อน modelnav
-    }
-}
-</script>
-<script>
-    // ฟังก์ชันปิดการ์ดล็อกอินเมื่อกดปุ่มปิด
-    // ฟังก์ชันแสดงการ์ดล็อกอินเมื่อกดปุ่ม Register
-    
-
-
     document.querySelector('.reg').addEventListener('click', function () {
         document.querySelector('.registration-card').style.display = 'block';
         document.querySelector('.login-card').style.display = 'none';
@@ -646,65 +323,5 @@
         document.querySelector('.login-card').style.display = 'block';
     });
 </script>
-
-<script>
-    function generateImage() {
-    var imageContainer = document.querySelector('.image-container');
-    var modelNav = document.getElementById("modelnav");
-    var registration = document.querySelector(".registration-card");
-    var loginCard = document.querySelector(".login-card");
-    var home = document.querySelector(".home-card");
-    // แสดง image-container
-    imageContainer.style.display = "flex"; // แสดง image-container เมื่อกดปุ่ม
-
-    // ซ่อน modelnav
-    modelNav.style.display = "none"; // ซ่อน modelnav เมื่อกดปุ่ม
-    loginCard.style.display = "none";
-    registration.style.display = "none";
-    home.style.display = "none";
-}
-</script>
-<script>
-    // เมื่อคลิกปุ่มอัพโหลดรูปภาพ
-    document.getElementById('upload-button').addEventListener('click', function() {
-        document.getElementById('file-input').click(); // เปิดหน้าต่างเลือกไฟล์
-    });
-
-    // เมื่อเลือกไฟล์แล้ว แสดงชื่อไฟล์หรือทำอย่างอื่น (ถ้าต้องการ)
-    document.getElementById('file-input').addEventListener('change', function(event) {
-        var file = event.target.files[0];
-        if (file) {
-            console.log('Selected file:', file.name);
-            // คุณสามารถเพิ่มโค้ดเพื่อแสดงตัวอย่างรูปภาพได้ที่นี่
-        }
-    });
-
-    // จัดการการส่งฟอร์ม
-    // document.getElementById('upload-form').addEventListener('submit', function(event) {
-    //     event.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
-
-    //     var formData = new FormData(this);
-
-    //     fetch('http://localhost:8080/media/upload', {
-    //         method: 'POST',
-    //         body: formData
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.error) {
-    //             alert('Error: ' + data.error);
-    //         } else {
-    //             alert('Success: ' + data.msg);
-    //             console.log('Success:', data);
-    //             // ทำอย่างอื่นหลังจากอัปโหลดสำเร็จ เช่น แสดงรูปภาพ
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //         alert('An error occurred while uploading the file.');
-    //     });
-    // });
-</script>
-
 </body>
 </html>

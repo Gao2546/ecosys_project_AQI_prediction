@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, redirect
-from flask import Blueprint, render_template, redirect , request
+from flask import Blueprint, render_template, redirect , request , jsonify ,flash
 
 from .. import redis_rq
 
@@ -66,4 +65,8 @@ def success():
 
 @module.route("/dashboard")
 def dashboard():
-    return render_template("page2.html")
+    return render_template("dashboard.html")
+
+@module.route("/model")
+def model():
+    return render_template("model.html")

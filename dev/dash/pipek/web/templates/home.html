@@ -569,11 +569,12 @@
                     <img src="" alt="Uploaded Image" class="image " style="display:none;"> <!-- ซ่อนรูปภาพในกรณีที่ยังไม่มีการลากและวาง -->
                 </div>
             </div>
-            <div style="display: flex; justify-content: center; margin-top: 10px;">
-                <button type="button" class="fa fa-camera-retro camera-button" id="upload-button"></button>
-                <input type="file" id="file-input" accept="image/*" style="display: none;">
-                <button type="button" class="generate-button" onclick="generateImage()">Generate</button>
-            </div>
+                <form action = "success" method = "post" enctype="multipart/form-data">  
+                    <div style="display: flex; justify-content: center; margin-top: 10px;">
+                        <input type="file" name="file" />   
+                        <input type = "submit" value="Upload">   
+                    </div>
+                </form> 
             
         </div>
         <div class="model-section-right">

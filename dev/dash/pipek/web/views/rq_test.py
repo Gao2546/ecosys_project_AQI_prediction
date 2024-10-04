@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect
-from flask import Blueprint, render_template, redirect
-import requests
+from flask import Blueprint, render_template, redirect , request
 
 from .. import redis_rq
 
 from pipek.jobs import hello_rq
+import os
 
 module = Blueprint("rq-test", __name__, url_prefix="/rq-test")
 
@@ -42,9 +42,10 @@ def home():
 
 @module.route('/success', methods = ['POST'])   
 def success():   
-    if requests.method == 'POST':   
-        f = requests.files['file'] 
-        f.save(f.filename) 
+    if request.method == 'POST':   
+        f = request.files['file'] 
+        f.save(os.path.join("./images",f.filename)) 
+    return redirect("home")
 
 @module.route("/dashboard")
 def dashboard():

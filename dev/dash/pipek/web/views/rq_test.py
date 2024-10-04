@@ -53,7 +53,7 @@ def success():
 
 @module.route("/dashboard")
 def dashboard():
-    return render_template("page2.html")
+    return render_template("dashboard.html")
 
 @module.route("/model")
 def model():

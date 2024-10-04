@@ -38,7 +38,7 @@
             width: 75%;
             height: 500px;
             position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-            top: 54%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+            top: 50%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
             left: 50%; /* จัดให้อยู่ตรงกลางแนวนอน */
             transform: translate(-50%, -50%); /* เลื่อนองค์ประกอบให้ตรงกลาง */
             flex-direction: row; /* จัดเรียงเป็นแนวนอน */
@@ -288,6 +288,52 @@
         padding: 10px 15px;
         border-radius: 5px;
     }
+    /* --------------------------------------feeling------------------------------------------------*/
+    .Satisfaction-level{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 7%;
+            height: 62px;
+            border: 2px nonำ;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+            top: 85%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+            left: 80.5%; /* จัดให้อยู่ตรงกลางแนวนอน */
+        }
+
+
+        .emoji {
+                font-size: 40px;
+                margin-top: 5px;
+                margin-bottom: -15px; 
+            }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            
+        }
+        
+        .stars label {
+            font-size: 20px;
+            color: gray;
+            cursor: pointer;
+        }
+
+        .stars input {
+            display: none;
+        }
+
+        .stars input:checked ~ label {
+            color: gray;
+        }
+
+        .stars input:checked + label {
+            color: gold;
+        }
     
     </style>
 </head>
@@ -324,8 +370,8 @@
             </div>
             <form action = "success" method = "post" enctype="multipart/form-data">  
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <input type="file" name="file" />   
-                    <input type = "submit" value="Upload">   
+                    <input type="file" name="file" >  
+                    <input type = "submit" value="Prediction" style = "background-color: #ff7700; color:white;">   
                 </div>
             </form> 
             
@@ -356,8 +402,63 @@
             </div>
         </div>
     </div>
-    </div>
 
+    <div class="Satisfaction-level" >
+        <div class="emoji" id="emoji">😐</div>
+    
+        <div class="stars white">
+            <input type="radio" name="star" id="star1" value="1">
+            <label for="star1" onclick="changeEmoji(1)">★</label>
+            <input type="radio" name="star" id="star2" value="2">
+            <label for="star2" onclick="changeEmoji(2)">★</label>
+            <input type="radio" name="star" id="star3" value="3">
+            <label for="star3" onclick="changeEmoji(3)">★</label>
+            <input type="radio" name="star" id="star4" value="4">
+            <label for="star4" onclick="changeEmoji(4)">★</label>
+            <input type="radio" name="star" id="star5" value="5">
+            <label for="star5" onclick="changeEmoji(5)">★</label>
+        </div>
+    </div>
+    
+        <script>
+        function changeEmoji(stars) {
+            var emojiElement = document.getElementById("emoji");
+            const labels = document.querySelectorAll('.stars label');
+
+            labels.forEach((label, index) => {
+                label.addEventListener('click', function () {
+                    // Set the color for the stars up to the clicked one
+                    labels.forEach((l, i) => {
+                        l.style.color = i <= index ? "gold" : "gray";
+                    });
+                });
+            });
+
+                switch (stars) {
+                    case 1:
+                        emojiElement.textContent = "😞";  // sad
+                        break;
+                    case 2:
+                        emojiElement.textContent = "🙁";  // disappointed
+                        break;
+                    case 3:
+                        emojiElement.textContent = "😐";  // neutral
+                        break;
+                    case 4:
+                        emojiElement.textContent = "🙂";  // smile
+                        break;
+                    case 5:
+                        emojiElement.textContent = "😄";  // happy
+                        break;
+                    default:
+                        emojiElement.textContent = "😐";  // neutral
+                }
+            }
+            
+        </script>
+     
+    </div>
+ 
 </div>
 </body>
 </html>

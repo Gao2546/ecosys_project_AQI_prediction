@@ -1,70 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Layout</title>
+    <title>Dashboard Page2</title>
     <!-- Import Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
+        /* กำหนดรูป background จากลิงก์ */
+        html, body {
+            min-width: 800px;  /* กำหนดความกว้างคงที่ */
+            min-height: 600px;  /* กำหนดความสูงคงที่ */
+            overflow: hidden; /* ปิดการเลื่อนหน้าจอ */
+            font-family: sans-serif;
+        }
+        * {
+            box-sizing: border-box;
+        }
+
+        .bg-img {
+            background-image: url("https://images7.alphacoders.com/912/thumb-1920-912059.jpg");
+            min-height: 100vh; /* พื้นหลังเต็มหน้าจอ */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
         /* กำหนดความสูงของทั้งหน้า */
         .full-height {
-            height: 100vh;
+            height: 90vh;
+        }
+
+        .full-height-1 {
+            height: 88vh;
         }
 
         /* กำหนดความสูงของกล่องครึ่งบนและล่าง */
-        .half-height {
-            height: 50%;
+        .top-section {
+            flex: 0.5;
         }
 
-        /* ปรับแต่ง Card */
+        .bottom-section {
+            flex: 0.5;
+        }
+
+        /* ปรับแต่ง Card และทำให้โปร่งแสง */
         .custom-card {
-            margin-bottom: 1rem;
-            border: 2px solid #ccc; /* ขอบหนา */
-            border-radius: 15px; /* มุมมน */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงา */
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.7); /* สีขาวแบบโปร่งแสง */
         }
 
         /* เพิ่ม Padding เล็กน้อยใน Card */
         .custom-card .card-body {
             padding: 20px;
         }
+
+        /* สไตล์สำหรับแท็บสีบนหัวข้อ */
+        .card-title {
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .card-title::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background-color: #007bff; /* สีของแท็บ สามารถเปลี่ยนได้ */
+            border-radius: 3px;
+        }
+
+        .logout-btn {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            background-color: rgb(47, 0, 255);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .navbar-brand {
+            justify-content: left;
+        }
+
     </style>
 </head>
 <body>
-
-<div class="container-fluid full-height">
-    <div class="row full-height">
-        <!-- คอลัมน์ซ้าย -->
-        <div class="col-md-6 full-height d-flex flex-column">
-            <!-- กล่องครึ่งบน -->
-            <div class="card custom-card half-height">
-                <div class="card-body">
-                    <h5 class="card-title">พื้นที่สำหรับข้อมูลครึ่งบน</h5>
-                </div>
+<div class="bg-img">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" style="height: 56px; width: 100%; background-color: none;">
+        <div class="container-fluid" style="height: 100%; width: 100%; display: flex; align-items: center;">
+            <div class="navbar-header" style="margin-right: auto; display: flex; align-items: center;">
+                <a class="navbar-brand" href="#" style="color: white;">☁ MY PROJECT</a>                                  
+                <ul class="nav navbar-nav" style="display: flex; margin-left: 20px;">
+                    <li class="active" style="margin-right: 15px;"><a href="home" class="glyphicon glyphicon-home" style="color: white;"> Home</a></li>
+                    <li style="margin-right: 15px;"><a href="dashboard" class="fa fa-tv" style="color: white;"> Dashboard</a></li>
+                    <li><a href="#" class="fa fa-cubes" onclick="toggleModelNav()" style="color: white;"> MODEL</a></li>
+                </ul>
             </div>
-            <!-- กล่องครึ่งล่าง -->
-            <div class="card custom-card half-height">
-                <div class="card-body">
-                    <h5 class="card-title">พื้นที่สำหรับข้อมูลครึ่งล่าง</h5>
-                </div>
-            </div>
+            <button class="btn btn-danger logout-btn">Logout</button>
         </div>
-        <!-- คอลัมน์ขวา -->
-        <div class="col-md-6 full-height">
-            <div class="card custom-card full-height">
-                <div class="card-body">
-                    <h5 class="card-title">พื้นที่สำหรับแผนที่</h5>
+    </nav>     
+    <div class="container-fluid full-height">
+        <div class="row full-height">
+            <!-- คอลัมน์ซ้าย -->
+            <div class="col-md-6 full-height d-flex flex-column">
+                <!-- กล่องครึ่งบน -->
+                <div class="card custom-card top-section">
+                    <div class="card-body">
+                        <h5 class="card-title">พื้นที่สำหรับข้อมูลครึ่งบน</h5>
+                    </div>
+                </div>
+                <!-- กล่องครึ่งล่าง -->
+                <div class="card custom-card bottom-section">
+                    <div class="card-body">
+                        <h5 class="card-title">พื้นที่สำหรับข้อมูลครึ่งล่าง</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- คอลัมน์ขวา -->
+            <div class="col-md-6 full-height-1">
+                <div class="card custom-card full-height-1">
+                    <div class="card-body">
+                        <h5 class="card-title">พื้นที่สำหรับแผนที่</h5>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Import Bootstrap JS และ jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Import Bootstrap JS และ jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

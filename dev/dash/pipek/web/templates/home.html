@@ -563,23 +563,18 @@
     <div class="modelnav" id="modelnav">
         <div class="model-section-left">
             <h2 style="margin-bottom: 20px;">Upload Content</h2> <!-- ปรับระยะห่าง -->
-            <form action="http://localhost:5000/media/upload" method="POST" enctype="multipart/form-data">
             <div class="panel1">
                 <div class="panel-body">
                     <p style="margin: 0;color: black;">Drag and Drop file here</p> <!-- ข้อความ "Drag and Drop" -->
                     <img src="" alt="Uploaded Image" class="image " style="display:none;"> <!-- ซ่อนรูปภาพในกรณีที่ยังไม่มีการลากและวาง -->
                 </div>
             </div>
-        </form> 
-            <div style="display: flex; justify-content: center; margin-top: 10px;">
-                <button type="button" class="fa fa-camera-retro camera-button" id="upload-button"></button>
-                <!-- <input type="file" id="file-input" accept="image/*" style="display: none;"> -->
-                <form action = "rq-test/success" method = "post" enctype="multipart/form-data">  
+                <form action = "success" method = "post" enctype="multipart/form-data">  
+                    <div style="display: flex; justify-content: center; margin-top: 10px;">
                         <input type="file" name="file" />   
                         <input type = "submit" value="Upload">   
+                    </div>
                 </form> 
-                <button type="button" class="generate-button" onclick="generateImage()">Generate</button>
-            </div>
             
         </div>
         <div class="model-section-right">

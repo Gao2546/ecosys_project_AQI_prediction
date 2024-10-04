@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, redirect
-from flask import Blueprint, render_template, redirect , request
+from flask import Blueprint, render_template, redirect , request , jsonify ,flash
 
 from .. import redis_rq
 
@@ -43,10 +42,19 @@ def home():
 @module.route('/success', methods = ['POST'])   
 def success():   
     if request.method == 'POST':   
-        f = request.files['file'] 
+        f = request.files['file']
+        if not f:
+            error_message = "Please choose a picture first."
+            return render_template("model.html", error=error_message)
         f.save(os.path.join("./images",f.filename)) 
-    return redirect("home")
+
+    return render_template("model.html")
+
 
 @module.route("/dashboard")
 def dashboard():
     return render_template("page2.html")
+
+@module.route("/model")
+def model():
+    return render_template("model.html")

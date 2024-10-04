@@ -1,5 +1,5 @@
 FROM debian:sid
-RUN echo 'deb http://mirror.psu.ac.th/debian/ sid main contrib non-free non-free-firmware' > /etc/apt/sources.list
+# RUN echo 'deb http://mirror.psu.ac.th/debian/ sid main contrib non-free non-free-firmware' > /etc/apt/sources.list
 RUN echo 'deb http://mirror.kku.ac.th/debian/ sid main contrib non-free non-free-firmware' >> /etc/apt/sources.list
 
 RUN apt-get update && apt-get upgrade -y
@@ -20,7 +20,8 @@ WORKDIR /app
 ENV PIPEK_SETTINGS=/app/pipek-production.cfg
 
 COPY /dev/dash/pipek/cmd /app/pipek/cmd
-COPY /dev/dash/poetry.lock /dev/dash/pyproject.toml /app/
+# COPY /dev/dash/poetry.lock /dev/dash/pyproject.toml /app/
+COPY /dev/dash/poetry_worker/pyproject.toml /dev/dash/poetry_worker/pyproject.toml /app/
 
 RUN . /venv/bin/activate \
 	&& poetry config virtualenvs.create false \

@@ -38,7 +38,7 @@ services:
 
   web:
     build: .
-    image: pipek-image
+    image: pipek-image_w
     container_name: pipek-web
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -66,7 +66,7 @@ services:
 
   controller:
     build: .
-    image: pipek-image
+    image: pipek-image_w
     container_name: pipek-controller
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -94,7 +94,7 @@ services:
 
   worker:
     build: .
-    image: pipek-image
+    image: pipek-image_w
     container_name: pipek-worker
     volumes:
       - /etc/localtime:/etc/localtime:ro

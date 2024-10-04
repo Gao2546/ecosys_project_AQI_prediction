@@ -3,8 +3,9 @@ from flask import Blueprint, render_template, redirect , request
 
 from .. import redis_rq
 
-from pipek.jobs import hello_rq
+from pipek.jobs import hello_rq , Schematics_predict
 import os
+from datetime import datetime
 
 module = Blueprint("rq-test", __name__, url_prefix="/rq-test")
 
@@ -41,10 +42,26 @@ def home():
     return render_template("home.html")
 
 @module.route('/success', methods = ['POST'])   
-def success():   
-    if request.method == 'POST':   
-        f = request.files['file'] 
-        f.save(os.path.join("./images",f.filename)) 
+def success():  
+    if request.method == 'POST':  
+        path = "./images" 
+        user = "athip"
+        custom_format = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+        if not os.path.exists(os.path.join(path,user)):
+            os.makedirs(os.path.join(path,user))
+        full_path = os.path.join(path,user,custom_format)
+        os.makedirs(full_path)
+        files = request.files.getlist("file") 
+        for file in files: 
+            file.save(os.path.join(full_path,file.filename))
+        job = redis_rq.redis_queue.queue.enqueue(
+        Schematics_predict.prediction,
+        args=(full_path,),
+        job_id=f"predict-{custom_format}",
+        timeout=600,
+        job_timeout=600,
+        )
+    
     return redirect("home")
 
 @module.route("/dashboard")

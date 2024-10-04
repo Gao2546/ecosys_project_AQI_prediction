@@ -220,17 +220,7 @@
             margin-top: 20px; /* ระยะห่างระหว่างปุ่มและองค์ประกอบด้านบน */
         }
 
-        .modelnav {
-            display: flex; /* ใช้ flexbox เพื่อจัดการ layout */
-            width: 75%;
-            height: 500px;
-            background-color: rgba(0, 0, 0, 0.6);
-            position: absolute;
-            top: 54%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 8px;
-        }
+
 
         .model-section-left {
             width: 60%; /* กำหนดความกว้าง 60% สำหรับด้านซ้าย */
@@ -363,7 +353,6 @@
         position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
         top: 20%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
         left: 12.5%; /* จัดให้อยู่ตรงกลางแนวนอน */
-        overflow: hidden;    
     }
 
     .home-left-section {
@@ -612,30 +601,7 @@
             </div>
         </div>
     </div>
-    
-     <!----------- result -------------->
-    <div class="image-container">
-        <div class="image-box">
-            <img src="https://www.scimath.org/images/2019/Article/11232/11232-edit1.jpg" alt="Image Description" class="image">
-        </div>
-        <div class="caption-box">
-            <div class="left-box">
-                <div class="icon-box" style="height: 70px; width: 70px;">
-                    <img src="https://media.istockphoto.com/id/1329938975/th/%E0%B9%80%E0%B8%A7%E0%B8%84%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B9%8C/%E0%B8%AD%E0%B8%B4%E0%B9%82%E0%B8%A1%E0%B8%88%E0%B8%B4%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%A8%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%88%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B9%82%E0%B8%94%E0%B8%94%E0%B9%80%E0%B8%94%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A7.jpg?s=170667a&w=0&k=20&c=N0auCgR3POrrfhvYbvrU9W7mdYtpatTu-4QKt2HpYlc=" alt="Image Description" style="height: 100%; width: 100%;" class="image " >
-                </div>
-                <div class="model-predict">
-                    <span>prediction</span>
-                </div>
-                
-            </div>
-            <div class="right-box">
-                <span>Location: </span><span id="location-text"></span>
-                <span>Date: </span><span id="location-text"></span>
-                <span>Time: </span><span id="location-text"></span>
 
-            </div>
-        </div>
-        
         <!-- Script -->
         <script>
             function updateLocationText() {
@@ -655,7 +621,6 @@
     function toggleModelNav() {
     var modelNav = document.getElementById("modelnav");
     document.querySelector(".home-card").style.display = 'none'
-    document.querySelector(".image-container").style.display = 'none'
     // สลับการแสดงผลของ modelnav
     if (modelNav.style.display === "none" || modelNav.style.display === "") {
         modelNav.style.display = "flex"; // แสดง modelnav โดยใช้ flex
@@ -667,6 +632,9 @@
 <script>
     // ฟังก์ชันปิดการ์ดล็อกอินเมื่อกดปุ่มปิด
     // ฟังก์ชันแสดงการ์ดล็อกอินเมื่อกดปุ่ม Register
+    
+
+
     document.querySelector('.reg').addEventListener('click', function () {
         document.querySelector('.registration-card').style.display = 'block';
         document.querySelector('.login-card').style.display = 'none';

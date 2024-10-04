@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect
 from flask import Blueprint, render_template, redirect
-import request
+import requests
 
 from .. import redis_rq
 
@@ -42,8 +42,8 @@ def home():
 
 @module.route('/success', methods = ['POST'])   
 def success():   
-    if request.method == 'POST':   
-        f = request.files['file'] 
+    if requests.method == 'POST':   
+        f = requests.files['file'] 
         f.save(f.filename) 
 
 @module.route("/dashboard")

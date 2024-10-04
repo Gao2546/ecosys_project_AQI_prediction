@@ -563,21 +563,15 @@
     <div class="modelnav" id="modelnav">
         <div class="model-section-left">
             <h2 style="margin-bottom: 20px;">Upload Content</h2> <!-- ปรับระยะห่าง -->
-            <form action="http://localhost:5000/media/upload" method="POST" enctype="multipart/form-data">
             <div class="panel1">
                 <div class="panel-body">
                     <p style="margin: 0;color: black;">Drag and Drop file here</p> <!-- ข้อความ "Drag and Drop" -->
                     <img src="" alt="Uploaded Image" class="image " style="display:none;"> <!-- ซ่อนรูปภาพในกรณีที่ยังไม่มีการลากและวาง -->
                 </div>
             </div>
-        </form> 
             <div style="display: flex; justify-content: center; margin-top: 10px;">
                 <button type="button" class="fa fa-camera-retro camera-button" id="upload-button"></button>
-                <!-- <input type="file" id="file-input" accept="image/*" style="display: none;"> -->
-                <form action = "rq-test/success" method = "post" enctype="multipart/form-data">  
-                        <input type="file" name="file" />   
-                        <input type = "submit" value="Upload">   
-                </form> 
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
                 <button type="button" class="generate-button" onclick="generateImage()">Generate</button>
             </div>
             
@@ -669,47 +663,7 @@
     home.style.display = "none";
 }
 </script>
-<script>
-    // เมื่อคลิกปุ่มอัพโหลดรูปภาพ
-    document.getElementById('upload-button').addEventListener('click', function() {
-        document.getElementById('file-input').click(); // เปิดหน้าต่างเลือกไฟล์
-    });
 
-    // เมื่อเลือกไฟล์แล้ว แสดงชื่อไฟล์หรือทำอย่างอื่น (ถ้าต้องการ)
-    document.getElementById('file-input').addEventListener('change', function(event) {
-        var file = event.target.files[0];
-        if (file) {
-            console.log('Selected file:', file.name);
-            // คุณสามารถเพิ่มโค้ดเพื่อแสดงตัวอย่างรูปภาพได้ที่นี่
-        }
-    });
-
-    // จัดการการส่งฟอร์ม
-    // document.getElementById('upload-form').addEventListener('submit', function(event) {
-    //     event.preventDefault(); // ป้องกันการส่งฟอร์มแบบปกติ
-
-    //     var formData = new FormData(this);
-
-    //     fetch('http://localhost:8080/media/upload', {
-    //         method: 'POST',
-    //         body: formData
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.error) {
-    //             alert('Error: ' + data.error);
-    //         } else {
-    //             alert('Success: ' + data.msg);
-    //             console.log('Success:', data);
-    //             // ทำอย่างอื่นหลังจากอัปโหลดสำเร็จ เช่น แสดงรูปภาพ
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //         alert('An error occurred while uploading the file.');
-    //     });
-    // });
-</script>
 
 </body>
 </html>

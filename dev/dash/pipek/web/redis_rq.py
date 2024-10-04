@@ -32,3 +32,5 @@ redis_queue = RedisQueue()
 def init_rq(app):
     redis_url = app.config["REDIS_URL"]
     redis_queue.init_app(redis_url)
+
+

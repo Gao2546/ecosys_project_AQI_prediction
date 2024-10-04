@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect
 from flask import Blueprint, render_template, redirect
+import request
 
 from .. import redis_rq
 
@@ -38,6 +39,12 @@ def check_job_state():
 @module.route("/home")
 def home():
     return render_template("home.html")
+
+@module.route('/success', methods = ['POST'])   
+def success():   
+    if request.method == 'POST':   
+        f = request.files['file'] 
+        f.save(f.filename) 
 
 @module.route("/dashboard")
 def dashboard():

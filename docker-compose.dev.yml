@@ -29,7 +29,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=CoEpasswd
       - POSTGRES_USER=coe
-      - POSTGRES_DB=aies_dashdb
+      - POSTGRES_DB=schematics_appdb
     logging:
       options:
         max-size: "10m"

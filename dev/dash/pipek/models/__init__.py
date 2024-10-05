@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from . import base
 from . import images
+from . import users
 
 from .images import Image
 
@@ -23,7 +24,8 @@ def init_db(app):
 
 def init_sqlalchemy(settings):
     global engine
-    engine = create_engine(settings.get("SQLALCHEMY_DATABASE_URI"), echo=True)
+    engine = create_engine("postgresql://coe:CoEpasswd@localhost:5432/schematics_appdb",\
+              echo=True)
 
 
 def get_session():

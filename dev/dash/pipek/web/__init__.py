@@ -21,6 +21,7 @@ from . import redis_rq
 
 def create_app():
     flask_app = Flask(__name__)
+    flask_app.config['SECRET_KEY'] = 'your_secret_key_here'
     flask_app.config.from_object("pipek.default_settings")
     flask_app.config.from_envvar("PIPEK_SETTINGS", silent=True)
 
@@ -32,6 +33,7 @@ def create_app():
     caches.init_cache(flask_app)
 
     models.init_db(flask_app)
+    models.init_sqlalchemy(flask_app)
     redis_rq.init_rq(flask_app)
 
     # oauth2.init_oauth(flask_app)

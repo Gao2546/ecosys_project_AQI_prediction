@@ -50,16 +50,20 @@
 <!-- Satisfaction level with emoji -->
 <div class="Satisfaction-level">
     <div class="emoji" id="emoji">😐</div>
-
+    
     <div class="stars white">
         <input type="radio" name="star" id="star1" value="1">
         <label for="star1" onclick="changeEmoji(1)">★</label>
+
         <input type="radio" name="star" id="star2" value="2">
         <label for="star2" onclick="changeEmoji(2)">★</label>
+
         <input type="radio" name="star" id="star3" value="3">
         <label for="star3" onclick="changeEmoji(3)">★</label>
+
         <input type="radio" name="star" id="star4" value="4">
         <label for="star4" onclick="changeEmoji(4)">★</label>
+
         <input type="radio" name="star" id="star5" value="5">
         <label for="star5" onclick="changeEmoji(5)">★</label>
     </div>
@@ -126,12 +130,8 @@
         const labels = document.querySelectorAll('.stars label');
 
         labels.forEach((label, index) => {
-            label.addEventListener('click', function () {
-                labels.forEach((l, i) => {
-                    l.style.color = i <= index ? "gold" : "gray";
-                });
-            });
-        });
+        label.style.color = index < stars ? "gold" : "gray"; // เปลี่ยนสีดาวที่ถูกเลือกและก่อนหน้า
+    });
 
         switch (stars) {
             case 1:

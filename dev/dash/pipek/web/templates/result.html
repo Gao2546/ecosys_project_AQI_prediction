@@ -1,0 +1,137 @@
+{% extends "navbar.html" %}
+
+{% block content %}
+<!-- Model Navigation -->
+<div class="modelnav" id="modelnav">
+    <div class="model-section-left">
+        <h2 style="margin-bottom: 20px;">Result Image</h2>
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+        <div class="panel1">
+            <div class="panel-body">
+                <p id="uploads_img" style="margin: 0; color: black;">This is your images</p>
+
+                <!-- Placeholder to show when job is processing -->
+                <div id="processing-message" style="display:none;">
+                    <p>Processing your files...</p>
+                </div>
+
+                <!-- Image Display Area (Initially hidden) -->
+                <div id="image-display" style="display:none;">
+                    <!-- <h3>Processed Images:</h3> -->
+                    <div id="images-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form for uploading files -->
+        <form id="upload-form" method="POST" enctype="multipart/form-data">
+            <div style="display: flex; justify-content: center; margin-top: 10px;">
+                <!-- ปุ่มย้อนกลับ -->
+                <!-- ปุ่มย้อนกลับไปหน้า home -->
+                <button type="button" class="back-button" onclick="window.location.href='home';">
+                    Back
+                </button>
+                <!-- ปุ่ม Delete -->
+                <button type="button" class="delete-button" onclick="deleteData();">
+                    DELETE
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="model-section-right">
+        <h2>Equipment List</h2>
+        <div class="info-box-container">
+            <div class="info-box">
+                <p>Item 1: Information about the model.</p>
+                <p>More details can be added here as needed.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- JavaScript for handling file uploads and job status -->
+<script>
+    document.getElementById('upload-form').onsubmit = async function (e) {
+        e.preventDefault();
+        const formData = new FormData();
+        const files = document.getElementById('file-input').files;
+        for (let i = 0; i < files.length; i++) {
+            formData.append('file', files[i]);
+        }
+
+        // Send files to the server
+        const response = await fetch('/rq-test/success', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        if (data.job_id) {
+            const imagesContainer = document.getElementById('images-container');
+            while (imagesContainer.firstChild) {
+            imagesContainer.removeChild(imagesContainer.firstChild);
+            }
+            document.getElementById('uploads_img').style.display = 'none';
+            document.getElementById('processing-message').style.display = 'block';
+            checkJobStatus(data.job_id);
+        }
+    };
+
+    // Poll the job status
+    async function checkJobStatus(jobId) {
+        const response = await fetch(`/rq-test/job-status/${jobId}`);
+        const data = await response.json();
+        console.log(data.status);
+
+        if (data.status === 'finished') {
+            document.getElementById('processing-message').style.display = 'none';
+            document.getElementById('image-display').style.display = 'block';
+
+            // Display the processed images
+            const imagesContainer = document.getElementById('images-container');
+            data.result.forEach(imagePath => {
+                const img = document.createElement('img');
+                // img.src = imagePath;
+                img.src = "{{ url_for('static', filename='') }}" + imagePath
+                img.alt = 'Processed Image';
+                img.style.width = '200px';
+                img.style.margin = '10px';
+                imagesContainer.appendChild(img);
+            });
+        } else if (data.status === 'in-progress') {
+            setTimeout(() => checkJobStatus(jobId), 2000);  // Poll every 2 seconds
+        } else {
+            alert('Job failed or unknown status.');
+        }
+    }
+
+    function deleteData() {
+        // Logic สำหรับลบข้อมูล สามารถส่งคำขอ AJAX หรือเปลี่ยนเส้นทางไปที่ URL สำหรับการลบข้อมูล
+        if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้?")) {
+            // ส่งคำขอลบข้อมูลไปที่ backend
+            // ตัวอย่างใช้ fetch API:
+            fetch('/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ delete: true }), // คุณสามารถใส่ข้อมูลเพิ่มเติมที่จำเป็น
+            })
+            .then(response => {
+                if (response.ok) {
+                    // หากลบสำเร็จให้ทำการรีเฟรชหรือเปลี่ยนเส้นทาง
+                    window.location.reload();
+                } else {
+                    alert('ลบข้อมูลไม่สำเร็จ');
+                }
+            });
+        }
+    }
+</script>
+{% endblock %}

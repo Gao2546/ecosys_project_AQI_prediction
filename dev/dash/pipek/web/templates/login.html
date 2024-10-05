@@ -23,15 +23,16 @@
     <div class="login-card">
         <h2>Login</h2>
         <form method="POST" action="{{ url_for('rq-test.login') }}">
-            {{ form.hidden_tag() }}
+            {{ form_log.hidden_tag() }}
+            {{ form_log.csrf_token }}
             <div class="input-group-login">
                 <!-- <input type="email" placeholder="Email" required> -->
-                {{ form.username.label }} {{ form.username }}
+                {{ form_log.username.label }} {{ form_log.username }}
                 <i class="fa fa-envelope"></i>
             </div>
             <div class="input-group-login">
                 <!-- <input type="password" placeholder="Password" required> -->
-                {{ form.password.label }} {{ form.password }}
+                {{ form_log.password.label }} {{ form_log.password }}
                 <i class="fa fa-lock"></i>
             </div>
             <div class="options-login">
@@ -41,49 +42,14 @@
                 <a href="#">Forgot Password?</a>
             </div>
             <!-- <button type="submit" style="width: 100%; height: 35px; background-color: #ff7700; color:white;">Login</button> -->
-            {{ form.submit(style="width: 100%; height: 35px; background-color: #ff7700; color:white;") }}
+            {{ form_log.submit(style="width: 100%; height: 35px; background-color: #ff7700; color:white;") }}
             <p style="margin-top: 10px;">Don't have an account? <a href="#" class="reg" style="color: #ff7700;">Register</a></p>
-        </form>
-    </div>
-    <!--registration -->
-    <div class="registration-card">
-        <h2>Registration</h2>
-        <form action="#">
-            <div class="input-group-registration">
-                <input type="Username" placeholder="Username" required>
-                <i class="fa fa-user"></i>
-            </div>
-            <div class="input-group-registration">
-                <input type="email" placeholder="Email" required>
-                <i class="fa fa-envelope"></i>
-            </div>
-            <div class="input-group-registration">
-                <input type="password" placeholder="Password" required>
-                <i class="fa fa-lock"></i>
-            </div>
-            <div class="options-registration">
-                <label>
-                    <input type="checkbox"> I agree to the terms & conditions
-                </label>
-            </div>
-            <button type="submit" style="width: 100%; height: 35px; background-color: #ff7700; color:white;">Registration</button>
-            <p style="margin-top: 10px;">Already have an account? <a href="#" class="log" style="color: #ff7700;">Login</a></p>
         </form>
     </div>
     </div>
 </div>
 
 </div>
-<script>
-document.querySelector('.reg').addEventListener('click', function () {
-    document.querySelector('.registration-card').style.display = 'block';
-    document.querySelector('.login-card').style.display = 'none';
-});
-document.querySelector('.log').addEventListener('click', function () {
-    document.querySelector('.registration-card').style.display = 'none';
-    document.querySelector('.login-card').style.display = 'block';
-});
-</script>
 {% endblock %} 
 
 

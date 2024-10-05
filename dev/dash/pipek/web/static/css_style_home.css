@@ -91,7 +91,7 @@ html, body {
     /* สำหรับการปรับขนาดการ์ดให้สูงขึ้นถ้าต้องการ */
     height: 450px; 
     position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-    display: none;
+    display: block;
     top: 5%;
     color: white;
 

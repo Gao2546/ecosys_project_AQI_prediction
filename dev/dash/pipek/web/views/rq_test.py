@@ -1,12 +1,13 @@
 from flask import Blueprint, render_template, redirect, request, jsonify, flash, session, url_for
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField ,EmailField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
 from .. import redis_rq
 from pipek.jobs import hello_rq, Schematics_predict
 import os
 from datetime import datetime
 from ... import models
+from sqlalchemy import insert
 
 module = Blueprint("rq-test", __name__, url_prefix="/rq-test")
 custom_format = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
@@ -23,7 +24,8 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    # confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    email = EmailField("Email",validators=[DataRequired()])
     submit = SubmitField('Register')
 
     # Simulate user validation in the in-memory storage
@@ -55,41 +57,101 @@ def check_job_state():
 # Login route
 @module.route("/login", methods=["GET", "POST"])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
+    # form_reg = RegisterForm()
+    form_log = LoginForm()
+    print("testtttttttt")
+    # if form_reg.validate_on_submit():
+    #     username = form_reg.username.data
+    #     password = form_reg.password.data
+    #     email = form_reg.email.data
 
-        # Check credentials
-        if username in users and users[username] == password:
-            session['username'] = username  # Store user in session
-            flash(f'Welcome, {username}!', 'success')
-            return redirect(url_for('rq-test.home'))  # Redirect to home
-        else:
-            flash('Invalid username or password', 'danger')
-    return render_template('login.html', form=form)
+    #     db = models.db
+    #     Register = models.User( id = 1,
+    #                             username = username,
+    #                             password = password,
+    #                             email = email)
+    #     print(Register.username)
+    #     print(Register.email)
+    #     # Register.username = username
+    #     # Register.password = password
+    #     # Register.email = email
+
+    #     db.session.add(Register)
+    #     db.session.commit()
+        
+    #     # Add the new user to in-memory dictionary
+    #     # users[username] = password
+    #     flash(f'Account created for {username}!', 'success')
+    #     return redirect(url_for('rq-test.login'))
+    if request.method == "POST":
+        if form_log.username.data != None:
+            username = form_log.username.data
+            password = form_log.password.data
+
+            db = models.db
+            User = db.session.execute(
+            db.select(models.User).where(models.User.username == username)
+            ).scalars().fetchall()
+
+            # Check credentials
+            if (username == User[0].username) and (User[0].password == password):
+                session['username'] = username  # Store user in session
+                flash(f'Welcome, {username}!', 'success')
+                return redirect(url_for('rq-test.home'))  # Redirect to home
+            else:
+                flash('Invalid username or password', 'danger')
+    return render_template('login.html', form_log=form_log  , none = 'none',block = 'block')
 
 # Register route
 @module.route("/register", methods=["GET", "POST"])
 def register():
-    form = RegisterForm()
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
+    form_reg = RegisterForm()
+    # form_log = LoginForm()
+    if request.method == "POST":
+        print("testttttttttsss")
+        if form_reg.username.data != None:
+            username = form_reg.username.data
+            password = form_reg.password.data
+            email = form_reg.email.data
+    
+            db = models.db
+            Register = models.User()
+            Register.username = username
+            Register.password = password
+            Register.email = email
+    
+            db.session.add(Register)
+            db.session.commit()
+            
+            # Add the new user to in-memory dictionary
+            users[username] = password
+            flash(f'Account created for {username}!', 'success')
+            return redirect(url_for('rq-test.login'))
         
-        # Add the new user to in-memory dictionary
-        users[username] = password
-        flash(f'Account created for {username}!', 'success')
-        return redirect(url_for('rq-test.login'))
-    return render_template('register.html', form=form)
+    # if form_log.validate_on_submit():
+    #     username = form_log.username.data
+    #     password = form_log.password.data
+
+    #     db = models.db
+    #     User = db.session.execute(
+    #     db.select(models.users.User).order_by(models.users.User.id)
+    #     ).scalars()
+
+    #     # Check credentials
+    #     if (username == User.username) and (User.password == password):
+    #         session['username'] = username  # Store user in session
+    #         flash(f'Welcome, {username}!', 'success')
+    #         return redirect(url_for('rq-test.home'))  # Redirect to home
+    #     else:
+    #         flash('Invalid username or password', 'danger')
+
+    return render_template('register.html',form_reg=form_reg  , none = 'none',block = 'block')
 
 # Home route (requires login)
 @module.route("/home")
 def home():
     if 'username' not in session:
         return redirect(url_for('rq-test.login'))
-    
-    db = models.db
     return render_template("home.html")
 
 # Route to logout

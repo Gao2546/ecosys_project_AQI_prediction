@@ -3,13 +3,12 @@ import datetime
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 
 from . import base
 
 
-class User(UserMixin,base.Base):
+class User(base.Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)

@@ -4,7 +4,7 @@
 <!-- Model Navigation -->
 <div class="modelnav" id="modelnav">
     <div class="model-section-left">
-        <h2 style="margin-bottom: 20px;">Upload Content</h2>
+        <h2 style="margin-bottom: 20px;">Result Image</h2>
         {% if error %}
             <div class="alert alert-danger">
                 {{ error }}
@@ -12,7 +12,7 @@
         {% endif %}
         <div class="panel1">
             <div class="panel-body">
-                <p id="uploads_img" style="margin: 0; color: black;">Up load your images</p>
+                <p id="uploads_img" style="margin: 0; color: black;">This is your images</p>
 
                 <!-- Placeholder to show when job is processing -->
                 <div id="processing-message" style="display:none;">
@@ -30,8 +30,15 @@
         <!-- Form for uploading files -->
         <form id="upload-form" method="POST" enctype="multipart/form-data">
             <div style="display: flex; justify-content: center; margin-top: 10px;">
-                <input type="file" name="file" id="file-input" multiple required>
-                <input type="submit" value="Prediction" style="background-color: #ff7700; color: white;">
+                <!-- ปุ่มย้อนกลับ -->
+                <!-- ปุ่มย้อนกลับไปหน้า home -->
+                <button type="button" class="back-button" onclick="window.location.href='home';">
+                    Back
+                </button>
+                <!-- ปุ่ม Delete -->
+                <button type="button" class="delete-button" onclick="deleteData();">
+                    DELETE
+                </button>
             </div>
         </form>
     </div>
@@ -47,27 +54,6 @@
     </div>
 </div>
 
-<!-- Satisfaction level with emoji -->
-<div class="Satisfaction-level">
-    <div class="emoji" id="emoji">😐</div>
-    
-    <div class="stars white">
-        <input type="radio" name="star" id="star1" value="1">
-        <label for="star1" onclick="changeEmoji(1)">★</label>
-
-        <input type="radio" name="star" id="star2" value="2">
-        <label for="star2" onclick="changeEmoji(2)">★</label>
-
-        <input type="radio" name="star" id="star3" value="3">
-        <label for="star3" onclick="changeEmoji(3)">★</label>
-
-        <input type="radio" name="star" id="star4" value="4">
-        <label for="star4" onclick="changeEmoji(4)">★</label>
-
-        <input type="radio" name="star" id="star5" value="5">
-        <label for="star5" onclick="changeEmoji(5)">★</label>
-    </div>
-</div>
 
 <!-- JavaScript for handling file uploads and job status -->
 <script>
@@ -125,32 +111,26 @@
         }
     }
 
-    function changeEmoji(stars) {
-        var emojiElement = document.getElementById("emoji");
-        const labels = document.querySelectorAll('.stars label');
-
-        labels.forEach((label, index) => {
-        label.style.color = index < stars ? "gold" : "gray"; // เปลี่ยนสีดาวที่ถูกเลือกและก่อนหน้า
-    });
-
-        switch (stars) {
-            case 1:
-                emojiElement.textContent = "😞";
-                break;
-            case 2:
-                emojiElement.textContent = "🙁";
-                break;
-            case 3:
-                emojiElement.textContent = "😐";
-                break;
-            case 4:
-                emojiElement.textContent = "🙂";
-                break;
-            case 5:
-                emojiElement.textContent = "😄";
-                break;
-            default:
-                emojiElement.textContent = "😐";
+    function deleteData() {
+        // Logic สำหรับลบข้อมูล สามารถส่งคำขอ AJAX หรือเปลี่ยนเส้นทางไปที่ URL สำหรับการลบข้อมูล
+        if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้?")) {
+            // ส่งคำขอลบข้อมูลไปที่ backend
+            // ตัวอย่างใช้ fetch API:
+            fetch('/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ delete: true }), // คุณสามารถใส่ข้อมูลเพิ่มเติมที่จำเป็น
+            })
+            .then(response => {
+                if (response.ok) {
+                    // หากลบสำเร็จให้ทำการรีเฟรชหรือเปลี่ยนเส้นทาง
+                    window.location.reload();
+                } else {
+                    alert('ลบข้อมูลไม่สำเร็จ');
+                }
+            });
         }
     }
 </script>

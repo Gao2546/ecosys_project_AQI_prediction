@@ -320,3 +320,37 @@ border-radius: 5px;
 .stars input:checked + label {
     color: gold;
 }
+/* <---------------------------------------rusult page-----------------------> */
+.back-button {
+    background-color: #ff7700;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* สำหรับปุ่ม Delete */
+.delete-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+/* เพิ่มลักษณะเมื่อ hover สำหรับปุ่ม Back */
+.back-button:hover {
+    background-color: #e65c00;
+}
+
+/* เพิ่มลักษณะเมื่อ hover สำหรับปุ่ม Delete */
+.delete-button:hover {
+    background-color: #cc0000;
+}

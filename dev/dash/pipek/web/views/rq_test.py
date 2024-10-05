@@ -158,3 +158,9 @@ def model():
     if 'username' not in session:
         return redirect(url_for('rq-test.login'))
     return render_template("model.html",display = False,paths = None)
+
+@module.route("/result")
+def result():
+    if 'username' not in session:
+        return redirect(url_for('rq-test.login'))
+    return render_template("result.html",display = False,paths = None)

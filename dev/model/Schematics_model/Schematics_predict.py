@@ -5,6 +5,7 @@ from torch.utils.data import Dataset, DataLoader
 from PIL import Image , ImageDraw , ImageFont
 import time
 import os
+import random
 
 # Define image transformations (resize, convert to tensor, normalize)
 font_size = 20
@@ -16,6 +17,14 @@ transform = transforms.Compose([
     transforms.ToTensor(),  # Convert image to PyTorch tensor
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])  # Normalize for pre-trained models
 ])
+class_names = ['__background__', 'text', 'junction', 'crossover', 'terminal', 'gnd', 'vss', 'voltage.dc', 'voltage.ac', 'voltage.battery', 
+               'resistor', 'resistor.adjustable', 'resistor.photo', 'capacitor.unpolarized', 'capacitor.polarized', 'capacitor.adjustable', 
+               'inductor', 'inductor.ferrite', 'inductor.coupled', 'transformer', 'diode', 'diode.light_emitting', 'diode.thyrector', 
+               'diode.zener', 'diac', 'triac', 'thyristor', 'varistor', 'transistor.bjt', 'transistor.fet', 'transistor.photo', 
+               'operational_amplifier', 'operational_amplifier.schmitt_trigger', 'optocoupler', 'integrated_circuit', 'integrated_circuit.ne555', 
+               'integrated_circuit.voltage_regulator', 'xor', 'and', 'or', 'not', 'nand', 'nor', 'probe', 'probe.current', 'probe.voltage', 
+               'switch', 'relay', 'socket', 'fuse', 'speaker', 'motor', 'lamp', 'microphone', 'antenna', 'crystal', 'mechanical', 'magnetic', 
+               'optical', 'block', 'explanatory', 'unknown']
 
 # Custom Dataset class to load images without labels
 class ImageDataset(Dataset):
@@ -36,6 +45,18 @@ class ImageDataset(Dataset):
         if self.transform:
             image = self.transform(image)
         return image
+    
+def count_classes(predicted_classes, class_names):
+    # Initialize a dictionary to store the count of each class
+    class_count = {class_name: 0 for class_name in class_names}
+    
+    # Count occurrences of each predicted class
+    for class_idx in predicted_classes:
+        class_name = class_names[class_idx]  # Map class index to class name
+        class_count[class_name] += 1  # Increment count
+    
+    return class_count
+
 
 def nms_function(output):
     output_T = output.permute(1, 0)
@@ -45,9 +66,12 @@ def nms_function(output):
     boxes_xyxy = convert_cxcywh_to_xyxy(boxes_xywh)  # Convert to (x1, y1, x2, y2)
     # print(boxes_xyxy)
     scores = torch.max(output_T[:, 4:], dim=1)[0]  # Extract class confidence scores
+    class_obj = torch.argmax(output_T[: , 4:] ,dim=1)
+    print(class_obj)
 
     threshold_score = 0.5
     mask_score = scores >= threshold_score
+    class_obj = class_obj[mask_score]
     scores = scores[mask_score]
     boxes_xyxy = boxes_xyxy[mask_score]
 
@@ -58,8 +82,9 @@ def nms_function(output):
     # Filter boxes and scores based on NMS results
     filtered_boxes = boxes_xyxy[keep_indices]
     filtered_scores = scores[keep_indices]
+    filtered_class = class_obj[keep_indices]
     
-    return [filtered_boxes, filtered_scores]
+    return [filtered_boxes, filtered_scores, filtered_class]
 
 def map_boxes_to_original_size(boxes, original_size, resized_size):
     orig_w, orig_h = original_size
@@ -94,16 +119,17 @@ def convert_cxcywh_to_xyxy(boxes):
     return new_boxes
 
 
-def draw_boxes(image, boxes, scores):
+def draw_boxes(image, boxes, scores,classO):
     draw = ImageDraw.Draw(image)
     for i, box in enumerate(boxes):
+        color = random_rgb_color()
         x1, y1, x2, y2 = box
         score = scores[i].item()
-        print(score)
-        draw.rectangle([x1, y1, x2, y2], outline="red", width=3)  # Draw bounding box
-        draw.text((x2+3, y1), f"{score:.2f}", fill=(255,255,0),stroke_width=1,font=font,spacing=20)  # Add score as text above the box
+        # print(score)
+        draw.rectangle([x1, y1, x2, y2], outline=color, width=3)  # Draw bounding box
+        draw.text((x2+3, y1), f"{score:.2f}_{classO[i]}", fill=color,stroke_width=1,font=font,spacing=20)  # Add score as text above the box
         # draw.text((x1,y1), "test" , fill='green')
-    print("end_draw_image")
+    # print("end_draw_image")
     return image
 
 # Load your model
@@ -112,6 +138,11 @@ model = model_data['model'].to(device="cpu", dtype=torch.float32)
 test_input = torch.rand([1,3,size,size]).to(device="cpu",dtype=torch.float32)
 output = model(test_input)
 
+def random_rgb_color():
+    r = random.randint(0, 255)  # Red channel (8-bit)
+    g = random.randint(0, 255)  # Green channel (8-bit)
+    b = random.randint(0, 255)  # Blue channel (8-bit)
+    return (r, g, b)
 
 def prediction(path, output_folder):
     # Load images from the folder without labels
@@ -124,18 +155,30 @@ def prediction(path, output_folder):
 
     images_score = []
     images_bbox = []
+    images_class = []
     
     # Time the inference
     with torch.no_grad():
         st = time.time()
+        total_class_counts = {class_name: 0 for class_name in class_names}
         for batch_idx, inputs in enumerate(data_loader):  # Iterate over the images in the folder
             inputs = inputs.to(device="cpu", dtype=torch.float32)  # Move the input to the device (GPU)
             output = model(inputs)
 
             for i, out in enumerate(output[0].to(device="cpu")):
-                filtered_boxes, filtered_scores = nms_function(output=out.to(device="cpu"))
+                filtered_boxes, filtered_scores, filtered_class = nms_function(output=out.to(device="cpu"))
                 images_bbox.append(filtered_boxes)
                 images_score.append(filtered_scores)
+                # images_class.append(filtered_class)
+
+                batch_class_counts = count_classes(filtered_class, class_names)
+                
+                # Update total class counts
+                for class_name, count in batch_class_counts.items():
+                    total_class_counts[class_name] += count
+                
+                print(f"class = {total_class_counts}")
+                images_class.append(total_class_counts)
 
                 # Load the original image before transformation
                 original_image_path = dataset.image_paths[batch_idx * batch_size + i]
@@ -149,7 +192,7 @@ def prediction(path, output_folder):
                 mapped_boxes = map_boxes_to_original_size(filtered_boxes, original_size, resized_size)
 
                 # Draw boxes on the original image using the mapped coordinates
-                image_with_boxes = draw_boxes(original_image, mapped_boxes, filtered_scores)
+                image_with_boxes = draw_boxes(original_image, mapped_boxes, filtered_scores,filtered_class)
                 
                 # Save the image with bounding boxes
                 output_image_path = os.path.join(output_folder, f"image_{batch_idx * batch_size + i}_bbox.jpg")

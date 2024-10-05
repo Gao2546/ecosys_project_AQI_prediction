@@ -8,6 +8,8 @@ from . import base
 from . import images
 from . import users
 
+from .outputSc import Output
+
 from .users import User
 
 from .images import Image

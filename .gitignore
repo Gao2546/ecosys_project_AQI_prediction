@@ -26,6 +26,7 @@ instance
 DATASET/
 data/
 runs/
+images/
 
 
 # Airflow configuration

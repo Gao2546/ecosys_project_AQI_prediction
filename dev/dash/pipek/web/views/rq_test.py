@@ -9,6 +9,7 @@ from datetime import datetime
 from ... import models
 
 module = Blueprint("rq-test", __name__, url_prefix="/rq-test")
+custom_format = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
 
 # In-memory mock user data for login/register (use a database in real-world cases)
 users = {'admin': 'password123'}
@@ -98,11 +99,11 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('rq-test.login'))
 
-# Success route for file upload (existing)
 @module.route('/success', methods=['POST'])   
-def success():  
+def success():
+    global custom_format  
     if request.method == 'POST':  
-        path = "./images" 
+        path = "./pipek/web/static/images" 
         user = "athip"
         custom_format = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         if not os.path.exists(os.path.join(path, user)):
@@ -116,14 +117,34 @@ def success():
         os.makedirs(full_path_output)
         for file in files: 
             file.save(os.path.join(full_path_input, file.filename))
+        
+        # Queue the job and return job ID to frontend
         job = redis_rq.redis_queue.queue.enqueue(
             Schematics_predict.prediction,
-            args=(full_path_input,full_path_output,),
+            args=(full_path_input, full_path_output,),
             job_id=f"predict-{custom_format}",
             timeout=600,
             job_timeout=600,
         )
-    return redirect("home")
+        return jsonify({"job_id": job.id, "message": "Job started!"})
+    
+# Add route to check job status
+@module.route('/job-status/<job_id>', methods=['GET'])
+def job_status(job_id):
+    job = redis_rq.redis_queue.get_job(job_id)
+    if job:
+        if job.is_finished:
+            # Return success and result paths
+            output_path = os.path.join("images", "athip", custom_format , "output")
+            output_list_file = os.path.join("pipek","web","static",output_path)
+            output_files = [os.path.join(output_path, imgpath) for imgpath in os.listdir(output_list_file)]
+            return jsonify({"status": "finished", "result": output_files})
+        elif job.is_failed:
+            return jsonify({"status": "failed"})
+        else:
+            return jsonify({"status": "in-progress"})
+    else:
+        return jsonify({"status": "unknown"})
 
 # Additional routes (dashboard and model)
 @module.route("/dashboard")
@@ -136,4 +157,4 @@ def dashboard():
 def model():
     if 'username' not in session:
         return redirect(url_for('rq-test.login'))
-    return render_template("model.html")
+    return render_template("model.html",display = False,paths = None)

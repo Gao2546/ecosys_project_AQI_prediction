@@ -1,0 +1,212 @@
+html, body {
+    min-width: 800px;  /* กำหนดความกว้างคงที่ */
+    min-height: 600px;  /* กำหนดความสูงคงที่ */
+    overflow: hidden; /* ปิดการเลื่อนหน้าจอ */
+    font-family: sans-serif;
+}
+* {
+    box-sizing: border-box;
+}
+/*------------------------------------------------background image----------------------------------------------------------------------*/
+.bg-img {
+    background-image: url("https://images7.alphacoders.com/912/thumb-1920-912059.jpg");
+    min-height: 100vh; /* พื้นหลังเต็มหน้าจอ */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+/*------------------------------------------------login----------------------------------------------------------------------*/
+.login-card {
+    /* position: relative; */
+    width: 350px; /* กำหนดความกว้าง */
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    /* สำหรับการปรับขนาดการ์ดให้สูงขึ้นถ้าต้องการ */
+    height: 400px; 
+    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    display: block;
+    top: 10%;
+    color: white;
+
+}
+.input-group-login {
+    position: relative;
+    margin-bottom: 20px;
+    border: none; /* เอาขอบทั้งหมดออก */
+    border-bottom: 2px solid white; /* แสดงเฉพาะขอบล่าง */
+
+}
+
+.input-group-login input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: transparent;
+}
+
+.input-group-login i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    
+}
+
+.options-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.options-login label {
+    font-size: 14px;
+    color: white;
+}
+
+.options-login a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #ff7700;
+
+}
+/*------------------------------------------------registration----------------------------------------------------------------------*/
+.registration-card {
+    /* position: relative; */
+    width: 350px; /* กำหนดความกว้าง */
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    /* สำหรับการปรับขนาดการ์ดให้สูงขึ้นถ้าต้องการ */
+    height: 450px; 
+    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    display: none;
+    top: 5%;
+    color: white;
+
+}
+
+.input-group-registration {
+    position: relative;
+    margin-bottom: 20px;
+    border: none; /* เอาขอบทั้งหมดออก */
+    border-bottom: 2px solid white; /* แสดงเฉพาะขอบล่าง */
+    background: hidden;
+    color: white;
+}
+
+.input-group-registration input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: transparent;
+    color: white;
+}
+
+.input-group-registration i {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #222020;
+    color: white;
+    
+}
+
+.options-registration {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.options-registration label {
+    font-size: 14px;
+    color: white;
+}
+
+.options-registration a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #ff7700;
+}
+/*------------------------------------------------Home page-----------------------------------------------------------------------------*/
+.home-card {
+display: flex;
+width: 75%;
+height: 500px;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+border-radius: 15px;
+overflow: hidden;
+position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+top: 20%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+left: 12.5%; /* จัดให้อยู่ตรงกลางแนวนอน */
+}
+
+.home-left-section {
+width: 60%;
+padding: 40px;
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: center;
+background: rgba(0, 0, 0, 0.6);
+background-blend-mode: darken;
+}
+
+.home-left-section h1 {
+font-size: 36px;
+}
+
+.home-left-section h2 {
+font-size: 32px;
+margin-bottom: 15px;
+}
+
+.home-left-section p {
+margin-bottom: 15px;
+}
+
+.home-social-icons a {
+color: white;
+font-size: 24px;
+margin-right: 10px;
+text-decoration: none;
+}
+
+.home-right-section {
+width: 40%;
+padding: 40px;
+background-color: rgba(0, 0, 0, 0.6);;
+}
+
+.home-right-section h2 {
+font-size: 28px;
+margin-bottom: 20px;
+}
+/* --------------------------------------log out button------------------------------------------------*/
+.logout-btn {
+position: absolute;
+right: 20px;
+top: 10px;
+background-color: rgb(47, 0, 255);
+color: white;
+border: none;
+padding: 10px 15px;
+border-radius: 5px;
+}

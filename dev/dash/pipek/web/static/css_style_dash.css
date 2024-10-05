@@ -1,0 +1,106 @@
+/* กำหนดรูป background จากลิงก์ */
+html, body {
+    min-width: 800px;  /* กำหนดความกว้างคงที่ */
+    min-height: 600px;  /* กำหนดความสูงคงที่ */
+    overflow: hidden; /* ปิดการเลื่อนหน้าจอ */
+    font-family: sans-serif;
+}
+* {
+    box-sizing: border-box;
+}
+.bg-img {
+    background-image: url("https://images7.alphacoders.com/912/thumb-1920-912059.jpg");
+    min-height: 100vh; /* พื้นหลังเต็มหน้าจอ */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.logout-btn {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    background-color: rgb(47, 0, 255);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.navbar-brand {
+    justify-content: left;
+}
+ /* --------------------------------------user------------------------------------------------*/
+.user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 20%;
+    border: 2px nonำ;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    top: 10%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    left: 10%; /* จัดให้อยู่ตรงกลางแนวนอน */
+}
+ /* --------------------------------------class------------------------------------------------*/
+ .class-obj{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 20%;
+    border: 2px none;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    top: 32%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    left: 10%; /* จัดให้อยู่ตรงกลางแนวนอน */
+}
+/* --------------------------------------total-obj------------------------------------------------*/
+.total-obj{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:54%;
+    height: 42%;
+    border: 2px none;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    top: 10%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    left: 36%; /* จัดให้อยู่ตรงกลางแนวนอน */
+}
+/* --------------------------------------total-user------------------------------------------------*/
+.total-user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    height: 42%;
+    border: 2px none;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    top: 54%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    left: 10%; /* จัดให้อยู่ตรงกลางแนวนอน */
+}
+/* --------------------------------------user-in-day------------------------------------------------*/
+.user-in-day{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 34%;
+    height: 42%;
+    border: 2px nonำ;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    top: 54%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    left: 56%; /* จัดให้อยู่ตรงกลางแนวนอน */
+}

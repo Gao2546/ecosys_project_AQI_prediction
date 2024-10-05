@@ -1,167 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Page2</title>
-    <!-- Import Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        /* กำหนดรูป background จากลิงก์ */
-        html, body {
-            min-width: 800px;  /* กำหนดความกว้างคงที่ */
-            min-height: 600px;  /* กำหนดความสูงคงที่ */
-            overflow: hidden; /* ปิดการเลื่อนหน้าจอ */
-            font-family: sans-serif;
-        }
-        * {
-            box-sizing: border-box;
-        }
+{% extends "navbar.html" %} 
+		{% block content %} 
+		<div class = 'user'>
 
-        .bg-img {
-            background-image: url("https://images7.alphacoders.com/912/thumb-1920-912059.jpg");
-            min-height: 100vh; /* พื้นหลังเต็มหน้าจอ */
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative;
-        }
-
-        .logout-btn {
-            position: absolute;
-            right: 20px;
-            top: 10px;
-            background-color: rgb(47, 0, 255);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-        }
-
-        .navbar-brand {
-            justify-content: left;
-        }
-         /* --------------------------------------user------------------------------------------------*/
-        .user{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 25%;
-            height: 20%;
-            border: 2px nonำ;
-            border-radius: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-            top: 10%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
-            left: 10%; /* จัดให้อยู่ตรงกลางแนวนอน */
-        }
-         /* --------------------------------------class------------------------------------------------*/
-         .class-obj{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 25%;
-            height: 20%;
-            border: 2px none;
-            border-radius: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-            top: 32%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
-            left: 10%; /* จัดให้อยู่ตรงกลางแนวนอน */
-        }
-        /* --------------------------------------total-obj------------------------------------------------*/
-        .total-obj{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width:54%;
-            height: 42%;
-            border: 2px none;
-            border-radius: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-            top: 10%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
-            left: 36%; /* จัดให้อยู่ตรงกลางแนวนอน */
-        }
-        /* --------------------------------------total-user------------------------------------------------*/
-        .total-user{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 45%;
-            height: 42%;
-            border: 2px none;
-            border-radius: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-            top: 54%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
-            left: 10%; /* จัดให้อยู่ตรงกลางแนวนอน */
-        }
-        /* --------------------------------------user-in-day------------------------------------------------*/
-        .user-in-day{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 34%;
-            height: 42%;
-            border: 2px nonำ;
-            border-radius: 10px;
-            background-color: rgba(0, 0, 0, 0.6);
-            position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-            top: 54%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
-            left: 56%; /* จัดให้อยู่ตรงกลางแนวนอน */
-        }
-    </style>
-</head>
-<body>
-<div class="bg-img">
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" style="height: 56px; width: 100%; background-color: none;">
-        <div class="container-fluid" style="height: 100%; width: 100%; display: flex; align-items: center;">
-            <div class="navbar-header" style="margin-right: auto; display: flex; align-items: center;">
-                <a class="navbar-brand" href="#" style="color: white;">☁ MY PROJECT</a>                                  
-                <ul class="nav navbar-nav" style="display: flex; margin-left: 20px;">
-                    <li class="active" style="margin-right: 15px;"><a href="home" class="glyphicon glyphicon-home" style="color: white;"> Home</a></li>
-                    <li style="margin-right: 15px;"><a href="dashboard" class="fa fa-tv" style="color: white;"> Dashboard</a></li>
-                    <li><a href="model" class="fa fa-cubes" style="color: white;"> MODEL</a></li>
-                </ul>
-            </div>
-            <button class="btn btn-danger logout-btn">Logout</button>
+        </div>     
+        <div class = 'class-obj'>
+        
+        </div>  
+        <div class = 'total-obj'>
+        
+        </div>  
+        <div class = 'total-user'>
+        
+        </div>  
+        <div class = 'user-in-day'>
+        
+        </div>  
+        
         </div>
-    </nav>
-    <div class = 'user'>
-
-    </div>     
-    <div class = 'class-obj'>
-
-    </div>  
-    <div class = 'total-obj'>
-
-    </div>  
-    <div class = 'total-user'>
-
-    </div>  
-    <div class = 'user-in-day'>
-
-    </div>  
-
-</div>
-
-    <!-- Import Bootstrap JS และ jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+        
+        <!-- Import Bootstrap JS และ jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %} 

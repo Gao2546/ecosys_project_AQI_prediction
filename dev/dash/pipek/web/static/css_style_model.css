@@ -1,0 +1,322 @@
+html, body {
+    min-width: 800px;  /* กำหนดความกว้างคงที่ */
+    min-height: 600px;  /* กำหนดความสูงคงที่ */
+    overflow: hidden; /* ปิดการเลื่อนหน้าจอ */
+    font-family: sans-serif;
+}
+* {
+    box-sizing: border-box;
+}
+/*------------------------------------------------background image----------------------------------------------------------------------*/
+.bg-img {
+    background-image: url("https://images7.alphacoders.com/912/thumb-1920-912059.jpg");
+    min-height: 100vh; /* พื้นหลังเต็มหน้าจอ */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+/*------------------------------------------------Model card-----------------------------------------------------------------------------*/
+.modelnav {
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex; /* ซ่อนเมื่อเป็นขนาดเล็ก */
+    width: 75%;
+    height: 500px;
+    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    top: 50%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    left: 50%; /* จัดให้อยู่ตรงกลางแนวนอน */
+    transform: translate(-50%, -50%); /* เลื่อนองค์ประกอบให้ตรงกลาง */
+    flex-direction: row; /* จัดเรียงเป็นแนวนอน */
+    justify-content: space-between; /* จัดให้แต่ละส่วนมีระยะห่าง */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเพื่อความสวยงาม (ไม่บังคับ) */
+    border-radius: 8px; /* ปรับขอบให้โค้งมน (ไม่บังคับ) */
+}
+.model-section-left {
+    width: 100%; /* ความกว้างของส่วนซ้าย */
+    display: flex;
+    flex-direction: column; /* เรียงเป็นแนวตั้ง */
+    justify-content: center; /* จัดให้กลาง */
+    height: 100%; /* ใช้พื้นที่เต็มของส่วนนี้ */
+    align-items: center;
+    padding-top: 2px;
+    color: white;
+
+}
+
+
+.panel {
+    border: 1px solid black;
+    margin-bottom: 15px; /* ระยะห่างระหว่าง panel */
+    padding: 5px; /* เพิ่ม padding เท่ากันในแต่ละ panel */
+    width: 80%; /* ปรับขนาดให้เต็ม */
+    height: 22%;
+}
+    
+/* Panel settings */
+.panel-body {
+    padding: 0; /* เอา padding ของ panel-body ออกเพื่อให้ไม่มีการล้น */
+    margin: 0;
+
+}
+
+/* Input settings */
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+    width: 100%; /* ความกว้างเต็มของ panel */
+    height: 100%;
+    padding: 10px; /* กำหนด padding ให้เหมาะสม */
+    margin: 0; /* เอา margin ออก */
+    box-sizing: border-box; /* ทำให้ padding ไม่กระทบกับขนาดของกล่อง input */
+    border: none; /* เอา border ออก */
+    text-align: center;
+}
+
+.row {
+    margin-top: 20px; /* ระยะห่างระหว่างปุ่มและองค์ประกอบด้านบน */
+}
+
+
+
+.model-section-left {
+    width: 60%; /* กำหนดความกว้าง 60% สำหรับด้านซ้าย */
+    padding: 20px;
+    color: white;
+}
+
+.model-section-right {
+    width: 40%; /* กำหนดความกว้าง 40% สำหรับด้านขวา */
+    padding: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8); /* สีพื้นหลังให้แตกต่าง */
+    border-radius: 8px; /* ทำให้มุมโค้ง */
+}
+
+.info-box {
+    margin-top: 20px; /* ระยะห่างระหว่างหัวข้อกับข้อมูล */
+    padding: 15px; /* Padding ใน info box */
+    background-color: rgba(255, 255, 255, 0.1); /* พื้นหลังโปร่งแสง */
+    border-radius: 5px; /* โค้งมุม */
+    color: white; /* สีตัวอักษร */
+}
+
+.panel1 {
+    border: 0px solid black; /* ขอบของ panel */
+    margin-bottom: 15px; /* ระยะห่างระหว่าง panel */
+    width: 100%; /* ปรับขนาดให้เต็ม */
+    height: 60%; /* ความสูงของ panel */
+    display: flex; 
+    justify-content: center; 
+    align-items: center;  
+    background: transparent;
+}
+
+.panel-body {
+    border: 3px dashed #060547; /* เส้นประรอบกรอบ */
+    background-color: rgba(233, 251, 255, 0.7); /* พื้นหลังโปร่งแสง */
+    border-radius: 8px; /* โค้งมุม */
+    padding: 25px; /* Padding ใน panel-body */
+    text-align: center; /* จัดกลางข้อความ */
+    height: 100%;
+    width: 100%;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.image {
+    max-width: 100%; /* ให้รูปภาพมีความกว้างสูงสุด 100% ของกรอบ */
+    max-height: 100%; /* ให้รูปภาพมีความสูงสูงสุด 100% ของกรอบ */
+    object-fit: contain; /* ทำให้รูปภาพปรับขนาดเพื่อให้อยู่ในกรอบโดยไม่ทำให้เกิดการบิดเบือน */
+    display: none; /* ซ่อนรูปภาพ */
+}
+
+/* ปุ่ม Camera */
+.camera-button {
+    font-size: 25px; 
+    background-color: #2600ff; 
+    color: white; 
+    padding: 10px; 
+    border: none; 
+    border-radius: 50%; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* เพิ่มการ transition */
+    margin-right: 20px;
+}
+
+.camera-button:hover {
+    background-color: #ea0a0a; /* เปลี่ยนสีเมื่อ hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อ hover */
+}
+
+/* ปุ่ม Generate */
+.generate-button {
+    background-color: #1e0ce8; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 25px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* เพิ่มการ transition */
+}
+
+.generate-button:hover {
+    background-color: #eb0c0c; /* เปลี่ยนสีเมื่อ hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อ hover */
+}
+
+    /* Section ฝั่งขวา */
+.model-section-right {
+    width: 40%; /* ปรับขนาดฝั่งขวา */
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.2); /* สีพื้นหลังแบบโปร่งแสง */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden; /* ป้องกันข้อมูลเกิน */
+}
+
+.info-box-container {
+    max-height: 400px; /* กำหนดความสูงสูงสุดสำหรับการเลื่อน */
+    overflow-y: auto; /* เปิดการเลื่อนในแนวตั้ง */
+    padding-right: 10px; /* เพิ่ม padding ขวา */
+}
+
+.info-box {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1); /* สีพื้นหลังกล่องโปร่งแสง */
+    margin-bottom: 10px; /* ระยะห่างระหว่างกล่อง */
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้กล่อง */
+    transition: background-color 0.3s ease;
+}
+
+.info-box:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* เปลี่ยนสีเมื่อ hover */
+}
+
+/*------------------------------------------------result-----------------------------------------------------------------------------*/
+.image-container {
+display: none;
+flex-direction: column; /* จัดให้อยู่ในแนวตั้ง */
+align-items: center; /* จัดให้อยู่ตรงกลาง */
+padding-top: 40px; /* เพิ่ม padding ด้านบนแทน margin */
+margin: 0 auto; /* คงการจัดให้อยู่กึ่งกลางไว้ */
+width: 100%;
+}
+
+.image-box {
+border: 2px hidden; /* กรอบของรูปภาพ */
+padding: 5px;
+width: 600px; /* ขนาดความกว้างของกรอบรูป */
+height: 400px;
+display: flex; /* ใช้ Flexbox */
+justify-content: center; /* จัดให้อยู่กลางแนวนอน */
+align-items: center; /* จัดให้อยู่กลางแนวตั้ง */
+
+}
+
+.image-box img {
+width: 100%;
+height: auto;
+
+}
+/*-------------------------------------------------*/
+.caption-box {
+display: flex;
+border: 2px hidden;
+padding: 10px;
+margin-top: 10px;
+width: 600px;
+height:100px;
+background-color: #f9f9f9;
+}
+
+.left-box {
+flex-basis: 30%; /* ขนาดของกล่องซ้าย 30% */
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+}
+
+.left-box img {
+width: 100%; /* ปรับขนาดของภาพให้เต็ม */
+height: auto;
+}
+
+.right-box {
+flex-basis: 70%; /* ขนาดของกล่องขวา 70% */
+display: flex;
+justify-content: center;
+align-items: left;
+flex-direction: column;
+padding-left: 10px; /* ระยะห่างระหว่างภาพกับข้อความ */
+}
+
+.right-box span {
+font-size: 16px;
+padding: 1.5px;
+font-family: monospace;
+}
+/* --------------------------------------log out button------------------------------------------------*/
+.logout-btn {
+position: absolute;
+right: 20px;
+top: 10px;
+background-color: rgb(47, 0, 255);
+color: white;
+border: none;
+padding: 10px 15px;
+border-radius: 5px;
+}
+/* --------------------------------------feeling------------------------------------------------*/
+.Satisfaction-level{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 7%;
+    height: 62px;
+    border: 2px nonำ;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    top: 85%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    left: 80.5%; /* จัดให้อยู่ตรงกลางแนวนอน */
+}
+
+
+.emoji {
+        font-size: 40px;
+        margin-top: 5px;
+        margin-bottom: -15px; 
+    }
+
+.stars {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.stars label {
+    font-size: 20px;
+    color: gray;
+    cursor: pointer;
+}
+
+.stars input {
+    display: none;
+}
+
+.stars input:checked ~ label {
+    color: gray;
+}
+
+.stars input:checked + label {
+    color: gold;
+}

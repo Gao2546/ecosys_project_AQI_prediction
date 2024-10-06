@@ -25,17 +25,11 @@
                 <!-- Image Display Area (Initially hidden) -->
                 <div id="image-display">
                     <!-- Display uploaded images and information -->
-                    <div id="images-container" style="max-width: 100%; max-height: 300px; overflow-y: auto;">
-                        <!-- <p>{{list_of_image_path}}</p> -->
+                    <div id="images-container" style="max-width: 100%; max-height: 100%; overflow-y: auto;">
                         {% for image_path in list_of_image_path %}
-                            <!-- <div class="image-containerss" >
-                                <p>testttt</p> -->
-                                <!-- Display the image -->
-                                <img src="{{ url_for('static', filename=image_path) }}" alt="Processed Image" style="width: 200px; margin: 10px;">
-                            <!-- </div> -->
+                            <img class="zoomable-image" src="{{ url_for('static', filename=image_path) }}" alt="Processed Image" style="width: 400px; margin: 10px;">
                         {% endfor %}
-                    </div>
-                           
+                    </div>          
                 </div>  
             </div>
         </div>
@@ -91,5 +85,71 @@
             });
         }
     }
+
+    // ฟังก์ชันที่คุณเพิ่มสำหรับซูมและลากรูปภาพ
+    function addZoomFunctionality() {
+    document.querySelectorAll('.zoomable-image').forEach(img => {
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        // Zoom functionality using the wheel event
+        img.addEventListener('wheel', function(event) {
+            event.preventDefault();
+
+            let scale = Number(this.dataset.scale) || 1;
+            scale += event.deltaY * -0.01;
+
+            scale = Math.min(Math.max(.5, scale), 3);
+
+            this.style.transform = `scale(${scale})`;
+            this.dataset.scale = scale;
+        });
+
+        // Mouse down event to start dragging
+        img.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - img.offsetLeft;
+            startY = e.pageY - img.offsetTop;
+            scrollLeft = img.parentElement.scrollLeft;
+            scrollTop = img.parentElement.scrollTop;
+
+            img.style.cursor = 'grabbing';  // เปลี่ยนเคอร์เซอร์เมื่อกำลังลาก
+        });
+
+        // Mouse up event to stop dragging
+        img.addEventListener('mouseup', () => {
+            isDragging = false;
+            img.style.cursor = 'grab';  // เปลี่ยนเคอร์เซอร์กลับเมื่อหยุดลาก
+        });
+
+        // Mouse leave event to stop dragging if mouse leaves the image area
+        img.addEventListener('mouseleave', () => {
+            isDragging = false;
+            img.style.cursor = 'grab';
+        });
+
+        // Mouse move event to handle the dragging
+        img.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            e.preventDefault();
+            const x = e.pageX - img.offsetLeft;
+            const y = e.pageY - img.offsetTop;
+            const walkX = (x - startX) * 1.5; // Adjust the scroll speed as needed
+            const walkY = (y - startY) * 1.5;
+
+            img.parentElement.scrollLeft = scrollLeft - walkX;
+            img.parentElement.scrollTop = scrollTop - walkY;
+        });
+
+        // Set the cursor style for hover state
+        img.style.cursor = 'grab';
+    });
+}
+
+// เรียกใช้ฟังก์ชันนี้หลังจากภาพทั้งหมดถูกสร้างเสร็จ
+window.onload = function() {
+    addZoomFunctionality();
+    };
 </script>
 {% endblock %}

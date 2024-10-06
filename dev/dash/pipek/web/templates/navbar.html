@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css_style_home.css">
-    <link rel="stylesheet" href="../static/css_style_dash.css">
+    <!-- <link rel="stylesheet" href="../static/css_style_dash.css"> -->
     <link rel="stylesheet" href="../static/css_style_model.css">
     <link rel="stylesheet" href="../static/css_style_login.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -24,7 +24,7 @@
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="{{ url_for('rq-test.home') }}" class="glyphicon glyphicon-home" style="color: white;"> HOME</a></li>
-            <li><a href="{{ url_for('rq-test.dashboard') }}" class="fa fa-tv" style="color: white;"> DASHBOARD</a></li>
+            <!-- <li><a href="{{ url_for('rq-test.dashboard') }}" class="fa fa-tv" style="color: white;"> DASHBOARD</a></li> -->
             <li><a href="{{ url_for('rq-test.model') }}" class="fa fa-cubes" onclick="toggleModelNav()" style="color: white;"> MODEL</a></li>
           </ul>
           {% if session.get('username') %}

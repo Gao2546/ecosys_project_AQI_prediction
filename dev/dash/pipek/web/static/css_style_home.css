@@ -23,6 +23,7 @@ html, body {
     display: flex; /* ซ่อนเมื่อเป็นขนาดเล็ก */
     width: 75%;
     height: 500px;
+    
     position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
     top: 50%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
     left: 50%; /* จัดให้อยู่ตรงกลางแนวนอน */
@@ -34,36 +35,30 @@ html, body {
     color: white;
 }
 .history-list {
+    overflow-y: auto;
     width: 95%; /* ความกว้างของส่วนซ้าย */
     display: flex;
     flex-direction: column; /* เรียงเป็นแนวตั้ง */
-    justify-content: center; /* จัดให้กลาง */
     height: 80%; /* ใช้พื้นที่เต็มของส่วนนี้ */
     align-items: center;
-    padding-top: 2px;
     color: white;
-    background-color: rgba(0, 0, 0, 0.7);
-    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-    top: 15%;
+    background-color:none;
+    position: relative; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
     left: 2.5%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเพื่อความสวยงาม (ไม่บังคับ) */
     border-radius: 8px; /* ปรับขอบให้โค้งมน (ไม่บังคับ) */
 
 }
 .user-time{
+    padding: 10px;
     width: 95%; /* ความกว้างของส่วนซ้าย */
     display: flex;
     flex-direction: column; /* เรียงเป็นแนวตั้ง */
-    justify-content: center; /* จัดให้กลาง */
-    height: 20%; /* ใช้พื้นที่เต็มของส่วนนี้ */
-    align-items: center;
-    padding-top: 2px;
+    height: 25%; /* ใช้พื้นที่เต็มของส่วนนี้ */
     color: white;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-bottom: 4px solid darkred;
-    position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
     display: block;
-    top: 5%;
-    left: 2.5%;
+    margin-top: 20px;
 }
 

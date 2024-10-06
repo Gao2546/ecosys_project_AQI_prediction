@@ -59,7 +59,7 @@ def check_session_timeout():
         # session.clear()
         last_active = session["last_active"] 
         # Check if the session has expired
-        if (100) > 0:
+        if (now - last_active) > exp_time:
             # Session expired, run the callback
             after_session_timeout(session['username'])
             # Optionally clear the session

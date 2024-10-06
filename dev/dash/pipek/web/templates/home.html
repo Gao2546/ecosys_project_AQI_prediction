@@ -1,14 +1,25 @@
 {% extends "navbar.html" %} 
-        {% block content %} 
-        <div class="history-card">
-            <h1 style="position: absolute; top:3% ; left: 2.5%;">History</h1>
-            <div class=" history-list">
-                <div class="user-time">
-                    <button type="button" onclick= "window.location.href='result';" style="width: 55px; height: 25px; background-color: #00bbff; color:white; position: absolute; top:35% ; left: 85%;">view</button>
-                    <input type="submit" value="Delete" style="background-color: #c71f01; color: white;position: absolute; top:35% ; left: 92%;">
-                </div>
 
-            </div>
+{% block content %} 
+<div class="history-card" style="height: 400px; width: 100%; overflow: hidden; padding: 10px;">
+    <h1 style="position: absolute; top:3%; left: 2.5%;">History</h1>
 
+    <div class="history-list" style="position: absolute; top: 20%; width: 95%; height: 80%; overflow-y: auto; overflow-x: hidden; border: 1px solid #ccc; padding: 10px;">
+        {% for record in history_data %}
+        <div class="user-time" style="border-bottom: 1px solid #ccc; padding: 10px 0; position: relative;">
+            <p>Created at: {{ record.created_date }}</p>
+
+            <!-- <button type="button" onclick="window.location.href='result';" style="width: 55px; height: 25px; background-color: #00bbff; color:white; position: absolute; top:35%; left: 85%;">
+                View
+            </button> -->
+            <form method="POST" action="/rq-test/result/{{ record.id }}" style="display:inline;">
+                <input type="submit" value="View" style="width: 55px; height: 25px; background-color: #00bbff; color:white; position: absolute; top:35%; left: 85%;">
+            </form>
+            <form method="POST" action="/rq-test/delete/{{ record.id }}" style="display:inline;">
+                <input type="submit" value="Delete" style="background-color: #c71f01; color: white; position: absolute; top:35%; left: 92%;">
+            </form>
         </div>
-{% endblock %} 
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

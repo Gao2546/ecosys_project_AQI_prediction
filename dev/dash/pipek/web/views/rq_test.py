@@ -112,7 +112,7 @@ def login():
                 return redirect(url_for('rq-test.home'))  # Redirect to home
             else:
                 flash('Invalid username or password', 'danger')
-    return render_template('login.html', form_log=form_log  , none = 'none',block = 'block')
+    return render_template('login.html', form_log=form_log )
 
 # Register route
 @module.route("/register", methods=["GET", "POST"])
@@ -125,20 +125,24 @@ def register():
             username = form_reg.username.data
             password = form_reg.password.data
             email = form_reg.email.data
-    
             db = models.db
-            Register = models.User()
-            Register.username = username
-            Register.password = password
-            Register.email = email
-    
-            db.session.add(Register)
-            db.session.commit()
-            
-            # Add the new user to in-memory dictionary
-            users[username] = password
-            flash(f'Account created for {username}!', 'success')
-            return redirect(url_for('rq-test.login'))
+            data_exit1 = db.session.execute(
+                db.select(models.User).where(models.User.username == username)
+            ).scalars().fetchall()
+            data_exit2 = db.session.execute(
+                db.select(models.User).where(models.User.email == email)
+            ).scalars().fetchall()
+            if (len(data_exit1) <= 0) and (len(data_exit2) <= 0):
+                Register = models.User()
+                Register.username = username
+                Register.password = password
+                Register.email = email
+                db.session.add(Register)
+                db.session.commit()
+                # Add the new user to in-memory dictionary
+                users[username] = password
+                flash(f'Account created for {username}!', 'success')
+                return redirect(url_for('rq-test.login'))
         
     # if form_log.validate_on_submit():
     #     username = form_log.username.data
@@ -157,14 +161,35 @@ def register():
     #     else:
     #         flash('Invalid username or password', 'danger')
 
-    return render_template('register.html',form_reg=form_reg  , none = 'none',block = 'block')
+    return render_template('register.html',form_reg=form_reg )
 
 # Home route (requires login)
 @module.route("/home")
 def home():
     if 'username' not in session:
         return redirect(url_for('rq-test.login'))
-    return render_template("home.html")
+    db = models.db
+    history_data = db.session.execute(
+        db.select(models.Output).where(models.Output.username == session['username']).order_by(models.Output.created_date)
+    ).scalars().fetchall()
+    return render_template("home.html",history_data = history_data)
+
+@module.route('/delete/<int:id>', methods=['POST'])
+def delete_record(id):
+    if 'username' not in session:
+        return redirect(url_for('rq-test.login'))
+    
+    db = models.db
+    record_to_delete = db.session.get(models.Output, id)
+    if record_to_delete:
+        db.session.delete(record_to_delete)
+        db.session.commit()
+        flash("Record deleted successfully", "success")
+    else:
+        flash("Record not found", "danger")
+
+    return redirect(url_for('rq-test.home'))
+
 
 # Route to logout
 @module.route("/logout")
@@ -180,7 +205,7 @@ def success():
         return redirect(url_for('rq-test.login'))
     if request.method == 'POST':  
         path = "./pipek/web/static/images"
-        user = "athip"
+        user = session['username']
         custom_format = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
         if not os.path.exists(os.path.join(path, user)):
             os.makedirs(os.path.join(path, user))
@@ -212,7 +237,7 @@ def job_status(job_id):
         if job.is_finished:
             db = models.db
             # Return success and result paths
-            output_path = os.path.join("images", "athip", custom_format , "output")
+            output_path = os.path.join("images", session['username'], custom_format , "output")
             output_list_file = os.path.join("pipek","web","static",output_path)
             output_files = [os.path.join(output_path, imgpath) for imgpath in os.listdir(output_list_file) if imgpath.endswith(('.png', '.jpg', '.jpeg'))]
             with open(os.path.join(output_list_file,"list_data"),"rb") as f:
@@ -253,8 +278,15 @@ def model():
         return redirect(url_for('rq-test.login'))
     return render_template("model.html",display = False,paths = None)
 
-@module.route("/result")
-def result():
+@module.route("/result/<int:id>",methods=['GET','POST'])
+def result(id):
     if 'username' not in session:
         return redirect(url_for('rq-test.login'))
-    return render_template("result.html")
+    db = models.db
+    record_to_data = db.session.get(models.Output, id)
+    # if len(record_to_data.filename) > 0:
+    path = [p.replace("./pipek/web/static","").strip('"') for p in record_to_data.filename.strip('{}').split(",")]
+    # else:
+    #     path = [record_to_data.filename.strip('{}').strip('"'),]
+    # output_files = [os.path.join(output_path, imgpath) for imgpath in os.listdir(record_to_data.path) if imgpath.endswith(('.png', '.jpg', '.jpeg'))]
+    return render_template("result.html",list_of_image_path = path,list_of_image_info = record_to_data.results)

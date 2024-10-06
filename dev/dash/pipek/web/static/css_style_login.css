@@ -84,14 +84,15 @@ html, body {
     /* position: relative; */
     width: 350px; /* กำหนดความกว้าง */
     padding: 40px;
+    padding-top: 10px;
     background-color: rgba(0, 0, 0, 0.2);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     text-align: center;
     /* สำหรับการปรับขนาดการ์ดให้สูงขึ้นถ้าต้องการ */
-    height: 450px; 
+    height: 500px; 
     position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-    display: none;
+    /* display: none; */
     top: 5%;
     color: white;
 
@@ -149,7 +150,7 @@ html, body {
 .home-card {
 display: flex;
 width: 75%;
-height: 500px;
+height: 600px;
 box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 border-radius: 15px;
 overflow: hidden;

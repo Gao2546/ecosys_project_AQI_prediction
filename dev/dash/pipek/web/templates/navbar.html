@@ -23,9 +23,9 @@
             <a class="navbar-brand" href="#" style="color: white;">☁ MY PROJECT</a>                                  
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="home" class="glyphicon glyphicon-home" style="color: white;"> HOME</a></li>
-            <li><a href="dashboard" class="fa fa-tv" style="color: white;"> DASHBOARD</a></li>
-            <li><a href="model" class="fa fa-cubes" onclick="toggleModelNav()" style="color: white;"> MODEL</a></li>
+            <li class="active"><a href="{{ url_for('rq-test.home') }}" class="glyphicon glyphicon-home" style="color: white;"> HOME</a></li>
+            <li><a href="{{ url_for('rq-test.dashboard') }}" class="fa fa-tv" style="color: white;"> DASHBOARD</a></li>
+            <li><a href="{{ url_for('rq-test.model') }}" class="fa fa-cubes" onclick="toggleModelNav()" style="color: white;"> MODEL</a></li>
           </ul>
           {% if session.get('username') %}
           <li class="nav-item dropdown" style="display: flex; position: absolute; top: 20%; left: 90%;">
@@ -39,7 +39,7 @@
             </div>
           </li>
           {% endif %}
-          <a href="logout" class="btn btn-danger logout-btn">Logout</a>
+          <a href="{{ url_for('rq-test.logout') }}" class="btn btn-danger logout-btn">Logout</a>
           
           <!-- User Count Display -->
           <div class="navbar-text" style="color: white; position: absolute; top: 15%; right: 10%;">

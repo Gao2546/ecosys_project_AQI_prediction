@@ -128,7 +128,7 @@ def draw_boxes(image, boxes, scores,classO):
         score = scores[i].item()
         # print(score)
         draw.rectangle([x1, y1, x2, y2], outline=color, width=3)  # Draw bounding box
-        draw.text((x2+3, y1), f"{score:.2f} {classO[i]}", fill=color,stroke_width=1,font=font,spacing=20)  # Add score as text above the box
+        draw.text((x2+3, y1), f"{score:.2f} {class_names[classO[i]]}", fill=color,stroke_width=1,font=font,spacing=20)  # Add score as text above the box
         # draw.text((x1,y1), "test" , fill='green')
     # print("end_draw_image")
     return image
@@ -188,7 +188,7 @@ def prediction(path, output_folder,username):
                 original_size = original_image.size  # Get the original size (width, height)
                 # original_size = dataset.size_of_images[(batch_idx*batch_size) + i]
                 
-                images_path.append(dataset.image_paths[batch_idx * batch_size + i])
+                # images_path.append(dataset.image_paths[batch_idx * batch_size + i])
 
                 # Map the bounding boxes back to the original image size
                 resized_size = (size, size)  # The size after resizing (defined earlier in the transform)
@@ -199,6 +199,7 @@ def prediction(path, output_folder,username):
                 
                 # Save the image with bounding boxes
                 output_image_path = os.path.join(output_folder, f"image_{batch_idx * batch_size + i}_bbox.jpg")
+                images_path.append(os.path.join(output_folder, f"image_{batch_idx * batch_size + i}_bbox.jpg"))
                 image_with_boxes.save(output_image_path)
 
         stt = time.time()

@@ -1,18 +1,21 @@
+<link rel="stylesheet" href="../../static/css_style_home.css">
+<link rel="stylesheet" href="../../static/css_style_dash.css">
+<link rel="stylesheet" href="../../static/css_style_model.css">
+<link rel="stylesheet" href="../../static/css_style_login.css">
 {% extends "navbar.html" %}
 
 {% block content %}
 <!-- Model Navigation -->
 <div class="modelnav" id="modelnav">
     <div class="model-section-left">
-        <h2 style="margin-bottom: 20px;">Result Image</h2>
+        <h2 style="position: absolute; top: 0; left: 30%; transform: translateX(-50%);">Result Image</h2>
         {% if error %}
             <div class="alert alert-danger">
                 {{ error }}
             </div>
         {% endif %}
-        <div class="panel1">
+        <div class="panel1"style="width : 80%;height:80%;margin-top:15px;">
             <div class="panel-body">
-                <p id="uploads_img" style="margin: 0; color: black;">This is your images</p>
 
                 <!-- Placeholder to show when job is processing -->
                 <div id="processing-message" style="display:none;">
@@ -20,36 +23,36 @@
                 </div>
 
                 <!-- Image Display Area (Initially hidden) -->
-                <div id="image-display" style="display:none;">
-                    <!-- <h3>Processed Images:</h3> -->
-                    <div id="images-container"></div>
+                <div id="image-display">
+                    <!-- Display uploaded images and information -->
+                    <div id="images-container" style="max-width: 100%; max-height: 300px; overflow-y: auto;">
+                        <!-- <p>{{list_of_image_path}}</p> -->
+                        {% for image_path in list_of_image_path %}
+                            <!-- <div class="image-containerss" >
+                                <p>testttt</p> -->
+                                <!-- Display the image -->
+                                <img src="{{ url_for('static', filename=image_path) }}" alt="Processed Image" style="width: 200px; margin: 10px;">
+                            <!-- </div> -->
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Form for uploading files -->
-        <form id="upload-form" method="POST" enctype="multipart/form-data">
-            <div style="display: flex; justify-content: center; margin-top: 10px;">
-                <!-- ปุ่มย้อนกลับ -->
-                <!-- ปุ่มย้อนกลับไปหน้า home -->
-                <button type="button" class="back-button" onclick="window.location.href='home';">
-                    Back
-                </button>
-                <!-- ปุ่ม Delete -->
-                <button type="button" class="delete-button" onclick="deleteData();">
-                    DELETE
-                </button>
-            </div>
-        </form>
     </div>
 
     <div class="model-section-right">
         <h2>Equipment List</h2>
-        <div class="info-box-container">
-            <div class="info-box">
-                <p>Item 1: Information about the model.</p>
-                <p>More details can be added here as needed.</p>
-            </div>
+        <div id="img-info" style="max-height: 400px; overflow-y: auto;">
+            <!-- Jinja Loop for displaying image info -->
+            {% for image_info in list_of_image_info %}
+                <div class="info-box-container" style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; background-color: rgba(0, 0, 0, 0.4); border-radius: 8px;">
+                    {% for key, value in image_info.items() %}
+                        {% if value != 0 %}
+                            <p>{{ key }}: {{ value }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -57,60 +60,6 @@
 
 <!-- JavaScript for handling file uploads and job status -->
 <script>
-    document.getElementById('upload-form').onsubmit = async function (e) {
-        e.preventDefault();
-        const formData = new FormData();
-        const files = document.getElementById('file-input').files;
-        for (let i = 0; i < files.length; i++) {
-            formData.append('file', files[i]);
-        }
-
-        // Send files to the server
-        const response = await fetch('/rq-test/success', {
-            method: 'POST',
-            body: formData
-        });
-
-        const data = await response.json();
-        if (data.job_id) {
-            const imagesContainer = document.getElementById('images-container');
-            while (imagesContainer.firstChild) {
-            imagesContainer.removeChild(imagesContainer.firstChild);
-            }
-            document.getElementById('uploads_img').style.display = 'none';
-            document.getElementById('processing-message').style.display = 'block';
-            checkJobStatus(data.job_id);
-        }
-    };
-
-    // Poll the job status
-    async function checkJobStatus(jobId) {
-        const response = await fetch(`/rq-test/job-status/${jobId}`);
-        const data = await response.json();
-        console.log(data.status);
-
-        if (data.status === 'finished') {
-            document.getElementById('processing-message').style.display = 'none';
-            document.getElementById('image-display').style.display = 'block';
-
-            // Display the processed images
-            const imagesContainer = document.getElementById('images-container');
-            data.result.forEach(imagePath => {
-                const img = document.createElement('img');
-                // img.src = imagePath;
-                img.src = "{{ url_for('static', filename='') }}" + imagePath
-                img.alt = 'Processed Image';
-                img.style.width = '200px';
-                img.style.margin = '10px';
-                imagesContainer.appendChild(img);
-            });
-        } else if (data.status === 'in-progress') {
-            setTimeout(() => checkJobStatus(jobId), 2000);  // Poll every 2 seconds
-        } else {
-            alert('Job failed or unknown status.');
-        }
-    }
-
     function deleteData() {
         // Logic สำหรับลบข้อมูล สามารถส่งคำขอ AJAX หรือเปลี่ยนเส้นทางไปที่ URL สำหรับการลบข้อมูล
         if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้?")) {

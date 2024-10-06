@@ -115,10 +115,14 @@ async function checkJobStatus(jobId) {
             const img = document.createElement('img');
             img.src = "{{ url_for('static', filename='') }}" + imagePath;
             img.alt = 'Processed Image';
-            img.style.width = '200px';
+            img.classList.add('zoomable-image');  // เพิ่มคลาส zoomable-image
+            img.style.width = '300px';
             img.style.margin = '10px';
             imagesContainer.appendChild(img);
         });
+
+        // เรียกฟังก์ชัน addZoomFunctionality หลังจากแสดงรูปภาพทั้งหมด
+        addZoomFunctionality();
 
         // Display the image info in img-info section
         const listPart = document.getElementById('img-info');
@@ -133,11 +137,11 @@ async function checkJobStatus(jobId) {
 
             // Assuming imageInfo is an object with key-value pairs
             Object.entries(imageInfo).forEach(([key, value]) => {
-                if (value){
-                const dataClass = document.createElement('p');
-                dataClass.innerHTML = `${key}: ${value}`;
-                imgInfoDiv.appendChild(dataClass);
-            }
+                if (value) {
+                    const dataClass = document.createElement('p');
+                    dataClass.innerHTML = `${key}: ${value}`;
+                    imgInfoDiv.appendChild(dataClass);
+                }
             });
 
             listPart.appendChild(imgInfoDiv);
@@ -149,6 +153,66 @@ async function checkJobStatus(jobId) {
     }
 }
 
+// Function to add zoom functionality to images
+function addZoomFunctionality() {
+    document.querySelectorAll('.zoomable-image').forEach(img => {
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        // Zoom functionality using the wheel event
+        img.addEventListener('wheel', function(event) {
+            event.preventDefault();
+
+            let scale = Number(this.dataset.scale) || 1;
+            scale += event.deltaY * -0.01;
+
+            scale = Math.min(Math.max(.5, scale), 3);
+
+            this.style.transform = `scale(${scale})`;
+            this.dataset.scale = scale;
+        });
+
+        // Mouse down event to start dragging
+        img.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - img.offsetLeft;
+            startY = e.pageY - img.offsetTop;
+            scrollLeft = img.parentElement.scrollLeft;
+            scrollTop = img.parentElement.scrollTop;
+
+            img.style.cursor = 'grabbing';  // เปลี่ยนเคอร์เซอร์เมื่อกำลังลาก
+        });
+
+        // Mouse up event to stop dragging
+        img.addEventListener('mouseup', () => {
+            isDragging = false;
+            img.style.cursor = 'grab';  // เปลี่ยนเคอร์เซอร์กลับเมื่อหยุดลาก
+        });
+
+        // Mouse leave event to stop dragging if mouse leaves the image area
+        img.addEventListener('mouseleave', () => {
+            isDragging = false;
+            img.style.cursor = 'grab';
+        });
+
+        // Mouse move event to handle the dragging
+        img.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            e.preventDefault();
+            const x = e.pageX - img.offsetLeft;
+            const y = e.pageY - img.offsetTop;
+            const walkX = (x - startX) * 1.5; // Adjust the scroll speed as needed
+            const walkY = (y - startY) * 1.5;
+
+            img.parentElement.scrollLeft = scrollLeft - walkX;
+            img.parentElement.scrollTop = scrollTop - walkY;
+        });
+
+        // Set the cursor style for hover state
+        img.style.cursor = 'grab';
+    });
+}
 
     // function changeEmoji(stars) {
     //     var emojiElement = document.getElementById("emoji");

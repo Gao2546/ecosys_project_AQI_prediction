@@ -50,7 +50,7 @@
 </div>
 
 <!-- Satisfaction level with emoji -->
-<div class="Satisfaction-level">
+<!-- <div class="Satisfaction-level">
     <div class="emoji" id="emoji">😐</div>
     
     <div class="stars white">
@@ -69,7 +69,7 @@
         <input type="radio" name="star" id="star5" value="5">
         <label for="star5" onclick="changeEmoji(5)">★</label>
     </div>
-</div>
+</div> -->
 
 <!-- JavaScript for handling file uploads and job status -->
 <script>
@@ -150,33 +150,33 @@ async function checkJobStatus(jobId) {
 }
 
 
-    function changeEmoji(stars) {
-        var emojiElement = document.getElementById("emoji");
-        const labels = document.querySelectorAll('.stars label');
+    // function changeEmoji(stars) {
+    //     var emojiElement = document.getElementById("emoji");
+    //     const labels = document.querySelectorAll('.stars label');
 
-        labels.forEach((label, index) => {
-        label.style.color = index < stars ? "gold" : "gray"; // เปลี่ยนสีดาวที่ถูกเลือกและก่อนหน้า
-    });
+    //     labels.forEach((label, index) => {
+    //     label.style.color = index < stars ? "gold" : "gray"; // เปลี่ยนสีดาวที่ถูกเลือกและก่อนหน้า
+    // });
 
-        switch (stars) {
-            case 1:
-                emojiElement.textContent = "😞";
-                break;
-            case 2:
-                emojiElement.textContent = "🙁";
-                break;
-            case 3:
-                emojiElement.textContent = "😐";
-                break;
-            case 4:
-                emojiElement.textContent = "🙂";
-                break;
-            case 5:
-                emojiElement.textContent = "😄";
-                break;
-            default:
-                emojiElement.textContent = "😐";
-        }
-    }
+    //     switch (stars) {
+    //         case 1:
+    //             emojiElement.textContent = "😞";
+    //             break;
+    //         case 2:
+    //             emojiElement.textContent = "🙁";
+    //             break;
+    //         case 3:
+    //             emojiElement.textContent = "😐";
+    //             break;
+    //         case 4:
+    //             emojiElement.textContent = "🙂";
+    //             break;
+    //         case 5:
+    //             emojiElement.textContent = "😄";
+    //             break;
+    //         default:
+    //             emojiElement.textContent = "😐";
+    //     }
+    // }
 </script>
 {% endblock %}

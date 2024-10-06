@@ -17,15 +17,15 @@
 </head>
 <body>
 <div class="bg-img">
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" style="height: 56px; width: 100%; background-color: rgba(255,255,255,0.4);">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong" style="height: 56px; width: 100%;  justify-content: center; font-family: sans-serif;">
         <div class="container-fluid" style="height: 100%; width: 100%;">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#" style="color: white;">☁ MY PROJECT</a>                                  
+            <a class="navbar-brand" href="#" style="color: white;  font-family: sans-serif;">MY PROJECT</a>                                  
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{{ url_for('rq-test.home') }}" class="glyphicon glyphicon-home" style="color: white;"> HOME</a></li>
+            <li class="active"><a href="{{ url_for('rq-test.home') }}"  style="color: white;  font-family: sans-serif;"> HOME</a></li>
             <!-- <li><a href="{{ url_for('rq-test.dashboard') }}" class="fa fa-tv" style="color: white;"> DASHBOARD</a></li> -->
-            <li><a href="{{ url_for('rq-test.model') }}" class="fa fa-cubes" onclick="toggleModelNav()" style="color: white;"> MODEL</a></li>
+            <li><a href="{{ url_for('rq-test.model') }}" onclick="toggleModelNav()" style="color: white;  font-family: sans-serif;"> MODEL</a></li>
           </ul>
           {% if session.get('username') %}
           <li class="nav-item dropdown" style="display: flex; position: absolute; top: 20%; left: 90%;">
@@ -35,14 +35,14 @@
             </a>
             <!-- แสดงชื่อเมื่อ hover -->
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="text-align: center; background-color: #1b1c1e;">
-              <a class="dropdown-item" style="font-size: 16px; transition:font-size 0.3s ease; color: aliceblue;" href="#">{{ session['username'] }}</a>
+              <a class="dropdown-item" style="font-size: 16px; transition:font-size 0.3s ease; color: aliceblue;  font-family: sans-serif;" href="#">{{ session['username'] }}</a>
             </div>
           </li>
           {% endif %}
           <a href="{{ url_for('rq-test.logout') }}" class="btn btn-danger logout-btn">Logout</a>
           
           <!-- User Count Display -->
-          <div class="navbar-text" style="color: white; position: absolute; top: 15%; right: 10%;">
+          <div class="navbar-text" style="color: white; position: absolute; top: 15%; right: 10%;  font-family: sans-serif;">
             <span id="userCount">Users Online: 0</span>
           </div>
         </div>

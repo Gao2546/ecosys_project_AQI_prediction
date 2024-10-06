@@ -155,7 +155,7 @@ box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 border-radius: 15px;
 overflow: hidden;
 position: absolute; /* ให้ Navbar อยู่ที่ตำแหน่งที่ต้องการ */
-top: 20%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+top: 10%; /* จัดให้อยู่ตรงกลางแนวตั้ง */
 left: 12.5%; /* จัดให้อยู่ตรงกลางแนวนอน */
 }
 

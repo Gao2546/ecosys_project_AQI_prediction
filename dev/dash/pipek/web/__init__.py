@@ -24,6 +24,7 @@ def create_app():
     flask_app.config['SECRET_KEY'] = 'your_secret_key_here'
     flask_app.config.from_object("pipek.default_settings")
     flask_app.config.from_envvar("PIPEK_SETTINGS", silent=True)
+    flask_app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100 MB
 
     load_dotenv()
     pipek_env = os.environ.get("PIPEK_ENV", ".env")

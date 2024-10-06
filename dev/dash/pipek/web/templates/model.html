@@ -143,7 +143,7 @@ async function checkJobStatus(jobId) {
             listPart.appendChild(imgInfoDiv);
         });
     } else if (data.status === 'in-progress') {
-        setTimeout(() => checkJobStatus(jobId), 2000);  // Poll every 2 seconds
+        setTimeout(() => checkJobStatus(jobId), 1000);  // Poll every 2 seconds
     } else {
         alert('Job failed or unknown status.');
     }

@@ -10,7 +10,7 @@ from ... import models
 import pickle
 import shutil
 
-module = Blueprint("rq-test", __name__, url_prefix="/rq-test")
+module = Blueprint("schematic", __name__, url_prefix="/schematic")
 custom_format = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
 
 # In-memory mock user data for login/register (use a database in real-world cases)
@@ -38,26 +38,16 @@ def force_remove_readonly(func, path, excinfo):
     os.chmod(path, 0o777)  # Change the permission to writable
     func(path)
 
-job_id = 0
 
 # Route for job testing (existing route)
 @module.route("/")
 def index():
-    global job_id
-    job_id += 1
-    job = redis_rq.redis_queue.queue.enqueue(
-        hello_rq.say_hello_rq,
-        args=(f"thanathip - {job_id}",),
-        job_id=f"hello-{job_id}",
-        timeout=600,
-        job_timeout=600,
-    )
-    return f"Hello world {job.id}"
+    return redirect(url_for('schematic.home'))
 
-@module.route("/state")
-def check_job_state():
-    job = redis_rq.redis_queue.get_job(f"hello-{job_id}")
-    return f"Hello world {job.id} {job.result}"
+# @module.route("/state")
+# def check_job_state():
+#     job = redis_rq.redis_queue.get_job(f"hello-{job_id}")
+#     return f"Hello world {job.id} {job.result}"
 
 @module.route('/user_count', methods=['GET'])
 def get_user_count():
@@ -92,7 +82,7 @@ def login():
                     User[0].status = 1
                     db.session.commit()
                     flash(f'Welcome, {username}!', 'success')
-                    return redirect(url_for('rq-test.home'))  # Redirect to home
+                    return redirect(url_for('schematic.home'))  # Redirect to home
                 else:
                     flash('Invalid username or password', 'danger')
     return render_template('login.html', form_log=form_log )
@@ -126,7 +116,7 @@ def register():
                 # Add the new user to in-memory dictionary
                 users[username] = password
                 flash(f'Account created for {username}!', 'success')
-                return redirect(url_for('rq-test.login'))
+                return redirect(url_for('schematic.login'))
 
     return render_template('register.html',form_reg=form_reg )
 
@@ -134,7 +124,7 @@ def register():
 @module.route("/home")
 def home():
     if 'username' not in session:
-        return redirect(url_for('rq-test.login'))
+        return redirect(url_for('schematic.login'))
     db = models.db
     history_data = db.session.execute(
         db.select(models.Output).where(models.Output.username == session['username']).order_by(models.Output.created_date)
@@ -167,7 +157,7 @@ def delete_record(id):
 @module.route("/logout")
 def logout():
     if 'username' not in session:
-        return redirect(url_for('rq-test.login'))
+        return redirect(url_for('schematic.login'))
     db = models.db
     User = db.session.execute(
     db.select(models.User).where(models.User.username == session['username'])
@@ -176,13 +166,13 @@ def logout():
     db.session.commit()
     session.pop('username', None)  # Clear session
     flash('You have been logged out.', 'info')
-    return redirect(url_for('rq-test.login'))
+    return redirect(url_for('schematic.login'))
 
 @module.route('/success', methods=['POST'])   
 def success():
     global custom_format  
     if 'username' not in session:
-        return redirect(url_for('rq-test.login'))
+        return redirect(url_for('schematic.login'))
     if request.method == 'POST':  
         path = "./pipek/web/static/images"
         user = session['username']
@@ -249,20 +239,20 @@ def job_status(job_id):
 @module.route("/dashboard")
 def dashboard():
     if 'username' not in session:
-        return redirect(url_for('rq-test.login'))
+        return redirect(url_for('schematic.login'))
     return render_template("dashboard.html")
 
 @module.route("/model")
 def model():
     if 'username' not in session:
-        return redirect(url_for('rq-test.login'))
+        return redirect(url_for('schematic.login'))
     return render_template("model.html",display = False,paths = None)
 
 @module.route("/result/<int:id>",methods=['GET','POST'])
 def result(id):
     result_id = id
     if 'username' not in session:
-        return redirect(url_for('rq-test.login'))
+        return redirect(url_for('schematic.login'))
     db = models.db
     record_to_data = db.session.get(models.Output, id)
     # if len(record_to_data.filename) > 0:

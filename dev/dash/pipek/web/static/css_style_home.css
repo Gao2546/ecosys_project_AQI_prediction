@@ -54,7 +54,7 @@ html, body {
     width: 95%; /* ความกว้างของส่วนซ้าย */
     display: flex;
     flex-direction: column; /* เรียงเป็นแนวตั้ง */
-    height: 25%; /* ใช้พื้นที่เต็มของส่วนนี้ */
+    height: 60px; /* ใช้พื้นที่เต็มของส่วนนี้ */
     color: white;
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 8px;

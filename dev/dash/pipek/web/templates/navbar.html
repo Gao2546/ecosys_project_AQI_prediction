@@ -23,9 +23,9 @@
             <a class="navbar-brand" href="#" style="color: white;  font-family: sans-serif;">MY PROJECT</a>                                  
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{{ url_for('rq-test.home') }}"  style="color: white;  font-family: sans-serif;"> HOME</a></li>
-            <!-- <li><a href="{{ url_for('rq-test.dashboard') }}" class="fa fa-tv" style="color: white;"> DASHBOARD</a></li> -->
-            <li><a href="{{ url_for('rq-test.model') }}" onclick="toggleModelNav()" style="color: white;  font-family: sans-serif;"> MODEL</a></li>
+            <li class="active"><a href="{{ url_for('schematic.home') }}"  style="color: white;  font-family: sans-serif;"> HOME</a></li>
+            <!-- <li><a href="{{ url_for('schematic.dashboard') }}" class="fa fa-tv" style="color: white;"> DASHBOARD</a></li> -->
+            <li><a href="{{ url_for('schematic.model') }}" onclick="toggleModelNav()" style="color: white;  font-family: sans-serif;"> MODEL</a></li>
           </ul>
           {% if session.get('username') %}
           <li class="nav-item dropdown" style="display: flex; position: absolute; top: 20%; left: 90%;">
@@ -39,7 +39,7 @@
             </div>
           </li>
           {% endif %}
-          <a href="{{ url_for('rq-test.logout') }}" class="btn btn-danger logout-btn">Logout</a>
+          <a href="{{ url_for('schematic.logout') }}" class="btn btn-danger logout-btn">Logout</a>
           
           <!-- User Count Display -->
           <div class="navbar-text" style="color: white; position: absolute; top: 15%; right: 10%;  font-family: sans-serif;">
@@ -56,7 +56,7 @@
 <!-- JavaScript to fetch and display user count -->
 <script>
     function fetchUserCount() {
-        fetch('/rq-test/user_count')
+        fetch('/schematic/user_count')
         .then(response => response.json())
         .then(data => {
             document.getElementById('userCount').textContent = 'Users Online: ' + data.count;

@@ -82,7 +82,7 @@ document.getElementById('upload-form').onsubmit = async function (e) {
     }
 
     // Send files to the server
-    const response = await fetch('/rq-test/success', {
+    const response = await fetch('/schematic/success', {
         method: 'POST',
         body: formData
     });
@@ -101,7 +101,7 @@ document.getElementById('upload-form').onsubmit = async function (e) {
 
 // Poll the job status
 async function checkJobStatus(jobId) {
-    const response = await fetch(`/rq-test/job-status/${jobId}`);
+    const response = await fetch(`/schematic/job-status/${jobId}`);
     const data = await response.json();
     console.log(data.status);
 

@@ -34,10 +34,10 @@
             </div>
         </div>
         <div style="margin-top: 2px;">
-            <a href="{{ url_for('rq-test.home') }}">
+            <a href="{{ url_for('schematic.home') }}">
             <button class="back-button" type="button">Back to Home</button>
             </a>
-            <form method="POST" action="/rq-test/delete/{{result_id}}" style="display:inline;">
+            <form method="POST" onsubmit='return deleteData("{{ result_id }}")' style="display:inline;">
                 <input class="delete-button" type="submit" value="Delete" style="background-color: #c71f01; color: white ; margin-left: 10px;">
             </form>
         </div>
@@ -151,5 +151,32 @@
 window.onload = function() {
     addZoomFunctionality();
     };
+
+    function deleteData(result_id) {
+    if (confirm("Are you sure you want to delete this record?")) {
+        fetch(`/schematic/delete/${result_id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // alert(data.message);
+
+                // Remove the corresponding user-time element
+                window.location.href = "/schematic/home"
+            } else {
+                alert(`Error: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while processing your request.');
+        });
+    }
+    return false;  // Prevent default form submission
+}
 </script>
 {% endblock %}

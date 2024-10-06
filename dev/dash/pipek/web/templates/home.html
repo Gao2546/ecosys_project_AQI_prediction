@@ -12,7 +12,7 @@
             <!-- <button type="button" onclick="window.location.href='result';" style="width: 55px; height: 25px; background-color: #00bbff; color:white; position: absolute; top:35%; left: 85%;">
                 View
             </button> -->
-            <form method="POST" action="/rq-test/result/{{ record.id }}" style="display:inline;">
+            <form method="POST" action="/schematic/result/{{ record.id }}" style="display:inline;">
                 <input type="submit" value="View" style="width: 55px; height: 25px; background-color: #00bbff; color:white; position: absolute; top:30%; left: 85%;">
             </form>
             <form method="POST" id = "delete-data" onsubmit='return deleteData("{{ record.id }}")'  style="display:inline;">
@@ -25,7 +25,7 @@
 <script>
     function deleteData(result_id) {
     if (confirm("Are you sure you want to delete this record?")) {
-        fetch(`/rq-test/delete/${result_id}`, {
+        fetch(`/schematic/delete/${result_id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,7 +34,7 @@
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                alert(data.message);
+                // alert(data.message);
 
                 // Remove the corresponding user-time element
                 const userTimeElement = document.getElementById(result_id);
@@ -52,41 +52,5 @@
     }
     return false;  // Prevent default form submission
 }
-
-
-//     function deleteData(result_id) {
-//     if (confirm("Are you sure you want to delete this record?")) {
-//         fetch(`/rq-test/delete/${result_id}`, {
-//             method: 'DELETE',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//         })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.status === 'success') {
-//                 alert(data.message);
-
-//                 // Remove the corresponding image element
-//                 const imageElement = document.querySelector(`#image-${data.id}`);
-//                 if (imageElement) {
-//                     imageElement.remove();
-//                 }
-
-//                 // Remove the corresponding info box element
-//                 const infoBoxElement = document.querySelector(`#info-box-${data.id}`);
-//                 if (infoBoxElement) {
-//                     infoBoxElement.remove();
-//                 }
-//             } else {
-//                 alert(`Error: ${data.message}`);
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//             alert('An error occurred while processing your request.');
-//         });
-//     }
-// }
 </script>
 {% endblock %}

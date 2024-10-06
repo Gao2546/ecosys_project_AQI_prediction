@@ -49,16 +49,17 @@ def after_session_timeout(name):
     db.session.commit()
     print("Session has expired, performing cleanup...")
     # For example, logging out the user, clearing data, etc.
-exp_time = 10
+exp_time = 10.0
 
 @module.before_request
 def check_session_timeout():
     session.permanent = True  # Make the session permanent to apply timeout
     now = time.time()
     if "last_active" in session:
+        # session.clear()
         last_active = session["last_active"] 
         # Check if the session has expired
-        if (now - last_active) > exp_time:
+        if (100) > 0:
             # Session expired, run the callback
             after_session_timeout(session['username'])
             # Optionally clear the session
@@ -67,8 +68,7 @@ def check_session_timeout():
             return redirect(url_for("login"))  # Redirect to login or any other page
     if request.endpoint in ('schematic.user_count', 'static'):  # Add any endpoint you want to ignore
         return  # Skip session timeout check for these endpoints
-    else:
-        session["last_active"] = now  # Update last active time on each request
+    session["last_active"] = now  # Update last active time on each request
 
 
 # Route for job testing (existing route)

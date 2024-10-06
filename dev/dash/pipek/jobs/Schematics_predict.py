@@ -120,17 +120,42 @@ def convert_cxcywh_to_xyxy(boxes):
     return new_boxes
 
 
-def draw_boxes(image, boxes, scores,classO):
+# def draw_boxes(image, boxes, scores,classO):
+#     draw = ImageDraw.Draw(image)
+#     for i, box in enumerate(boxes):
+#         color = random_rgb_color()
+#         x1, y1, x2, y2 = box
+#         score = scores[i].item()
+#         # print(score)
+#         draw.rectangle([x1, y1, x2, y2], outline=color, width=3)  # Draw bounding box
+#         draw.text((x2+3, y1), f"{score:.2f} {class_names[classO[i]]}", fill=color,stroke_width=1,font=font,spacing=20)  # Add score as text above the box
+#         # draw.text((x1,y1), "test" , fill='green')
+#     # print("end_draw_image")
+#     return image
+
+def draw_boxes(image, boxes, scores, classO, orig_size):
     draw = ImageDraw.Draw(image)
+    orig_w, orig_h = orig_size  # Get the original size of the image
+    
+    # Scale factors based on the original image size
+    text_size_factor = (min(orig_w, orig_h) / 640) * 2 # Assuming 640 is your model input size
+    box_thickness = max(1, int(3 * text_size_factor))  # Make bounding box thickness proportional to original size
+    
     for i, box in enumerate(boxes):
         color = random_rgb_color()
         x1, y1, x2, y2 = box
         score = scores[i].item()
-        # print(score)
-        draw.rectangle([x1, y1, x2, y2], outline=color, width=3)  # Draw bounding box
-        draw.text((x2+3, y1), f"{score:.2f} {class_names[classO[i]]}", fill=color,stroke_width=1,font=font,spacing=20)  # Add score as text above the box
-        # draw.text((x1,y1), "test" , fill='green')
-    # print("end_draw_image")
+
+        # Draw bounding box with scaled thickness
+        draw.rectangle([x1, y1, x2, y2], outline=color, width=box_thickness)  # Draw bounding box
+        
+        # Calculate scaled font size for the score text
+        font_size_scaled = int(font_size * text_size_factor)  # Scale font size based on original image size
+        font_scaled = ImageFont.load_default(font_size_scaled)
+
+        # Draw the text above the bounding box
+        draw.text((x2 + 3, y1), f"{score:.2f} {class_names[classO[i]]}", fill=color, font=font_scaled)
+        
     return image
 
 # Load your model
@@ -195,7 +220,7 @@ def prediction(path, output_folder,username):
                 mapped_boxes = map_boxes_to_original_size(filtered_boxes, original_size, resized_size)
 
                 # Draw boxes on the original image using the mapped coordinates
-                image_with_boxes = draw_boxes(original_image, mapped_boxes, filtered_scores,filtered_class)
+                image_with_boxes = draw_boxes(original_image, mapped_boxes, filtered_scores,filtered_class,original_size)
                 
                 # Save the image with bounding boxes
                 output_image_path = os.path.join(output_folder, f"image_{batch_idx * batch_size + i}_bbox.jpg")

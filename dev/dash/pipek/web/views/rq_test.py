@@ -49,7 +49,7 @@ def after_session_timeout(name):
     db.session.commit()
     print("Session has expired, performing cleanup...")
     # For example, logging out the user, clearing data, etc.
-exp_time = 10.0
+exp_time = 10
 
 @module.before_request
 def check_session_timeout():
@@ -60,15 +60,20 @@ def check_session_timeout():
         last_active = session["last_active"] 
         # Check if the session has expired
         if (now - last_active) > exp_time:
-            # Session expired, run the callback
-            after_session_timeout(session['username'])
+            # Session expired, run the callback\
+            if 'username' not in session:
+                form_log = LoginForm()
+                session["last_active"] = now
+                return render_template('login.html', form_log=form_log )
+            after_session_timeout(session["username"])
             # Optionally clear the session
             session.clear()
             flash("Session has timed out.")
-            return redirect(url_for("login"))  # Redirect to login or any other page
-    if request.endpoint in ('schematic.user_count', 'static'):  # Add any endpoint you want to ignore
-        return  # Skip session timeout check for these endpoints
+            return redirect(url_for("schematic.login"))  # Redirect to login or any other page
+    if request.endpoint in ('schematic.get_user_count','schematic.login', 'static'):  # Add any endpoint you want to ignore
+        return # Skip session timeout check for these endpoints
     session["last_active"] = now  # Update last active time on each request
+    flash("pass")
 
 
 # Route for job testing (existing route)
@@ -155,6 +160,7 @@ def register():
 # Home route (requires login)
 @module.route("/home")
 def home():
+    # module.logger.info('Info message: Home route was accessed.')
     if 'username' not in session:
         return redirect(url_for('schematic.login'))
     db = models.db

@@ -322,10 +322,10 @@ border-radius: 5px;
 }
 /* <---------------------------------------rusult page-----------------------> */
 .back-button {
-    background-color: #ff7700;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
+    background-color: #1220e7;
+    color: rgb(255, 255, 255);
+    padding: 8px 16px;
+    font-size: 14px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -336,8 +336,8 @@ border-radius: 5px;
 .delete-button {
     background-color: red;
     color: white;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 8px 16px;
+    font-size: 14px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -347,10 +347,10 @@ border-radius: 5px;
 
 /* เพิ่มลักษณะเมื่อ hover สำหรับปุ่ม Back */
 .back-button:hover {
-    background-color: #e65c00;
+    background-color: #30c1e6;
 }
 
 /* เพิ่มลักษณะเมื่อ hover สำหรับปุ่ม Delete */
 .delete-button:hover {
-    background-color: #cc0000;
+    background-color: #500101;
 }

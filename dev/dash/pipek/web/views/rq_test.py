@@ -275,6 +275,7 @@ def model():
 
 @module.route("/result/<int:id>",methods=['GET','POST'])
 def result(id):
+    result_id = id
     if 'username' not in session:
         return redirect(url_for('rq-test.login'))
     db = models.db
@@ -284,4 +285,4 @@ def result(id):
     # else:
     #     path = [record_to_data.filename.strip('{}').strip('"'),]
     # output_files = [os.path.join(output_path, imgpath) for imgpath in os.listdir(record_to_data.path) if imgpath.endswith(('.png', '.jpg', '.jpeg'))]
-    return render_template("result.html",list_of_image_path = path,list_of_image_info = record_to_data.results)
+    return render_template("result.html",list_of_image_path = path,list_of_image_info = record_to_data.results , result_id = result_id)

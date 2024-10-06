@@ -14,7 +14,7 @@
                 {{ error }}
             </div>
         {% endif %}
-        <div class="panel1"style="width : 80%;height:80%;margin-top:15px;">
+        <div class="panel1"style="width : 80%;height:80%;margin-top:50px;">
             <div class="panel-body">
 
                 <!-- Placeholder to show when job is processing -->
@@ -35,8 +35,17 @@
                             <!-- </div> -->
                         {% endfor %}
                     </div>
-                </div>
+                           
+                </div>  
             </div>
+        </div>
+        <div style="margin-top: 2px;">
+            <a href="{{ url_for('rq-test.home') }}">
+            <button class="back-button" type="button">Back to Home</button>
+            </a>
+            <form method="POST" action="/rq-test/delete/{{result_id}}" style="display:inline;">
+                <input class="delete-button" type="submit" value="Delete" style="background-color: #c71f01; color: white ; margin-left: 10px;">
+            </form>
         </div>
     </div>
 

@@ -27,6 +27,7 @@
                     <!-- Display uploaded images and information -->
                     <div id="images-container" style="max-width: 100%; max-height: 100%; overflow-y: auto;">
                         {% for image_path in list_of_image_path %}
+                            <p>Image : {{loop.index}}</p>
                             <img class="zoomable-image" src="{{ url_for('static', filename=image_path) }}" alt="Processed Image" style="width: 400px; margin: 10px;">
                         {% endfor %}
                     </div>          
@@ -49,6 +50,8 @@
             <!-- Jinja Loop for displaying image info -->
             {% for image_info in list_of_image_info %}
                 <div class="info-box-container" style="border: 1px solid #ccc; margin-bottom: 10px; padding: 10px; background-color: rgba(0, 0, 0, 0.4); border-radius: 8px;">
+                    <p>Image : {{loop.index}}</p>
+                    <hr>
                     {% for key, value in image_info.items() %}
                         {% if value != 0 %}
                             <p>{{ key }}: {{ value }}</p>

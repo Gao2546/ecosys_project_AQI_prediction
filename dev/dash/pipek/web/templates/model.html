@@ -111,7 +111,12 @@ async function checkJobStatus(jobId) {
 
         // Display the processed images
         const imagesContainer = document.getElementById('images-container');
-        data.result.forEach(imagePath => {
+        data.result.forEach((imagePath,index) => {
+            const number_img = document.createElement("p");
+            number_img.innerHTML = "Image : " + index;
+            imagesContainer.appendChild(number_img);
+            const line = document.createElement("hr");
+            imagesContainer.appendChild(line)
             const img = document.createElement('img');
             img.src = "{{ url_for('static', filename='') }}" + imagePath;
             img.alt = 'Processed Image';
@@ -126,8 +131,11 @@ async function checkJobStatus(jobId) {
 
         // Display the image info in img-info section
         const listPart = document.getElementById('img-info');
-        data.result_summary.forEach(imageInfo => {
+        data.result_summary.forEach((imageInfo,index) => {
+            const number_img_info = document.createElement("p");
+            number_img_info.innerHTML = "Image : " + index;
             const imgInfoDiv = document.createElement('div');
+            imgInfoDiv.appendChild(number_img_info)
             // Add inline styles for each imgInfoDiv
             imgInfoDiv.style.border = "1px solid #ccc";
             imgInfoDiv.style.marginBottom = "10px";

@@ -15,6 +15,8 @@ from .. import models
 
 from . import acl
 from . import redis_rq
+from flask import Flask, session
+from datetime import timedelta
 
 # from . import oauth2
 
@@ -25,6 +27,7 @@ def create_app():
     flask_app.config.from_object("pipek.default_settings")
     flask_app.config.from_envvar("PIPEK_SETTINGS", silent=True)
     flask_app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # 100 MB
+    flask_app.permanent_session_lifetime = timedelta(minutes=1)
 
     load_dotenv()
     pipek_env = os.environ.get("PIPEK_ENV", ".env")

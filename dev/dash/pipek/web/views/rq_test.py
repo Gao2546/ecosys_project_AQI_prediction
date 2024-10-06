@@ -6,6 +6,7 @@ from .. import redis_rq
 from pipek.jobs import hello_rq, Schematics_predict
 import os
 from datetime import datetime
+import time
 from ... import models
 import pickle
 import shutil
@@ -37,6 +38,37 @@ def force_remove_readonly(func, path, excinfo):
     # This function handles the case where some files are read-only
     os.chmod(path, 0o777)  # Change the permission to writable
     func(path)
+
+def after_session_timeout(name):
+    # Your callback function to be called after session timeout
+    db = models.db
+    User = db.session.execute(
+    db.select(models.User).where(models.User.username == name)
+    ).scalars().fetchall()
+    User[0].status = 0
+    db.session.commit()
+    print("Session has expired, performing cleanup...")
+    # For example, logging out the user, clearing data, etc.
+exp_time = 10
+
+@module.before_request
+def check_session_timeout():
+    session.permanent = True  # Make the session permanent to apply timeout
+    now = time.time()
+    if "last_active" in session:
+        last_active = session["last_active"] 
+        # Check if the session has expired
+        if (now - last_active) > exp_time:
+            # Session expired, run the callback
+            after_session_timeout(session['username'])
+            # Optionally clear the session
+            session.clear()
+            flash("Session has timed out.")
+            return redirect(url_for("login"))  # Redirect to login or any other page
+    if request.endpoint in ('schematic.user_count', 'static'):  # Add any endpoint you want to ignore
+        return  # Skip session timeout check for these endpoints
+    else:
+        session["last_active"] = now  # Update last active time on each request
 
 
 # Route for job testing (existing route)

@@ -41,6 +41,8 @@ services:
   
 
   postgresql:
+    hostname: proj-postgresql-1
+    container_name: proj-postgresql-1
     image: docker.io/library/postgres:16
     restart: unless-stopped
     healthcheck:

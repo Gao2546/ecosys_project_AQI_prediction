@@ -8,6 +8,7 @@ import os
 from datetime import datetime
 from ... import models
 import pickle
+import shutil
 
 module = Blueprint("rq-test", __name__, url_prefix="/rq-test")
 custom_format = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
@@ -32,6 +33,10 @@ class RegisterForm(FlaskForm):
     def validate_username(self, username):
         if username.data in users:
             raise ValidationError('Username already exists. Please choose another.')
+def force_remove_readonly(func, path, excinfo):
+    # This function handles the case where some files are read-only
+    os.chmod(path, 0o777)  # Change the permission to writable
+    func(path)
 
 job_id = 0
 
@@ -182,6 +187,9 @@ def delete_record(id):
     
     db = models.db
     record_to_delete = db.session.get(models.Output, id)
+    path_to_delete = record_to_delete.path.replace("output","")
+    # os.rmdir(path_to_delete)
+    shutil.rmtree(path_to_delete, onerror=force_remove_readonly)
     if record_to_delete:
         db.session.delete(record_to_delete)
         db.session.commit()

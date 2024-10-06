@@ -106,12 +106,13 @@ def login():
             ).scalars().fetchall()
 
             # Check credentials
-            if (username == User[0].username) and (User[0].password == password):
-                session['username'] = username  # Store user in session
-                flash(f'Welcome, {username}!', 'success')
-                return redirect(url_for('rq-test.home'))  # Redirect to home
-            else:
-                flash('Invalid username or password', 'danger')
+            if len(User) > 0:
+                if (username == User[0].username) and (User[0].password == password):
+                    session['username'] = username  # Store user in session
+                    flash(f'Welcome, {username}!', 'success')
+                    return redirect(url_for('rq-test.home'))  # Redirect to home
+                else:
+                    flash('Invalid username or password', 'danger')
     return render_template('login.html', form_log=form_log )
 
 # Register route

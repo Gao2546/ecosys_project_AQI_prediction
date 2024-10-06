@@ -127,23 +127,6 @@ def register():
                 users[username] = password
                 flash(f'Account created for {username}!', 'success')
                 return redirect(url_for('rq-test.login'))
-        
-    # if form_log.validate_on_submit():
-    #     username = form_log.username.data
-    #     password = form_log.password.data
-
-    #     db = models.db
-    #     User = db.session.execute(
-    #     db.select(models.users.User).order_by(models.users.User.id)
-    #     ).scalars()
-
-    #     # Check credentials
-    #     if (username == User.username) and (User.password == password):
-    #         session['username'] = username  # Store user in session
-    #         flash(f'Welcome, {username}!', 'success')
-    #         return redirect(url_for('rq-test.home'))  # Redirect to home
-    #     else:
-    #         flash('Invalid username or password', 'danger')
 
     return render_template('register.html',form_reg=form_reg )
 
@@ -158,25 +141,27 @@ def home():
     ).scalars().fetchall()
     return render_template("home.html",history_data = history_data)
 
-@module.route('/delete/<int:id>', methods=['POST'])
+@module.route('/delete/<int:id>', methods=['POST','GET','DELETE'])
 def delete_record(id):
     if 'username' not in session:
-        return redirect(url_for('rq-test.login'))
+        return jsonify({'message': 'User not logged in', 'status': 'error'}), 401
     
     db = models.db
     record_to_delete = db.session.get(models.Output, id)
-    path_to_delete = record_to_delete.path.replace("output","")
-    # os.rmdir(path_to_delete)
-    shutil.rmtree(path_to_delete, onerror=force_remove_readonly)
+
     if record_to_delete:
+        path_to_delete = record_to_delete.path.replace("output", "")
+        try:
+            shutil.rmtree(path_to_delete, onerror=force_remove_readonly)
+        except Exception as e:
+            return jsonify({'message': f'Error deleting files: {str(e)}', 'status': 'error'}), 500
+
         db.session.delete(record_to_delete)
         db.session.commit()
-        flash("Record deleted successfully", "success")
+
+        return jsonify({'message': 'Record deleted successfully', 'status': 'success', 'id': id}), 200
     else:
-        flash("Record not found", "danger")
-
-    return redirect(url_for('rq-test.home'))
-
+        return jsonify({'message': 'Record not found', 'status': 'error'}), 404
 
 # Route to logout
 @module.route("/logout")

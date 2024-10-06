@@ -33,7 +33,7 @@ default_args = {
 dag = DAG(
     'count_users_dag',
     default_args=default_args,
-    schedule_interval=timedelta(seconds=30),  # Set the interval to every 30 seconds
+    schedule_interval=timedelta(seconds=5),  # Set the interval to every 30 seconds
     catchup=False
 )
 

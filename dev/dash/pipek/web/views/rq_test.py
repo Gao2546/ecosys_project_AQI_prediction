@@ -215,10 +215,12 @@ def job_status(job_id):
             db.session.add(output_table)
             db.session.commit()
 
+            print(images_class)
+
             # class_list = db.session.execute(
             # db.select(models.Output).where((models.Output.username == session['username']) and (models.Output.path == output_list_file))
             # ).scalars().fetchall()
-            return jsonify({"status": "finished", "result": output_files , "result_summary" : list(images_class)})
+            return jsonify({"status": "finished", "result": output_files , "result_summary" : images_class})
         elif job.is_failed:
             return jsonify({"status": "failed"})
         else:

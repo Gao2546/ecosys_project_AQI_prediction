@@ -160,12 +160,12 @@ def prediction(path, output_folder):
     # Time the inference
     with torch.no_grad():
         st = time.time()
-        total_class_counts = {class_name: 0 for class_name in class_names}
         for batch_idx, inputs in enumerate(data_loader):  # Iterate over the images in the folder
             inputs = inputs.to(device="cpu", dtype=torch.float32)  # Move the input to the device (GPU)
             output = model(inputs)
 
             for i, out in enumerate(output[0].to(device="cpu")):
+                total_class_counts = {class_name: 0 for class_name in class_names}
                 filtered_boxes, filtered_scores, filtered_class = nms_function(output=out.to(device="cpu"))
                 images_bbox.append(filtered_boxes)
                 images_score.append(filtered_scores)

@@ -13,6 +13,33 @@ services:
         max-size: "10m"
         max-file: "3"
 
+  postgres:
+    hostname: postgres
+    container_name: postgres
+    image: 'postgres:14-bullseye'
+    environment:
+        POSTGRES_USER: 'airflow'
+        POSTGRES_PASSWORD: 'airflow'
+        POSTGRES_DB: 'airflow'
+        PGDATA: /data/postgres
+    volumes:
+        - postgres:/data/postgres
+    ports:
+        - "5432:5432"
+    # networks:
+    #     - airflow
+    restart: on-failure
+    healthcheck:
+        test: ["CMD", "pg_isready"]
+        interval: 60s
+        timeout: 20s
+        retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 400MB
+  
+
   postgresql:
     image: docker.io/library/postgres:16
     restart: unless-stopped
@@ -23,7 +50,7 @@ services:
       retries: 5
       timeout: 5s
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
       - postgresql_data:/var/lib/postgresql/data
     environment:
@@ -115,6 +142,37 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+  
+  airflow-webserver:
+        hostname: airflow
+        container_name: airflow
+        image: andrejunior/airflow-spark:latest
+        # image: docker-airflow2:latest
+        restart: always
+        # networks:
+        #     - airflow
+        depends_on:
+            - postgres
+            # - minio
+            # - spark-master
+            # - spark-worker
+        environment:   
+            - AIRFLOW__CORE__LOAD_EXAMPLES=False
+            - LOAD_EX=n
+            - EXECUTOR=Local    
+        volumes:
+            - airflow-data:/usr/local/airflow/data
+            - ./src/dags:/usr/local/airflow/dags
+            - ./src/spark/applications:/usr/local/spark/applications            
+            - ./src/spark/assets:/usr/local/spark/assets     
+        ports:
+            - "8085:8080"
+        command: webserver
+        healthcheck:
+            test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+            interval: 30s
+            timeout: 30s
+            retries: 3
 
 
 networks:
@@ -123,3 +181,5 @@ networks:
 volumes:
   redis_data:
   postgresql_data:
+  airflow-data:
+  postgres:

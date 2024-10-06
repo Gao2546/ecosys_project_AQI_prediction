@@ -22,7 +22,7 @@
                 <!-- Image Display Area (Initially hidden) -->
                 <div id="image-display" style="display:none;">
                     <!-- <h3>Processed Images:</h3> -->
-                    <div id="images-container"></div>
+                    <div id="images-container" style="max-width: 100%; max-height: 250px; overflow-y: auto;"></div>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
 
     <div class="model-section-right">
         <h2>Equipment List</h2>
-        <div id="img-info">
+        <div id="img-info" style="max-height: 400px; overflow-y: auto;">
             <!-- <div class="info-box-container">
                 <div class="info-box">
                     <p>Item 1: Information about the model.</p>
@@ -124,12 +124,20 @@ async function checkJobStatus(jobId) {
         const listPart = document.getElementById('img-info');
         data.result_summary.forEach(imageInfo => {
             const imgInfoDiv = document.createElement('div');
+            // Add inline styles for each imgInfoDiv
+            imgInfoDiv.style.border = "1px solid #ccc";
+            imgInfoDiv.style.marginBottom = "10px";
+            imgInfoDiv.style.padding = "10px";
+            imgInfoDiv.style.backgroundColor = "rgba(0, 0, 0, 0.4)";
+            imgInfoDiv.style.borderRadius = "8px";
 
             // Assuming imageInfo is an object with key-value pairs
             Object.entries(imageInfo).forEach(([key, value]) => {
+                if (value){
                 const dataClass = document.createElement('p');
                 dataClass.innerHTML = `${key}: ${value}`;
                 imgInfoDiv.appendChild(dataClass);
+            }
             });
 
             listPart.appendChild(imgInfoDiv);

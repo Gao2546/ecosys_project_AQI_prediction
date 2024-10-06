@@ -64,8 +64,8 @@
         .catch(error => console.error('Error fetching user count:', error));
     }
 
-    // Set interval to fetch user count every 10 seconds
-    setInterval(fetchUserCount, 10000);
+    // Set interval to fetch user count every 60 seconds
+    setInterval(fetchUserCount, 60000);
     
     // Initial fetch on page load
     fetchUserCount();

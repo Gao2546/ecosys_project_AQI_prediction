@@ -2,6 +2,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from datetime import datetime
+from datetime import timedelta
 import os
 
 # Define a function to count users from Postgres
@@ -12,7 +13,8 @@ def count_users_from_postgres(**kwargs):
     cursor = connection.cursor()
     
     # Query to count users
-    cursor.execute("SELECT COUNT(*) FROM users;")
+    # cursor.execute("SELECT COUNT(*) FROM users;")
+    cursor.execute("SELECT COUNT(*) FROM users WHERE status = %s;", (1,))
     user_count = cursor.fetchone()[0]
     
     # Store the count in a file (could be another storage like Redis or another DB)
@@ -31,7 +33,7 @@ default_args = {
 dag = DAG(
     'count_users_dag',
     default_args=default_args,
-    schedule_interval='* * * * *',  # Adjust the interval as needed
+    schedule_interval=timedelta(seconds=30),  # Set the interval to every 30 seconds
     catchup=False
 )
 

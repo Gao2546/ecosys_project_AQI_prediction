@@ -74,32 +74,7 @@ def get_user_count():
 # Login route
 @module.route("/login", methods=["GET", "POST"])
 def login():
-    # form_reg = RegisterForm()
     form_log = LoginForm()
-    print("testtttttttt")
-    # if form_reg.validate_on_submit():
-    #     username = form_reg.username.data
-    #     password = form_reg.password.data
-    #     email = form_reg.email.data
-
-    #     db = models.db
-    #     Register = models.User( id = 1,
-    #                             username = username,
-    #                             password = password,
-    #                             email = email)
-    #     print(Register.username)
-    #     print(Register.email)
-    #     # Register.username = username
-    #     # Register.password = password
-    #     # Register.email = email
-
-    #     db.session.add(Register)
-    #     db.session.commit()
-        
-    #     # Add the new user to in-memory dictionary
-    #     # users[username] = password
-    #     flash(f'Account created for {username}!', 'success')
-    #     return redirect(url_for('rq-test.login'))
     if request.method == "POST":
         if form_log.username.data != None:
             username = form_log.username.data
@@ -114,6 +89,8 @@ def login():
             if len(User) > 0:
                 if (username == User[0].username) and (User[0].password == password):
                     session['username'] = username  # Store user in session
+                    User[0].status = 1
+                    db.session.commit()
                     flash(f'Welcome, {username}!', 'success')
                     return redirect(url_for('rq-test.home'))  # Redirect to home
                 else:
@@ -143,6 +120,7 @@ def register():
                 Register.username = username
                 Register.password = password
                 Register.email = email
+                Register.status = 0
                 db.session.add(Register)
                 db.session.commit()
                 # Add the new user to in-memory dictionary
@@ -203,6 +181,14 @@ def delete_record(id):
 # Route to logout
 @module.route("/logout")
 def logout():
+    if 'username' not in session:
+        return redirect(url_for('rq-test.login'))
+    db = models.db
+    User = db.session.execute(
+    db.select(models.User).where(models.User.username == session['username'])
+    ).scalars().fetchall()
+    User[0].status = 0
+    db.session.commit()
     session.pop('username', None)  # Clear session
     flash('You have been logged out.', 'info')
     return redirect(url_for('rq-test.login'))

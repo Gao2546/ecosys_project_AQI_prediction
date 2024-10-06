@@ -54,6 +54,18 @@ def check_job_state():
     job = redis_rq.redis_queue.get_job(f"hello-{job_id}")
     return f"Hello world {job.id} {job.result}"
 
+@module.route('/user_count', methods=['GET'])
+def get_user_count():
+    try:
+        # Read the user count from the text file
+        with open('/trans/user_count.txt', 'r') as file:
+            count = file.read().strip()
+        print(count)
+        return jsonify({'count': count})
+    except FileNotFoundError:
+        # If the file doesn't exist, return 0 as the default count
+        return jsonify({'count': "0"})
+
 # Login route
 @module.route("/login", methods=["GET", "POST"])
 def login():

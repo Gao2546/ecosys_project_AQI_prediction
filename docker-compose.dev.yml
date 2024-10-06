@@ -70,6 +70,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./dev/dash/:/app
+      - ./trans/:/trans
     ports:
       - 8080:8080
     links:
@@ -98,6 +99,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./dev/dash/:/app
+      - ./trans/:/trans
     links:
       - redis
     depends_on:
@@ -126,6 +128,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./dev/dash/:/app
+      - ./trans/:/trans
     depends_on:
       - redis
     links:
@@ -151,8 +154,11 @@ services:
         restart: always
         # networks:
         #     - airflow
+        networks:
+          - default
         depends_on:
             - postgres
+            - postgresql
             # - minio
             # - spark-master
             # - spark-worker
@@ -160,11 +166,13 @@ services:
             - AIRFLOW__CORE__LOAD_EXAMPLES=False
             - LOAD_EX=n
             - EXECUTOR=Local    
+            - AIRFLOW_CONN_POSTGRES_CONN=postgresql://coe:CoEpasswd@proj-postgresql-1:5432/schematics_appdb
         volumes:
             - airflow-data:/usr/local/airflow/data
-            - ./src/dags:/usr/local/airflow/dags
-            - ./src/spark/applications:/usr/local/spark/applications            
-            - ./src/spark/assets:/usr/local/spark/assets     
+            - ./dev/airflow/src/dags:/usr/local/airflow/dags
+            - ./dev/airflow/src/spark/applications:/usr/local/spark/applications            
+            - ./dev/airflow/src/spark/assets:/usr/local/spark/assets     
+            - ./trans/:/usr/local/airflow/trans
         ports:
             - "8085:8080"
         command: webserver

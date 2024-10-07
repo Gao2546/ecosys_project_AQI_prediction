@@ -49,7 +49,7 @@ def after_session_timeout(name):
     db.session.commit()
     print("Session has expired, performing cleanup...")
     # For example, logging out the user, clearing data, etc.
-exp_time = 10
+exp_time = 60*20
 
 @module.before_request
 def check_session_timeout():
